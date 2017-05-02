@@ -360,10 +360,4 @@ endfunc
 nmap <leader><leader>x :call SynStack()<CR>
 
 " Abbreviation
-iabbrev csst Stock::Statement
-iabbrev csyd Stock::YearlyDatum
-iabbrev csqd Stock::QuarterlyDatum
-iabbrev csmd Stock::MonthlyDatum
-iabbrev csdd Stock::DailyDatum
-iabbrev csdp Stock::DailyPrice
-
+source ~/.config/nvim/abbrev.vim
