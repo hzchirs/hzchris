@@ -86,6 +86,7 @@ Plug 'othree/yajs.vim'
 Plug 'gavocanov/vim-js-indent'
 
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-dispatch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " {{{
@@ -104,8 +105,8 @@ Plug 'junegunn/fzf.vim'
 
   nnoremap <silent> K :call SearchWordWithAg()<CR>
   vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
-  nnoremap <silent> <leader>gc :Commits<CR>
-  nnoremap <silent> <leader>gb :BCommits<CR>
+  nnoremap <silent> <leader>cm :Commits<CR>
+  nnoremap <silent> <leader>bm :BCommits<CR>
   nnoremap <silent> <leader>ft :Filetypes<CR>
 
   imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -169,6 +170,8 @@ Plug 'junegunn/fzf.vim'
   autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 " }}}
+" Plug 'christoomey/vim-tmux-navigator'
+
 Plug 'chrisbra/csv.vim'
 let g:csv_autocmd_arrange = 1
 
@@ -292,6 +295,7 @@ Plug 'Konfekt/FastFold'
 
 " Fugitive: Git 集成，强烈推荐！
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 nnoremap <silent><leader>gs :Gstatus<CR>
 nnoremap <silent><leader>gc :Gcommit<CR>
@@ -314,10 +318,12 @@ call plug#end()
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
-noremap - ddp
-noremap _ ddkP
+inoremap jk <esc>
 inoremap <C-d> <esc>ddi
 inoremap <C-u> <esc>g~iwi
+
+onoremap in( :<C-u>normal! f(vi(<cr>
+onoremap il( :<C-u>normal! F)vi(<cr>
 
 " 縮放視窗
 nnoremap <silent><leader>= :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
@@ -326,7 +332,8 @@ nnoremap <silent><leader>- :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 " buffer 移動
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
-nnoremap <S-X> :bdelete<CR>
+nnoremap <S-X> :bp\|bd #<CR>
+nnoremap <S-W> :bd<CR>
 
 " 分屏窗口移动, Smart way to move between windows
 noremap <C-j> <C-W>j
@@ -346,9 +353,9 @@ inoremap <C-S> <C-O>:update<CR><Right>
 
 set laststatus=2
 set background=dark
-color atom_material
+color dracula
 
-let g:airline_theme="one"
+let g:airline_theme="dracula"
 highlight Search guibg=NONE guifg=NONE gui=underline
 
 function! SynStack()
@@ -361,3 +368,4 @@ nmap <leader><leader>x :call SynStack()<CR>
 
 " Abbreviation
 source ~/.config/nvim/abbrev.vim
+
