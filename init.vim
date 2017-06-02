@@ -9,7 +9,7 @@ set foldmethod=syntax
 set foldlevel=20
 set wrap linebreak nolist
 set clipboard+=unnamed
-set shell=sh
+set shell=zsh
 
 " mouse scroll smooth
 set cursorline!
@@ -45,8 +45,6 @@ set cursorline   " 顯示目前的游標位置
 " 让水平滚动更加自然
 set sidescroll=1
 set sidescrolloff=3
-
-" let mapleader = ","
 
 " 开启 NVIM 专用选项
 if has('nvim')
@@ -334,10 +332,19 @@ nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 nnoremap <S-X> :bp\|bd #<CR>
 nnoremap <S-W> :bd<CR>
+tnoremap <S-W> <C-\><C-N>:q<CR>
+
+" Terminal Emulator
+nnoremap <leader>vt :vsplit \| terminal<CR>
+nnoremap <leader>st :split \| terminal<CR>
+tnoremap jk <C-\><C-N>
 
 " 分屏窗口移动, Smart way to move between windows
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+
 " TODO NeoVim issue, uncomment this and remove nmap <BS> <C-W>h after upgrade
 " map <C-h> <C-W>h 
 noremap <C-l> <C-W>l
