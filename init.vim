@@ -46,15 +46,27 @@ set cursorline   " 顯示目前的游標位置
 set sidescroll=1
 set sidescrolloff=3
 
+let g:terminal_color_0  = '#2e3436'
+let g:terminal_color_1  = '#ff5555'
+let g:terminal_color_2  = '#50fa7b'
+let g:terminal_color_3  = '#f1fa8c'
+let g:terminal_color_4  = '#bd93f9'
+let g:terminal_color_5  = '#ff79c6'
+let g:terminal_color_6  = '#8be9fd'
+let g:terminal_color_7  = '#d3d7cf'
+let g:terminal_color_8  = '#555753'
+let g:terminal_color_9  = '#ef2929'
+let g:terminal_color_10 = '#8ae234'
+let g:terminal_color_11 = '#f1fa8c'
+let g:terminal_color_12 = '#bd93f9'
+let g:terminal_color_13 = '#ad7fa8'
+let g:terminal_color_14 = '#8be9fd'
+let g:terminal_color_15 = '#f8f8f2'
+
 " 开启 NVIM 专用选项
 if has('nvim')
   " 允许真彩显示
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-  " 允许光标变化
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
   set termguicolors 
-" else
-"   set termguicolors 
 endif
 
 set linespace=5
@@ -332,7 +344,7 @@ nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 nnoremap <S-X> :bp\|bd #<CR>
 nnoremap <S-W> :bd<CR>
-tnoremap <S-W> <C-\><C-N>:q<CR>
+" tnoremap <S-W> <C-\><C-N>:q<CR>
 
 " Terminal Emulator
 nnoremap <leader>vt :vsplit \| terminal<CR>
@@ -342,8 +354,8 @@ tnoremap jk <C-\><C-N>
 " 分屏窗口移动, Smart way to move between windows
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
-tnoremap <C-j> <C-\><C-N><C-w>j
-tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
 
 " TODO NeoVim issue, uncomment this and remove nmap <BS> <C-W>h after upgrade
 " map <C-h> <C-W>h 
