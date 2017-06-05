@@ -181,7 +181,10 @@ Plug 'junegunn/fzf.vim'
 
 " }}}
 " Plug 'christoomey/vim-tmux-navigator'
+Plug 'VimIM'
+let g:Vimim_cloud=-1
 
+ 
 Plug 'chrisbra/csv.vim'
 let g:csv_autocmd_arrange = 1
 
@@ -354,16 +357,13 @@ tnoremap jk <C-\><C-N>
 " 分屏窗口移动, Smart way to move between windows
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
+" tnoremap <A-j> <C-\><C-N><C-w>j
+" tnoremap <A-k> <C-\><C-N><C-w>k
 
 " TODO NeoVim issue, uncomment this and remove nmap <BS> <C-W>h after upgrade
 " map <C-h> <C-W>h 
 noremap <C-l> <C-W>l
-if has('nvim')
-  " Hack to get C-h working in NeoVim
-  nnoremap <BS> <C-W>h
-endif
+noremap <C-h> <C-W>h
 
 " 儲存
 nnoremap <C-S> :update<CR>
