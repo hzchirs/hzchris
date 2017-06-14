@@ -22,6 +22,7 @@ set nowrap
 " paste without replace
 xnoremap p pgvy
 
+
 " 編輯喜好設定                                                                                                                                                                                                     
 syntax on        " 語法上色顯示
 " set ai           " 自動縮排
@@ -89,6 +90,11 @@ else
   call plug#begin('~/.vim/plugged')
 endif
 
+
+" Asynchronous Lint Engine
+Plug 'w0rp/ale'
+nmap <silent> lp <Plug>(ale_previous_wrap)
+nmap <silent> ln <Plug>(ale_next_wrap)
 
 Plug 'othree/html5.vim'
 " Plug 'pangloss/vim-javascript'
@@ -182,7 +188,6 @@ Plug 'junegunn/fzf.vim'
 " }}}
 " Plug 'christoomey/vim-tmux-navigator'
 Plug 'VimIM'
-let g:Vimim_cloud=-1
 
  
 Plug 'chrisbra/csv.vim'
@@ -357,13 +362,11 @@ tnoremap jk <C-\><C-N>
 " 分屏窗口移动, Smart way to move between windows
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
-" tnoremap <A-j> <C-\><C-N><C-w>j
-" tnoremap <A-k> <C-\><C-N><C-w>k
-
-" TODO NeoVim issue, uncomment this and remove nmap <BS> <C-W>h after upgrade
-" map <C-h> <C-W>h 
 noremap <C-l> <C-W>l
-noremap <C-h> <C-W>h
+nnoremap <C-h> <C-W>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+
 
 " 儲存
 nnoremap <C-S> :update<CR>
@@ -376,6 +379,8 @@ color dracula
 
 let g:airline_theme="dracula"
 highlight Search guibg=NONE guifg=NONE gui=underline
+highlight ALEErrorSign guibg=red
+highlight ALEWarningSign guibg=orange 
 
 function! SynStack()
     if !exists('*synstack')
