@@ -1,100 +1,25 @@
-" 檔案編碼
-set encoding=utf-8
-set fileencodings=utf-8,cp950
-set nocompatible              " be iMproved, required
-set hidden
-filetype plugin indent on                  " required
-set autoindent
-set foldmethod=syntax
-set foldlevel=20
-set wrap linebreak nolist
-set clipboard+=unnamed
-set shell=zsh
-
-" mouse scroll smooth
-set cursorline!
-set lazyredraw
-set synmaxcol=256
-syntax sync minlines=256
-
-" 禁止过长的行回绕（超过屏幕宽度）
-set nowrap
-" paste without replace
-xnoremap p pgvy
-
-
-" 編輯喜好設定                                                                                                                                                                                                     
-syntax on        " 語法上色顯示
-" set ai           " 自動縮排
-set shiftwidth=2 " 設定縮排寬度 = 4 
-set tabstop=2    " tab 的字元數
-set softtabstop=2
-set expandtab   " 用 space 代替 tab
-set nu          " Show line number
- 
-set ruler        " 顯示右下角設定值
-set backspace=2  " 在 insert 也可用 backspace
-set ic           " 設定搜尋忽略大小寫
-set ru           " 第幾行第幾個字
-set hlsearch     " 設定高亮度顯示搜尋結果
-set incsearch    " 在關鍵字還沒完全輸入完畢前就顯示結果
-set smartindent  " 設定 smartindent
-set confirm      " 操作過程有衝突時，以明確的文字來詢問
-set history=100  " 保留 100 個使用過的指令
-set cursorline   " 顯示目前的游標位置
-
-" 让水平滚动更加自然
-set sidescroll=1
-set sidescrolloff=3
-
-let g:terminal_color_0  = '#2e3436'
-let g:terminal_color_1  = '#ff5555'
-let g:terminal_color_2  = '#50fa7b'
-let g:terminal_color_3  = '#f1fa8c'
-let g:terminal_color_4  = '#bd93f9'
-let g:terminal_color_5  = '#ff79c6'
-let g:terminal_color_6  = '#8be9fd'
-let g:terminal_color_7  = '#d3d7cf'
-let g:terminal_color_8  = '#555753'
-let g:terminal_color_9  = '#ef2929'
-let g:terminal_color_10 = '#8ae234'
-let g:terminal_color_11 = '#f1fa8c'
-let g:terminal_color_12 = '#bd93f9'
-let g:terminal_color_13 = '#ad7fa8'
-let g:terminal_color_14 = '#8be9fd'
-let g:terminal_color_15 = '#f8f8f2'
-
-" 开启 NVIM 专用选项
-if has('nvim')
-  " 允许真彩显示
-  set termguicolors 
-endif
-
-set linespace=5
-
-if $TERM_PROGRAM =~ "iTerm"
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
-endif"
-
-let g:jsx_ext_required = 0
-" let g:jsx_pragma_required = 1
-let g:rubycomplete_buffer_loading = 1
-" let g:rubycomplete_classes_in_global = 1
-" let g:rubycomplete_rails = 1
-" let g:rubycomplete_load_gemfile = 1
-
 if has('nvim')
   call plug#begin('~/.config/nvim/plugged')
 else
   call plug#begin('~/.vim/plugged')
 endif
 
+if has('gui_running')
+  set guifont=DroidSansMonoForPowerline\ Nerd\ Font:h16
+  " set runtimepath^=~/.vim/bundle/ctrlp.vim
+  " let g:ctrlp_map = '<c-p>'
+  " let g:ctrlp_cmd = 'CtrlP'
+endif
+
+" Personal Wiki for Vim
+Plug 'vimwiki/vimwiki'
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'path_html': '~/Dropbox/vimwiki_html/'}]
+let g:vimwiki_CJK_length = 1
 
 " Asynchronous Lint Engine
-Plug 'w0rp/ale'
-nmap <silent> lp <Plug>(ale_previous_wrap)
-nmap <silent> ln <Plug>(ale_next_wrap)
+" Plug 'w0rp/ale'
+" nmap <silent> <S-p> <Plug>(ale_previous_wrap)
+" nmap <silent> <S-n> <Plug>(ale_next_wrap)
 
 Plug 'othree/html5.vim'
 " Plug 'pangloss/vim-javascript'
@@ -145,10 +70,11 @@ Plug 'junegunn/fzf.vim'
     execute 'Ag' selection
   endfunction
 
-  function! SearchWithAgInDirectory(...)
-    call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf#vim#default_layout))
-  endfunction
-  command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
+function! s:ag_in(...)
+  call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, {'down': '~40%'}))
+endfunction
+
+command! -nargs=+ -complete=dir AgIn call s:ag_in(<f-args>)
 
   " In Neovim, you can set up fzf window using a Vim command
   " let g:fzf_layout = { 'window': 'enew' }
@@ -187,7 +113,7 @@ Plug 'junegunn/fzf.vim'
 
 " }}}
 " Plug 'christoomey/vim-tmux-navigator'
-Plug 'VimIM'
+" Plug 'VimIM'
 
  
 Plug 'chrisbra/csv.vim'
@@ -208,6 +134,10 @@ let ruby_operators = 1
 let ruby_fold = 1
 
 Plug 'elixir-lang/vim-elixir'
+Plug 'slashmili/alchemist.vim'
+
+Plug 'fatih/vim-go'
+nnoremap <leader>gr :GoRun<CR>
 
 Plug 'tpope/vim-rails'
 let g:rails_ctags_arguments = ['--languages=ruby --exclude=.git --exclude=log .']
@@ -220,11 +150,13 @@ Plug 'terryma/vim-multiple-cursors'
 
 " Themes
 Plug 'oguzbilgic/sexy-railscasts-theme'
+Plug 'jdkanani/vim-material-theme'
 Plug 'rakr/vim-one'
 Plug 'dracula/vim'
-Plug 'hzchirs/vim-atom-material'
+Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'chriskempson/base16-vim'
-let g:gruvbox_italic=1
+Plug 'dikiaap/minimalist'
+Plug 'hzchirs/vim-material'
 
 
 Plug 'chrisbra/Colorizer'
@@ -245,7 +177,7 @@ Plug 'tpope/vim-repeat'
 
 " Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Yggdroot/indentLine'
-let g:indentLine_setColors = 1
+let g:indentLine_setColors = 0
 let g:indentLine_enabled = 0
 nnoremap <silent><leader>ig :IndentLinesToggle<CR>
 
@@ -325,12 +257,99 @@ Plug 'tpope/vim-commentary'
 " Plug 'jeetsukumaran/vim-buffergator'
 
 " if has('nvim')
-if !has('gui_running')
+" if has('gui_running')
 Plug 'ryanoasis/vim-devicons'
-endif
+" endif
 " set guifont=Meslo\ LG\ M\ Regular\ for\ Powerline\ Nerd\ Font\ Complete:h16
 
 call plug#end()
+
+" 檔案編碼
+set encoding=utf-8
+set fileencodings=utf-8,cp950
+set nocompatible              " be iMproved, required
+set hidden
+filetype plugin indent on                  " required
+set autoindent
+set foldmethod=syntax
+set foldlevel=20
+set wrap linebreak nolist
+set clipboard+=unnamed
+set shell=zsh
+
+" mouse scroll smooth
+set cursorline!
+set lazyredraw
+set synmaxcol=256
+syntax sync minlines=256
+
+" 禁止过长的行回绕（超过屏幕宽度）
+" set nowrap
+" paste without replace
+xnoremap p pgvy
+
+
+" 編輯喜好設定                                                                                                                                                                                                     
+syntax enable        " 語法上色顯示
+" set ai           " 自動縮排
+set shiftwidth=2 " 設定縮排寬度 = 4 
+set tabstop=2    " tab 的字元數
+set softtabstop=2
+set expandtab   " 用 space 代替 tab
+set nu          " Show line number
+ 
+set ruler        " 顯示右下角設定值
+set backspace=2  " 在 insert 也可用 backspace
+set ic           " 設定搜尋忽略大小寫
+set ru           " 第幾行第幾個字
+set hlsearch     " 設定高亮度顯示搜尋結果
+set incsearch    " 在關鍵字還沒完全輸入完畢前就顯示結果
+set smartindent  " 設定 smartindent
+set confirm      " 操作過程有衝突時，以明確的文字來詢問
+set history=100  " 保留 100 個使用過的指令
+set cursorline   " 顯示目前的游標位置
+
+" 让水平滚动更加自然
+set sidescroll=1
+set sidescrolloff=3
+
+let g:terminal_color_0  = '#2e3436'
+let g:terminal_color_1  = '#ff5555'
+let g:terminal_color_2  = '#50fa7b'
+let g:terminal_color_3  = '#f1fa8c'
+let g:terminal_color_4  = '#bd93f9'
+let g:terminal_color_5  = '#ff79c6'
+let g:terminal_color_6  = '#8be9fd'
+let g:terminal_color_7  = '#d3d7cf'
+let g:terminal_color_8  = '#555753'
+let g:terminal_color_9  = '#ef2929'
+let g:terminal_color_10 = '#8ae234'
+let g:terminal_color_11 = '#f1fa8c'
+let g:terminal_color_12 = '#bd93f9'
+let g:terminal_color_13 = '#ad7fa8'
+let g:terminal_color_14 = '#8be9fd'
+let g:terminal_color_15 = '#f8f8f2'
+
+" 开启 NVIM 专用选项
+if has('nvim')
+  " 允许真彩显示
+  set termguicolors 
+endif
+
+set linespace=5
+
+if $TERM_PROGRAM =~ "iTerm"
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+endif"
+
+let g:jsx_ext_required = 0
+" let g:jsx_pragma_required = 1
+let g:rubycomplete_buffer_loading = 1
+" let g:rubycomplete_classes_in_global = 1
+" let g:rubycomplete_rails = 1
+" let g:rubycomplete_load_gemfile = 1
+
 
 "======= 自訂
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
@@ -339,6 +358,9 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 inoremap jk <esc>
 inoremap <C-d> <esc>ddi
 inoremap <C-u> <esc>g~iwi
+
+inoremap <C-e> <esc>A
+inoremap <C-a> <esc>I
 
 onoremap in( :<C-u>normal! f(vi(<cr>
 onoremap il( :<C-u>normal! F)vi(<cr>
@@ -357,30 +379,40 @@ nnoremap <S-W> :bd<CR>
 " Terminal Emulator
 nnoremap <leader>vt :vsplit \| terminal<CR>
 nnoremap <leader>st :split \| terminal<CR>
-tnoremap jk <C-\><C-N>
 
 " 分屏窗口移动, Smart way to move between windows
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
+
+if('nvim')
+  tnoremap jk <C-\><C-N>
+  tnoremap <A-j> <C-\><C-N><C-w>j
+  tnoremap <A-k> <C-\><C-N><C-w>k
+endif
 
 
 " 儲存
-nnoremap <C-S> :update<CR>
-vnoremap <C-S> <C-C>:update<CR>
-inoremap <C-S> <C-O>:update<CR><Right>
+nnoremap <C-s> :update<CR>
+vnoremap <C-s> <C-C>:update<CR>
+inoremap <C-s> <C-O>:update<CR><Right>
 
 set laststatus=2
 set background=dark
-color dracula
+color vim-material
+" color material
 
-let g:airline_theme="dracula"
+let g:airline_theme="material"
 highlight Search guibg=NONE guifg=NONE gui=underline
 highlight ALEErrorSign guibg=red
 highlight ALEWarningSign guibg=orange 
+
+function! SyntaxItem()
+  echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+endfunction
 
 function! SynStack()
     if !exists('*synstack')
@@ -388,8 +420,5 @@ function! SynStack()
     endif
     echo map(synstack(line('.'), col('.')), "synIDattr(v:val, 'name')")
 endfunc
-nmap <leader><leader>x :call SynStack()<CR>
-
-" Abbreviation
-source ~/.config/nvim/abbrev.vim
-
+" nmap <leader><leader>x :call SynStack()<CR>
+nmap <leader><leader>x :call SyntaxItem()<CR>
