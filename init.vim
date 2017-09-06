@@ -17,9 +17,9 @@ let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'path_html': '~/Dropbox/vim
 let g:vimwiki_CJK_length = 1
 
 " Asynchronous Lint Engine
-" Plug 'w0rp/ale'
-" nmap <silent> <S-p> <Plug>(ale_previous_wrap)
-" nmap <silent> <S-n> <Plug>(ale_next_wrap)
+Plug 'w0rp/ale'
+nmap <silent> <S-p> <Plug>(ale_previous_wrap)
+nmap <silent> <S-n> <Plug>(ale_next_wrap)
 
 Plug 'othree/html5.vim'
 " Plug 'pangloss/vim-javascript'
@@ -133,31 +133,21 @@ let g:ruby_indent_access_modifier_style = 'indent'
 let ruby_operators = 1
 let ruby_fold = 1
 
-Plug 'elixir-lang/vim-elixir'
-Plug 'slashmili/alchemist.vim'
-
 Plug 'fatih/vim-go'
 nnoremap <leader>gr :GoRun<CR>
 
 Plug 'tpope/vim-rails'
 let g:rails_ctags_arguments = ['--languages=ruby --exclude=.git --exclude=log .']
 
-Plug 'ecomba/vim-ruby-refactoring', { 'for': 'ruby' }
-Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-endwise'
 Plug 'airblade/vim-gitgutter'
 Plug 'terryma/vim-multiple-cursors'
 
 " Themes
-Plug 'oguzbilgic/sexy-railscasts-theme'
-Plug 'jdkanani/vim-material-theme'
 Plug 'rakr/vim-one'
 Plug 'dracula/vim'
-Plug 'tyrannicaltoucan/vim-quantum'
-Plug 'chriskempson/base16-vim'
 Plug 'dikiaap/minimalist'
 Plug 'hzchirs/vim-material'
-
 
 Plug 'chrisbra/Colorizer'
 
@@ -253,6 +243,7 @@ nnoremap <silent><leader>git :Git
 
 " Commentary: 快速注释。
 Plug 'tpope/vim-commentary'
+Plug 'vim-scripts/ReplaceWithRegister'
 
 " Plug 'jeetsukumaran/vim-buffergator'
 
@@ -270,6 +261,7 @@ set fileencodings=utf-8,cp950
 set nocompatible              " be iMproved, required
 set hidden
 filetype plugin indent on                  " required
+set relativenumber
 set autoindent
 set foldmethod=syntax
 set foldlevel=20
@@ -284,7 +276,7 @@ set synmaxcol=256
 syntax sync minlines=256
 
 " 禁止过长的行回绕（超过屏幕宽度）
-" set nowrap
+set nowrap
 " paste without replace
 xnoremap p pgvy
 
@@ -401,7 +393,6 @@ inoremap <C-s> <C-O>:update<CR><Right>
 set laststatus=2
 set background=dark
 color vim-material
-" color material
 
 let g:airline_theme="material"
 highlight Search guibg=NONE guifg=NONE gui=underline
