@@ -91,3 +91,8 @@ alias t="todo.sh"
 bindkey -v
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+export FZF_DEFAULT_OPTS='--preview "head -100 {}" --ansi --bind "ctrl-b:preview-page-up"
+--bind "ctrl-f:preview-page-down"
+'
+
