@@ -1,7 +1,7 @@
 " ============================================================================
 " Plugs
-" ============================================================================
-if has('nvim')
+" ============================================================================ 
+if has('nvim') 
   call plug#begin('~/.config/nvim/plugged')
 else
   call plug#begin('~/.vim/plugged')
@@ -17,6 +17,9 @@ endif
 " ----------------------------------------------------------------------------
 " Edit
 " ----------------------------------------------------------------------------
+" Plug 'pi314/ime-phonetic.vim'
+" Plug 'pi314/ime.vim'
+" 中文輸入
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Konfekt/FastFold'
 Plug 'bkad/CamelCaseMotion'
@@ -24,10 +27,13 @@ Plug 'chrisbra/Colorizer'
 Plug 'chrisbra/csv.vim'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase'
+Plug 'gcmt/wildfire.vim'
 Plug 'haya14busa/vim-textobj-function-syntax'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-peekaboo'
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/emmet-vim'
@@ -39,6 +45,9 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'wellle/targets.vim'
+" 自动格式化、标准化中文排版
+Plug 'hotoo/pangu.vim'
 
 " ----------------------------------------------------------------------------
 " Linter
@@ -65,8 +74,12 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'posva/vim-vue'
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 Plug 'thoughtbot/vim-rspec'
+
+" TODO 研究一下詳細用法
+Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
 Plug 'vim-ruby/vim-ruby'
 
 " ----------------------------------------------------------------------------
@@ -111,6 +124,10 @@ Plug 'nightsense/nemo'
 Plug 'rakr/vim-one'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'cocopon/iceberg.vim'
+Plug 'junegunn/seoul256.vim'
+Plug 'NLKNguyen/papercolor-theme'
 
 " ----------------------------------------------------------------------------
 " Supports
@@ -125,19 +142,12 @@ Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 
 if has('nvim')
-  " Use deoplete.
-  function! DoRemote(arg)
-    UpdateRemotePlugins
-  endfunction
-  Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-  let g:deoplete#enable_at_startup = 1
-  " deoplete tab-complete
-  inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-  let g:deoplete#max_list = 6
-  inoremap <silent> <CR> <C-r>=<SID>return_without_deoplete()<CR>
-  function! s:return_without_deoplete() abort
-    return deoplete#mappings#close_popup() . "\<CR>"
-  endfunction
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'fishbullet/deoplete-ruby'
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
 " ----------------------------------------------------------------------------
@@ -145,7 +155,13 @@ endif
 " ----------------------------------------------------------------------------
 Plug 'vimwiki/vimwiki'
 
+" ----------------------------------------------------------------------------
+" Others
+" ----------------------------------------------------------------------------
+Plug 'mhinz/vim-startify'
+
 call plug#end()
+
 
 " ============================================================================
 " Basic settings
@@ -157,12 +173,16 @@ set hidden
 " set showcmd
 filetype plugin indent on                  " required
 set relativenumber
+
 set autoindent
 set foldmethod=syntax
 set foldlevel=20
 set wrap linebreak nolist
 set clipboard+=unnamed
 set shell=zsh
+
+" ctags
+set tags=./tags;/
 
 " mouse scroll smooth
 set cursorline!
@@ -171,13 +191,16 @@ set synmaxcol=256
 syntax sync minlines=256
 
 " 行過長時不斷行（可超過螢幕寬度）
-set nowrap
+" set nowrap
 " paste without replace
 xnoremap p pgvy
 
 
 " 編輯喜好設定                                                                                                                                                                                                     
-syntax enable        " 語法上色顯示
+" if !exists('g:syntax_on')
+"   syntax on        " 語法上色顯示
+" endif
+
 " set ai           " 自動縮排
 set shiftwidth=2 " 設定縮排寬度 = 4 
 set tabstop=2    " tab 的字元數
@@ -261,6 +284,9 @@ nmap <leader><leader>x :call SyntaxItem()<CR>
 " ============================================================================
 " Mappings
 " ============================================================================
+map <space> <leader>
+map <space><space> <leader><leader>
+
 " go run python3 for current file
 nnoremap <silent><leader>rp :!python3 %<CR>
 " go run ruby for current file
@@ -268,8 +294,7 @@ nnoremap <silent><leader>rr :!ruby %<CR>
 " restart powder
 nnoremap <leader>rspd :!powder restart<CR>
 
-map <space> <leader>
-map <space><space> <leader><leader>
+nnoremap <silent><S-L> :set rnu!<CR>
 
 " 以螢幕所見的行而非實際的行來移動
 nnoremap k gk
@@ -287,8 +312,8 @@ inoremap <C-u> <esc>g~iwi
 inoremap <C-e> <esc>A
 inoremap <C-a> <esc>I
 
-onoremap in( :<C-u>normal! f(vi(<cr>
-onoremap il( :<C-u>normal! F)vi(<cr>
+" onoremap in( :<C-u>normal! f(vi(<cr>
+" onoremap il( :<C-u>normal! F)vi(<cr>
 
 " 縮放視窗
 nnoremap <silent><leader>= :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
@@ -298,7 +323,6 @@ nnoremap <silent><leader>- :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 nnoremap <S-X> :bp\|bd #<CR>
-nnoremap <S-W> :bd<CR>
 " tnoremap <S-W> :bd!<CR>
 
 " Terminal Emulator
@@ -330,18 +354,13 @@ inoremap <C-s> <C-O>:update<CR><Right>
 " CamelCaseMotion
 " ----------------------------------------------------------------------------
 call camelcasemotion#CreateMotionMappings('<leader>i')
-omap <silent> iw <Plug>CamelCaseMotion_iw
-xmap <silent> iw <Plug>CamelCaseMotion_iw
-omap <silent> ib <Plug>CamelCaseMotion_ib
-xmap <silent> ib <Plug>CamelCaseMotion_ib
-omap <silent> ie <Plug>CamelCaseMotion_ie
-xmap <silent> ie <Plug>CamelCaseMotion_ie
 
 " ----------------------------------------------------------------------------
 " FZF
 " ----------------------------------------------------------------------------
-let g:fzf_tags_command = 'ctags -R'
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+if has('nvim') || has('gui_running')
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+endif
 
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
@@ -451,14 +470,16 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 " ----------------------------------------------------------------------------
 " Goyo
 " ----------------------------------------------------------------------------
-let g:goyo_width = 80
+let g:goyo_width = 85
 
 function! s:goyo_enter()
   set wrap
+  Limelight
 endfunction
 
 function! s:goyo_leave()
   set nowrap
+  Limelight!
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
@@ -537,7 +558,7 @@ nnoremap <silent><leader>ig :IndentLinesToggle<CR>
 " ----------------------------------------------------------------------------
 " vim-rails
 " ----------------------------------------------------------------------------
-let g:rails_ctags_arguments = ['--languages=ruby --exclude=.git --exclude=log .']
+let g:rails_ctags_arguments = ['--languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)']
 
 " ----------------------------------------------------------------------------
 " vim-rspec
@@ -576,6 +597,11 @@ nmap ga <Plug>(EasyAlign)
 nnoremap <silent><leader>d :Dash<CR>
 
 " ----------------------------------------------------------------------------
+" Deoplete
+" ----------------------------------------------------------------------------
+let g:deoplete#enable_at_startup = 1
+
+" ----------------------------------------------------------------------------
 " vim-multiple-cursors
 " ----------------------------------------------------------------------------
 "  解決 multiple cursor  出現異常字元的問題
@@ -591,3 +617,22 @@ function! Multiple_cursors_after()
 	   let g:deoplete#disable_auto_complete = 0
     endif
 endfunction
+
+" ----------------------------------------------------------------------------
+" Deoplete
+" ----------------------------------------------------------------------------
+let g:deoplete#enable_at_startup = 1
+
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+let g:deoplete#max_list = 6
+inoremap <silent> <CR> <C-r>=<SID>return_without_deoplete()<CR>
+function! s:return_without_deoplete() abort
+  return deoplete#mappings#close_popup() . "\<CR>"
+endfunction
+
+" ----------------------------------------------------------------------------
+" ime 
+" ----------------------------------------------------------------------------
+" let g:ime_toggle_english = ',,'
+" let g:ime_plugins = ['phonetic']
