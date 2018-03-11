@@ -7,28 +7,21 @@ else
   call plug#begin('~/.vim/plugged')
 endif
 
-if has('gui_running')
-  set guifont=DroidSansMonoForPowerline\ Nerd\ Font:h16
-  " set runtimepath^=~/.vim/bundle/ctrlp.vim
-  " let g:ctrlp_map = '<c-p>'
-  " let g:ctrlp_cmd = 'CtrlP'
-endif
-
 " ----------------------------------------------------------------------------
 " Edit
 " ----------------------------------------------------------------------------
 " Plug 'pi314/ime-phonetic.vim'
 " Plug 'pi314/ime.vim'
-" 中文輸入
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Konfekt/FastFold'
 Plug 'bkad/CamelCaseMotion'
 Plug 'chrisbra/Colorizer'
-Plug 'chrisbra/csv.vim'
+Plug 'chrisbra/csv.vim', { 'for': 'csv' } 
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase'
 Plug 'gcmt/wildfire.vim'
 Plug 'haya14busa/vim-textobj-function-syntax'
+Plug 'hotoo/pangu.vim' " 自动格式化、标准化中文排版
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
@@ -43,21 +36,22 @@ Plug 'thinca/vim-textobj-function-javascript'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'vim-scripts/SyntaxRange'
+Plug 'vim-scripts/utl.vim'
 Plug 'wellle/targets.vim'
-" 自动格式化、标准化中文排版
-Plug 'hotoo/pangu.vim'
 
 " ----------------------------------------------------------------------------
-" Linter
+" linter
 " ----------------------------------------------------------------------------
-" Asynchronous Lint Engine
+" asynchronous lint engine
 " 只在 save 時才 link
 " 因為隨時 lint 非常耗電
 " Plug 'w0rp/ale'
-" nmap <silent> <S-p> <Plug>(ale_previous_wrap)
-" nmap <silent> <S-n> <Plug>(ale_next_wrap)
+" nmap <silent> <s-p> <plug>(ale_previous_wrap)
+" nmap <silent> <s-n> <plug>(ale_next_wrap)
 " let g:ale_lint_on_text_changed = 'never'
 " let g:ale_lint_on_enter = 0
 
@@ -77,17 +71,23 @@ Plug 'thoughtbot/vim-rspec'
 
 " TODO 研究一下詳細用法
 Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby'
+
+" ----------------------------------------------------------------------------
+" Development Tools
+" ----------------------------------------------------------------------------
+Plug 'tpope/vim-bundler', { 'for': 'ruby' }
+Plug 'tpope/vim-db', { 'on': 'DB' }
 Plug 'tpope/vim-rake'
 Plug 'vim-ruby/vim-ruby'
 
 " ----------------------------------------------------------------------------
 " Browsing
 " ----------------------------------------------------------------------------
-Plug 'Yggdroot/indentLine'
-Plug 'majutsushi/tagbar'
-Plug 'scrooloose/nerdtree'
+Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " ----------------------------------------------------------------------------
@@ -115,19 +115,19 @@ Plug 'junegunn/fzf.vim'
 " ----------------------------------------------------------------------------
 " Themes
 " ----------------------------------------------------------------------------
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'chriskempson/base16-vim'
+Plug 'cocopon/iceberg.vim'
 Plug 'dikiaap/minimalist'
 Plug 'dracula/vim'
 Plug 'hzchirs/Spacegray.vim'
 Plug 'hzchirs/vim-material'
+Plug 'junegunn/seoul256.vim'
 Plug 'nightsense/nemo'
 Plug 'rakr/vim-one'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'cocopon/iceberg.vim'
-Plug 'junegunn/seoul256.vim'
-Plug 'NLKNguyen/papercolor-theme'
 
 " ----------------------------------------------------------------------------
 " Supports
@@ -153,12 +153,15 @@ endif
 " ----------------------------------------------------------------------------
 " Note
 " ----------------------------------------------------------------------------
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
+Plug 'jceb/vim-orgmode', { 'for': 'org' }
 
 " ----------------------------------------------------------------------------
 " Others
 " ----------------------------------------------------------------------------
-Plug 'mhinz/vim-startify'
+" Plug 'mhinz/vim-startify'
+Plug 'itchyny/calendar.vim'
+Plug 'vim-scripts/BufOnly.vim'
 
 call plug#end()
 
@@ -262,7 +265,7 @@ set laststatus=2
 set background=dark
 color vim-material
 let g:airline_theme="material"
-highlight Search guibg=NONE guifg=NONE gui=underline
+
 highlight ALEErrorSign guibg=red
 highlight ALEWarningSign guibg=orange 
 
@@ -323,7 +326,8 @@ nnoremap <silent><leader>- :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 nnoremap <S-X> :bp\|bd #<CR>
-" tnoremap <S-W> :bd!<CR>
+nnoremap <leader>bp :bp<CR>
+nnoremap <leader>bn :bn<CR>
 
 " Terminal Emulator
 nnoremap <leader>vt :vsplit \| terminal<CR>
@@ -363,7 +367,7 @@ if has('nvim') || has('gui_running')
 endif
 
 nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <S-p> :Buffers<CR>
 nnoremap <silent> <leader>w :Windows<CR>
 nnoremap <silent> <leader>l :BLines<CR>
 nnoremap <silent> <leader>t :BTags<CR>
@@ -399,7 +403,7 @@ function! SearchVisualSelectionWithAg() range
 endfunction
 
 function! s:ag_in(...)
-  call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, {'down': '~40%'}))
+  call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview(extend({'dir': a:1}, {'down': '~40%', 'options': '--delimiter : --nth 4..'})))
 endfunction
 
 command! -nargs=+ -complete=dir AgIn call s:ag_in(<f-args>)
@@ -409,22 +413,9 @@ command! -nargs=+ -complete=dir AgIn call s:ag_in(<f-args>)
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
-" Augmenting Ag command using fzf#vim#with_preview function
-"   * fzf#vim#with_preview([[options], preview window, [toggle keys...]])
-"     * For syntax-highlighting, Ruby and any of the following tools are required:
-"       - Highlight: http://www.andre-simon.de/doku/highlight/en/highlight.php
-"       - CodeRay: http://coderay.rubychan.de/
-"       - Rouge: https://github.com/jneen/rouge
-"
-"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
-"   :Ag! - Start fzf in fullscreen and display the preview window above
 command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
+  \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
 
-" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
@@ -517,8 +508,18 @@ nnoremap <silent><leader>git :Git
 " ----------------------------------------------------------------------------
 " vimwiki
 " ----------------------------------------------------------------------------
-let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'path_html': '~/Dropbox/vimwiki_html/'}]
-let g:vimwiki_CJK_length = 1
+" let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'path_html': '~/Dropbox/vimwiki_html/'}]
+" let g:vimwiki_CJK_length = 1
+
+" ----------------------------------------------------------------------------
+" vim-orgmode
+" ----------------------------------------------------------------------------
+let g:org_agenda_files = ['~/Dropbox/orgbook/index.org', '~/Dropbox/orgbook/*/*.org']
+
+" ----------------------------------------------------------------------------
+" utl.vim
+" ----------------------------------------------------------------------------
+let g:utl_cfg_hdl_scm_http_system = "silent !open -a firefox '%u'"
 
 " ----------------------------------------------------------------------------
 " vim-jsx
@@ -558,7 +559,8 @@ nnoremap <silent><leader>ig :IndentLinesToggle<CR>
 " ----------------------------------------------------------------------------
 " vim-rails
 " ----------------------------------------------------------------------------
-let g:rails_ctags_arguments = ['--languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)']
+let g:rails_ctags_arguments = ['--language=ruby --exclude=.git --exclude=log . $(bundle list --paths)']
+" let g:rails_ctags_arguments = ['--languages=Ruby --exclude=.git --exclude=log . $(bundle list --paths)']
 
 " ----------------------------------------------------------------------------
 " vim-rspec
@@ -630,6 +632,31 @@ inoremap <silent> <CR> <C-r>=<SID>return_without_deoplete()<CR>
 function! s:return_without_deoplete() abort
   return deoplete#mappings#close_popup() . "\<CR>"
 endfunction
+
+" ----------------------------------------------------------------------------
+" BufOnly
+" ----------------------------------------------------------------------------
+nnoremap <leader>bo :BufOnly<CR>
+
+" ----------------------------------------------------------------------------
+" EasyMotion
+" ----------------------------------------------------------------------------
+let g:EasyMotion_smartcase = 1
+
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " ----------------------------------------------------------------------------
 " ime 
