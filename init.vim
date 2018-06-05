@@ -10,10 +10,9 @@ endif
 " ----------------------------------------------------------------------------
 " Edit
 " ----------------------------------------------------------------------------
-" Plug 'pi314/ime-phonetic.vim'
-" Plug 'pi314/ime.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Konfekt/FastFold'
+Plug 'Valloric/MatchTagAlways'
 Plug 'bkad/CamelCaseMotion'
 Plug 'chrisbra/Colorizer'
 Plug 'chrisbra/csv.vim', { 'for': 'csv' } 
@@ -26,10 +25,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/vim-peekaboo'
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/emmet-vim'
+Plug 'matze/vim-move'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'thinca/vim-textobj-function-javascript'
@@ -58,20 +57,16 @@ Plug 'wellle/targets.vim'
 " ----------------------------------------------------------------------------
 " Languages
 " ----------------------------------------------------------------------------
+Plug 'elixir-editors/vim-elixir'
 Plug 'fatih/vim-go'
 Plug 'gavocanov/vim-js-indent'
-Plug 'jparise/vim-graphql'
 Plug 'mxw/vim-jsx'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'posva/vim-vue'
-Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
-Plug 'thoughtbot/vim-rspec'
-
-" TODO 研究一下詳細用法
-Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
 Plug 'vim-ruby/vim-ruby'
 
 " ----------------------------------------------------------------------------
@@ -79,15 +74,14 @@ Plug 'vim-ruby/vim-ruby'
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-db', { 'on': 'DB' }
-Plug 'tpope/vim-rake'
-Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-unimpaired'
 
 " ----------------------------------------------------------------------------
 " Browsing
 " ----------------------------------------------------------------------------
-Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
+Plug 'Yggdroot/indentLine'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " ----------------------------------------------------------------------------
@@ -95,7 +89,6 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " ----------------------------------------------------------------------------
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -118,12 +111,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'chriskempson/base16-vim'
 Plug 'cocopon/iceberg.vim'
-Plug 'dikiaap/minimalist'
 Plug 'dracula/vim'
-Plug 'hzchirs/Spacegray.vim'
 Plug 'hzchirs/vim-material'
 Plug 'junegunn/seoul256.vim'
-Plug 'nightsense/nemo'
+Plug 'lifepillar/vim-solarized8'
 Plug 'rakr/vim-one'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
@@ -134,12 +125,13 @@ Plug 'vim-airline/vim-airline-themes'
 " ----------------------------------------------------------------------------
 Plug 'editorconfig/editorconfig-vim'
 Plug 'rizzatti/dash.vim'
+" Plug 'soywod/vim-keepeye'
 
 " ----------------------------------------------------------------------------
 " Completion/Snippets
 " ----------------------------------------------------------------------------
-Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -153,13 +145,11 @@ endif
 " ----------------------------------------------------------------------------
 " Note
 " ----------------------------------------------------------------------------
-" Plug 'vimwiki/vimwiki'
-Plug 'jceb/vim-orgmode', { 'for': 'org' }
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 " ----------------------------------------------------------------------------
 " Others
 " ----------------------------------------------------------------------------
-" Plug 'mhinz/vim-startify'
 Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
 
@@ -180,7 +170,6 @@ set relativenumber
 set autoindent
 set foldmethod=syntax
 set foldlevel=20
-set wrap linebreak nolist
 set clipboard+=unnamed
 set shell=zsh
 
@@ -195,17 +184,15 @@ syntax sync minlines=256
 
 " 行過長時不斷行（可超過螢幕寬度）
 " set nowrap
+set wrap
+set linebreak
 " paste without replace
 xnoremap p pgvy
 
 
-" 編輯喜好設定                                                                                                                                                                                                     
-" if !exists('g:syntax_on')
-"   syntax on        " 語法上色顯示
-" endif
-
-" set ai           " 自動縮排
-set shiftwidth=2 " 設定縮排寬度 = 4 
+" 編輯喜好設定
+set ai           " 自動縮排
+set shiftwidth=2 " 設定縮排寬度 = 2
 set tabstop=2    " tab 的字元數
 set softtabstop=2
 
@@ -223,32 +210,15 @@ set smartindent  " 設定 smartindent
 set confirm      " 操作過程有衝突時，以明確的文字來詢問
 set history=100  " 保留 100 個使用過的指令
 set cursorline   " 顯示目前的游標位置
+set formatoptions+=mM
 
 " 让水平滚动更加自然
 set sidescroll=1
 set sidescrolloff=3
 
-let g:terminal_color_0  = '#2e3436'
-let g:terminal_color_1  = '#ff5555'
-let g:terminal_color_2  = '#50fa7b'
-let g:terminal_color_3  = '#f1fa8c'
-let g:terminal_color_4  = '#bd93f9'
-let g:terminal_color_5  = '#ff79c6'
-let g:terminal_color_6  = '#8be9fd'
-let g:terminal_color_7  = '#d3d7cf'
-let g:terminal_color_8  = '#555753'
-let g:terminal_color_9  = '#ef2929'
-let g:terminal_color_10 = '#8ae234'
-let g:terminal_color_11 = '#f1fa8c'
-let g:terminal_color_12 = '#bd93f9'
-let g:terminal_color_13 = '#ad7fa8'
-let g:terminal_color_14 = '#8be9fd'
-let g:terminal_color_15 = '#f8f8f2'
-
-" 开启 NVIM 专用选项
 if has('nvim')
-  " 允许真彩显示
   set termguicolors 
+  set inccommand=nosplit
 endif
 
 set linespace=5
@@ -260,11 +230,13 @@ endif"
 
 let g:rubycomplete_buffer_loading = 1
 
-
 set laststatus=2
 set background=dark
 color vim-material
 let g:airline_theme="material"
+" set background=light
+" color PaperColor
+" let g:airline_theme="papercolor"
 
 highlight ALEErrorSign guibg=red
 highlight ALEWarningSign guibg=orange 
@@ -281,8 +253,13 @@ function! SynStack()
     endif
     echo map(synstack(line('.'), col('.')), "synIDattr(v:val, 'name')")
 endfunc
-" nmap <leader><leader>x :call SynStack()<CR>
+
 nmap <leader><leader>x :call SyntaxItem()<CR>
+
+" ============================================================================
+" Autocmds
+" ============================================================================
+autocmd BufRead,BufNewFile *.md setlocal textwidth=85
 
 " ============================================================================
 " Mappings
@@ -290,12 +267,15 @@ nmap <leader><leader>x :call SyntaxItem()<CR>
 map <space> <leader>
 map <space><space> <leader><leader>
 
+" ----------------------------------------------------------------------------
+" Normal mode
+" ----------------------------------------------------------------------------
 " go run python3 for current file
 nnoremap <silent><leader>rp :!python3 %<CR>
 " go run ruby for current file
 nnoremap <silent><leader>rr :!ruby %<CR>
 " restart powder
-nnoremap <leader>rspd :!powder restart<CR>
+nnoremap <leader>rspd :!puma-dev -stop<CR>
 
 nnoremap <silent><S-L> :set rnu!<CR>
 
@@ -307,17 +287,6 @@ nnoremap gj j
 
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
-
-inoremap jk <esc>
-inoremap <C-d> <esc>ddi
-inoremap <C-u> <esc>g~iwi
-
-inoremap <C-e> <esc>A
-inoremap <C-a> <esc>I
-
-" onoremap in( :<C-u>normal! f(vi(<cr>
-" onoremap il( :<C-u>normal! F)vi(<cr>
-
 " 縮放視窗
 nnoremap <silent><leader>= :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
 nnoremap <silent><leader>- :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
@@ -329,9 +298,47 @@ nnoremap <S-X> :bp\|bd #<CR>
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader>bn :bn<CR>
 
+" ----------------------------------------------------------------------------
+" Insert Mode
+" ----------------------------------------------------------------------------
+inoremap jk <esc>
+inoremap <C-u> <esc>g~iwi
+
+" 模擬 Emacs 操作
+inoremap <C-e> <esc>A
+inoremap <C-a> <esc>I
+inoremap <C-f> <right>
+inoremap <C-b> <left>
+inoremap <C-n> <down>
+inoremap <C-p> <up>
+inoremap <C-]> <esc>:bn<CR> \| i
+inoremap <C-[> <esc>:bp<CR> \| i
+
+" ----------------------------------------------------------------------------
 " Terminal Emulator
-nnoremap <leader>vt :vsplit \| terminal<CR>
-nnoremap <leader>st :split \| terminal<CR>
+" ---------------------------------------------------------------------------- 
+au TermOpen * setlocal nonumber norelativenumber
+au BufEnter term://* startinsert
+
+nnoremap <leader>rc :belowright split \| terminal rails console<CR> \| i
+nnoremap <leader>vt :vsplit \| terminal<CR> \| i
+nnoremap <leader>st :belowright split \| terminal<CR> \| i
+nnoremap <leader>cl :call RunCurrentSpecLine()<CR>
+nnoremap <leader>cs :call RunCurrentSpecFile()<CR>
+
+function! RunCurrentSpecLine()
+  let lineNum = line('.')
+
+  exec 'belowright split'
+  exec 'terminal bundle exec rspec %:' . lineNum
+  startinsert!
+endfunction
+
+function! RunCurrentSpecFile()
+  exec 'belowright split'
+  exec 'terminal bundle exec rspec %'
+  startinsert!
+endfunction
 
 " Smart way to move between windows
 noremap <C-j> <C-W>j
@@ -340,12 +347,10 @@ noremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 
 if has('nvim')
-  " tnoremap jk <C-\><C-N>
-  " tnoremap <C-j> <C-\><C-N><C-w>j
-  " tnoremap <C-k> <C-\><C-N><C-w>k
+  tnoremap jk <C-\><C-N>
 endif
 
-" 儲存
+" 不同模式的儲存
 nnoremap <C-s> :update<CR>
 vnoremap <C-s> <C-C>:update<CR>
 inoremap <C-s> <C-O>:update<CR><Right>
@@ -368,10 +373,6 @@ endif
 
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <S-p> :Buffers<CR>
-nnoremap <silent> <leader>w :Windows<CR>
-nnoremap <silent> <leader>l :BLines<CR>
-nnoremap <silent> <leader>t :BTags<CR>
-nnoremap <silent> <leader>T :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
 nnoremap <leader>f :AgIn 
@@ -464,12 +465,10 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 let g:goyo_width = 85
 
 function! s:goyo_enter()
-  set wrap
   Limelight
 endfunction
 
 function! s:goyo_leave()
-  set nowrap
   Limelight!
 endfunction
 
@@ -479,7 +478,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " ----------------------------------------------------------------------------
 " ultisnips
 " ----------------------------------------------------------------------------
-let g:UltiSnipsExpandTrigger="<c-b>"
+let g:UltiSnipsExpandTrigger="<tab>"
 
 " ----------------------------------------------------------------------------
 " vim-airline
@@ -508,9 +507,15 @@ nnoremap <silent><leader>git :Git
 " ----------------------------------------------------------------------------
 " vimwiki
 " ----------------------------------------------------------------------------
-" let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'path_html': '~/Dropbox/vimwiki_html/'}]
-" let g:vimwiki_CJK_length = 1
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 
+                     \ 'path_html': '~/Dropbox/vimwiki_html/',
+                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
+let g:vimwiki_CJK_length = 1
+let g:vimwiki_folding = 'expr'
+let g:vimwiki_use_calendar = 1
+
+nmap <Leader>tt <Plug>VimwikiToggleListItem
 " ----------------------------------------------------------------------------
 " vim-orgmode
 " ----------------------------------------------------------------------------
@@ -559,15 +564,8 @@ nnoremap <silent><leader>ig :IndentLinesToggle<CR>
 " ----------------------------------------------------------------------------
 " vim-rails
 " ----------------------------------------------------------------------------
-let g:rails_ctags_arguments = ['--language=ruby --exclude=.git --exclude=log . $(bundle list --paths)']
+let g:rails_ctags_arguments = ['--languages=ruby --exclude=.git --exclude=log .']
 " let g:rails_ctags_arguments = ['--languages=Ruby --exclude=.git --exclude=log . $(bundle list --paths)']
-
-" ----------------------------------------------------------------------------
-" vim-rspec
-" ----------------------------------------------------------------------------
-let g:rspec_command = "!bundle exec rspec {spec}"
-let g:rspec_runner = "os_x_iterm2"
-map <Leader><Leader>t :call RunCurrentSpecFile()<CR>
 
 " ----------------------------------------------------------------------------
 " vim-go
@@ -577,11 +575,11 @@ nnoremap <leader>gr :GoRun<CR>
 " ----------------------------------------------------------------------------
 " vim-markdown
 " ----------------------------------------------------------------------------
-let g:vim_markdown_toc_autofit      = 1
-let g:vim_markdown_frontmatter      = 1
-let g:vim_markdown_json_frontmatter = 1
-let g:vim_markdown_toml_frontmatter = 1
-let g:vim_markdown_folding_disabled = 1
+" let g:vim_markdown_toc_autofit      = 1
+" let g:vim_markdown_frontmatter      = 1
+" let g:vim_markdown_json_frontmatter = 1
+" let g:vim_markdown_toml_frontmatter = 1
+" let g:vim_markdown_folding_disabled = 1
 
 " ----------------------------------------------------------------------------
 " csv.vim
@@ -597,11 +595,6 @@ nmap ga <Plug>(EasyAlign)
 " dash
 " ----------------------------------------------------------------------------
 nnoremap <silent><leader>d :Dash<CR>
-
-" ----------------------------------------------------------------------------
-" Deoplete
-" ----------------------------------------------------------------------------
-let g:deoplete#enable_at_startup = 1
 
 " ----------------------------------------------------------------------------
 " vim-multiple-cursors
@@ -654,12 +647,14 @@ nmap s <Plug>(easymotion-overwin-f2)
 map <Leader>L <Plug>(easymotion-bd-jk)
 nmap <Leader>L <Plug>(easymotion-overwin-line)
 
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+" ----------------------------------------------------------------------------
+" Calendar
+" ----------------------------------------------------------------------------
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
 
 " ----------------------------------------------------------------------------
-" ime 
+" keepeye
 " ----------------------------------------------------------------------------
-" let g:ime_toggle_english = ',,'
-" let g:ime_plugins = ['phonetic']
+" let g:keepeye_autostart = 1
+" let g:keepeye_message   = '眼睛累了嗎？休息一下吧！'
