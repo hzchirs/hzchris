@@ -53,11 +53,13 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  osx git rails 
-  bundler rake ruby 
-  elixir autojump zsh-completions 
+  osx git rails
+  bundler rake ruby
+  elixir autojump zsh-completions
   zsh-autosuggestions alias-tips
   notify
+  docker
+  docker-compose
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -103,4 +105,4 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 eval "$(rbenv init -)"
 
-export FZF_DEFAULT_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_DEFAULT_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -400'"
