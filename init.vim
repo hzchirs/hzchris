@@ -1,7 +1,7 @@
 " ============================================================================
 " Plugs
-" ============================================================================ 
-if has('nvim') 
+" ============================================================================
+if has('nvim')
   call plug#begin('~/.config/nvim/plugged')
 else
   call plug#begin('~/.vim/plugged')
@@ -15,7 +15,8 @@ Plug 'Konfekt/FastFold'
 Plug 'Valloric/MatchTagAlways'
 Plug 'bkad/CamelCaseMotion'
 Plug 'chrisbra/Colorizer'
-Plug 'chrisbra/csv.vim', { 'for': 'csv' } 
+Plug 'chrisbra/NrrwRgn'
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase'
 Plug 'gcmt/wildfire.vim'
@@ -113,7 +114,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'dracula/vim'
 Plug 'hzchirs/vim-material'
-Plug 'junegunn/seoul256.vim'
+Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-solarized8'
 Plug 'rakr/vim-one'
 Plug 'ryanoasis/vim-devicons'
@@ -182,10 +183,16 @@ set lazyredraw
 set synmaxcol=256
 syntax sync minlines=256
 
-" 行過長時不斷行（可超過螢幕寬度）
-" set nowrap
+" 視覺斷行，不會插入 EOL
 set wrap
+" 讓視覺斷行斷在文字結束的地方而非中間
 set linebreak
+" 斷行會自動縮排
+set breakindent
+" 視覺斷行前顯示記號
+set showbreak
+let &showbreak = '↳  '
+
 " paste without replace
 xnoremap p pgvy
 
@@ -199,11 +206,10 @@ set softtabstop=2
 set expandtab   " 用 space 代替 tab
 set nu          " Show line number
 
-set cc=120       " 在第120的寬度顯示提示線 
+set cc=120       " 在第120的寬度顯示提示線
 set ruler        " 顯示右下角設定值
 set backspace=2  " 在 insert 也可用 backspace
 set ic           " 設定搜尋忽略大小寫
-set ru           " 第幾行第幾個字
 set hlsearch     " 設定高亮度顯示搜尋結果
 set incsearch    " 在關鍵字還沒完全輸入完畢前就顯示結果
 set smartindent  " 設定 smartindent
@@ -217,7 +223,7 @@ set sidescroll=1
 set sidescrolloff=3
 
 if has('nvim')
-  set termguicolors 
+  set termguicolors
   set inccommand=nosplit
 endif
 
@@ -232,15 +238,22 @@ let g:rubycomplete_buffer_loading = 1
 
 set laststatus=2
 set background=dark
+let g:material_style='palenight'
 color vim-material
 let g:airline_theme="material"
 " set background=light
-" color PaperColor
-" let g:airline_theme="papercolor"
+" color gruvbox
+" let g:airline_theme="gruvbox"
 
 highlight ALEErrorSign guibg=red
-highlight ALEWarningSign guibg=orange 
+highlight ALEWarningSign guibg=orange
 
+function! RemoveTrailingSpace()
+  %s/\s\+$//e
+endfunction
+nmap <leader><leader>rt :call RemoveTrailingSpace()<CR>
+
+" 檢查文字 highlight
 function! SyntaxItem()
   echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -259,8 +272,9 @@ nmap <leader><leader>x :call SyntaxItem()<CR>
 " ============================================================================
 " Autocmds
 " ============================================================================
-autocmd BufRead,BufNewFile *.md setlocal textwidth=85
-
+" ----------------------------------------------------------------------------
+" 進入 markdown 文件時的相關設定
+" ----------------------------------------------------------------------------
 " ============================================================================
 " Mappings
 " ============================================================================
@@ -274,7 +288,7 @@ map <space><space> <leader><leader>
 nnoremap <silent><leader>rp :!python3 %<CR>
 " go run ruby for current file
 nnoremap <silent><leader>rr :!ruby %<CR>
-" restart powder
+
 nnoremap <leader>rspd :!puma-dev -stop<CR>
 
 nnoremap <silent><S-L> :set rnu!<CR>
@@ -316,7 +330,7 @@ inoremap <C-[> <esc>:bp<CR> \| i
 
 " ----------------------------------------------------------------------------
 " Terminal Emulator
-" ---------------------------------------------------------------------------- 
+" ----------------------------------------------------------------------------
 au TermOpen * setlocal nonumber norelativenumber
 au BufEnter term://* startinsert
 
@@ -375,7 +389,7 @@ nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <S-p> :Buffers<CR>
 nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-nnoremap <leader>f :AgIn 
+nnoremap <leader>f :AgIn
 
 nnoremap <silent> K :call SearchWordWithAg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
@@ -507,7 +521,7 @@ nnoremap <silent><leader>git :Git
 " ----------------------------------------------------------------------------
 " vimwiki
 " ----------------------------------------------------------------------------
-let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
                      \ 'path_html': '~/Dropbox/vimwiki_html/',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
@@ -599,18 +613,20 @@ nnoremap <silent><leader>d :Dash<CR>
 " ----------------------------------------------------------------------------
 " vim-multiple-cursors
 " ----------------------------------------------------------------------------
+let g:multi_cursor_quit_key = '<Esc>'
+
 "  解決 multiple cursor  出現異常字元的問題
 function! Multiple_cursors_before()
-    if exists('g:deoplete#disable_auto_complete') 
-	   let g:deoplete#disable_auto_complete = 1
-    endif
+  if exists('g:deoplete#disable_auto_complete')
+    let g:deoplete#disable_auto_complete = 1
+  endif
 endfunction
 
 " Called once only when the multiple selection is canceled (default <Esc>)
 function! Multiple_cursors_after()
-    if exists('g:deoplete#disable_auto_complete')
-	   let g:deoplete#disable_auto_complete = 0
-    endif
+  if exists('g:deoplete#disable_auto_complete')
+    let g:deoplete#disable_auto_complete = 0
+  endif
 endfunction
 
 " ----------------------------------------------------------------------------
