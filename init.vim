@@ -136,7 +136,6 @@ Plug 'honza/vim-snippets'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'fishbullet/deoplete-ruby'
 else
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
@@ -190,8 +189,9 @@ set linebreak
 " 斷行會自動縮排
 set breakindent
 " 視覺斷行前顯示記號
-set showbreak
 let &showbreak = '↳  '
+
+set cpoptions+=n
 
 " paste without replace
 xnoremap p pgvy
@@ -325,8 +325,6 @@ inoremap <C-f> <right>
 inoremap <C-b> <left>
 inoremap <C-n> <down>
 inoremap <C-p> <up>
-inoremap <C-]> <esc>:bn<CR> \| i
-inoremap <C-[> <esc>:bp<CR> \| i
 
 " ----------------------------------------------------------------------------
 " Terminal Emulator
@@ -521,6 +519,7 @@ nnoremap <silent><leader>git :Git
 " ----------------------------------------------------------------------------
 " vimwiki
 " ----------------------------------------------------------------------------
+autocmd FileType vimwiki normal zM
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
                      \ 'path_html': '~/Dropbox/vimwiki_html/',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
@@ -633,10 +632,12 @@ endfunction
 " Deoplete
 " ----------------------------------------------------------------------------
 let g:deoplete#enable_at_startup = 1
-
+call deoplete#custom#option({
+      \ 'max_list': 6,
+      \ 'on_insert_enter': v:false,
+      \ })
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-let g:deoplete#max_list = 6
 inoremap <silent> <CR> <C-r>=<SID>return_without_deoplete()<CR>
 function! s:return_without_deoplete() abort
   return deoplete#mappings#close_popup() . "\<CR>"
