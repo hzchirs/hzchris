@@ -59,7 +59,7 @@ Plug 'wellle/targets.vim'
 " Languages
 " ----------------------------------------------------------------------------
 Plug 'elixir-editors/vim-elixir'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'gavocanov/vim-js-indent'
 Plug 'mxw/vim-jsx'
 Plug 'othree/html5.vim'
@@ -110,12 +110,13 @@ Plug 'junegunn/fzf.vim'
 " Themes
 " ----------------------------------------------------------------------------
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'chriskempson/base16-vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'dracula/vim'
 Plug 'hzchirs/vim-material'
-Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-solarized8'
+Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-one'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
@@ -158,8 +159,6 @@ call plug#end()
 
 " ============================================================================
 " Basic settings
-" ============================================================================
-set encoding=utf-8
 set fileencodings=utf-8,cp950
 set nocompatible              " be iMproved, required
 set hidden
@@ -189,7 +188,7 @@ set linebreak
 " 斷行會自動縮排
 set breakindent
 " 視覺斷行前顯示記號
-let &showbreak = '↳  '
+let &showbreak = '↳ '
 
 set cpoptions+=n
 
@@ -201,7 +200,7 @@ xnoremap p pgvy
 set ai           " 自動縮排
 set shiftwidth=2 " 設定縮排寬度 = 2
 set tabstop=2    " tab 的字元數
-set softtabstop=2
+" set softtabstop=2
 
 set expandtab   " 用 space 代替 tab
 set nu          " Show line number
@@ -218,9 +217,13 @@ set history=100  " 保留 100 個使用過的指令
 set cursorline   " 顯示目前的游標位置
 set formatoptions+=mM
 
+
 " 让水平滚动更加自然
 set sidescroll=1
 set sidescrolloff=3
+
+" 讓滑鼠在所有模式下均可正常使用
+set mouse=a
 
 if has('nvim')
   set termguicolors
@@ -237,13 +240,12 @@ endif"
 let g:rubycomplete_buffer_loading = 1
 
 set laststatus=2
+
 set background=dark
 let g:material_style='palenight'
 color vim-material
 let g:airline_theme="material"
-" set background=light
-" color gruvbox
-" let g:airline_theme="gruvbox"
+
 
 highlight ALEErrorSign guibg=red
 highlight ALEWarningSign guibg=orange
@@ -330,7 +332,6 @@ inoremap <C-p> <up>
 " Terminal Emulator
 " ----------------------------------------------------------------------------
 au TermOpen * setlocal nonumber norelativenumber
-au BufEnter term://* startinsert
 
 nnoremap <leader>rc :belowright split \| terminal rails console<CR> \| i
 nnoremap <leader>vt :vsplit \| terminal<CR> \| i
@@ -366,6 +367,15 @@ endif
 nnoremap <C-s> :update<CR>
 vnoremap <C-s> <C-C>:update<CR>
 inoremap <C-s> <C-O>:update<CR><Right>
+
+" ============================================================================
+" Language Settings
+" ============================================================================
+" ----------------------------------------------------------------------------
+" Go
+" ----------------------------------------------------------------------------
+autocmd FileType go set tabstop=8
+autocmd FileType go set shiftwidth=8
 
 " ============================================================================
 " Plugs Settings
@@ -520,6 +530,9 @@ nnoremap <silent><leader>git :Git
 " vimwiki
 " ----------------------------------------------------------------------------
 autocmd FileType vimwiki normal zM
+" 避免中文不正常斷行
+autocmd FileType vimwiki setlocal breakat=^I!@+;:,./?
+
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
                      \ 'path_html': '~/Dropbox/vimwiki_html/',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
