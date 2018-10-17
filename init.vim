@@ -12,7 +12,6 @@ endif
 " ----------------------------------------------------------------------------
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Konfekt/FastFold'
-Plug 'Valloric/MatchTagAlways'
 Plug 'bkad/CamelCaseMotion'
 Plug 'chrisbra/Colorizer'
 Plug 'chrisbra/NrrwRgn'
@@ -21,18 +20,16 @@ Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase'
 Plug 'gcmt/wildfire.vim'
 Plug 'haya14busa/vim-textobj-function-syntax'
-Plug 'hotoo/pangu.vim' " 自动格式化、标准化中文排版
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'kana/vim-textobj-function'
-Plug 'kana/vim-textobj-user'
-Plug 'mattn/emmet-vim'
-Plug 'matze/vim-move'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'thinca/vim-textobj-function-javascript'
+Plug 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-user'
+Plug 'mattn/emmet-vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
@@ -49,18 +46,28 @@ Plug 'wellle/targets.vim'
 " asynchronous lint engine
 " 只在 save 時才 link
 " 因為隨時 lint 非常耗電
-" Plug 'w0rp/ale'
-" nmap <silent> <s-p> <plug>(ale_previous_wrap)
-" nmap <silent> <s-n> <plug>(ale_next_wrap)
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_enter = 0
+Plug 'w0rp/ale'
+nmap <silent> <leader>p <plug>(ale_previous_wrap)
+nmap <silent> <leader>n <plug>(ale_next_wrap)
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_set_loclist = 0
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'vue': ['vls', 'eslint', 'stylelint']
+\}
+let g:ale_linter_aliases = {'vue': ['css', 'javascript']}
+let g:ale_fixers = {'vue': ['eslint']}
+let g:ale_fix_on_save = 1
+" let g:ale_linters_ignore = {'javascript': ['eslint']}
 
 " ----------------------------------------------------------------------------
 " Languages
 " ----------------------------------------------------------------------------
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'elixir-editors/vim-elixir'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'gavocanov/vim-js-indent'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 Plug 'mxw/vim-jsx'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
@@ -114,7 +121,7 @@ Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'chriskempson/base16-vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'dracula/vim'
-Plug 'hzchirs/vim-material'
+Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material/' }
 Plug 'lifepillar/vim-solarized8'
 Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-one'
@@ -182,13 +189,14 @@ set synmaxcol=256
 syntax sync minlines=256
 
 " 視覺斷行，不會插入 EOL
-set wrap
+" set wrap
 " 讓視覺斷行斷在文字結束的地方而非中間
-set linebreak
+" set linebreak
 " 斷行會自動縮排
-set breakindent
+" set breakindent
 " 視覺斷行前顯示記號
-let &showbreak = '↳ '
+" let &showbreak = '↳ '
+set nowrap
 
 set cpoptions+=n
 
@@ -242,9 +250,11 @@ let g:rubycomplete_buffer_loading = 1
 set laststatus=2
 
 set background=dark
-let g:material_style='palenight'
+" let g:material_style='palenight'
 color vim-material
 let g:airline_theme="material"
+" color iceberg
+" let g:airline_theme="iceberg"
 
 
 highlight ALEErrorSign guibg=red
@@ -258,15 +268,15 @@ nmap <leader><leader>rt :call RemoveTrailingSpace()<CR>
 " 檢查文字 highlight
 function! SyntaxItem()
   echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+        \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 endfunction
 
 function! SynStack()
-    if !exists('*synstack')
-        return
-    endif
-    echo map(synstack(line('.'), col('.')), "synIDattr(v:val, 'name')")
+  if !exists('*synstack')
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), "synIDattr(v:val, 'name')")
 endfunc
 
 nmap <leader><leader>x :call SyntaxItem()<CR>
@@ -280,8 +290,8 @@ nmap <leader><leader>x :call SyntaxItem()<CR>
 " ============================================================================
 " Mappings
 " ============================================================================
-map <space> <leader>
-map <space><space> <leader><leader>
+nnoremap <space> <nop>
+let mapleader=" "
 
 " ----------------------------------------------------------------------------
 " Normal mode
@@ -296,10 +306,10 @@ nnoremap <leader>rspd :!puma-dev -stop<CR>
 nnoremap <silent><S-L> :set rnu!<CR>
 
 " 以螢幕所見的行而非實際的行來移動
-nnoremap k gk
-nnoremap gk k
-nnoremap j gj
-nnoremap gj j
+nnoremap k gkzz
+nnoremap gk kzz
+nnoremap j gjzz
+nnoremap gj jzz
 
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
@@ -311,8 +321,6 @@ nnoremap <silent><leader>- :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 nnoremap <S-X> :bp\|bd #<CR>
-nnoremap <leader>bp :bp<CR>
-nnoremap <leader>bn :bn<CR>
 
 " ----------------------------------------------------------------------------
 " Insert Mode
@@ -327,6 +335,16 @@ inoremap <C-f> <right>
 inoremap <C-b> <left>
 inoremap <C-n> <down>
 inoremap <C-p> <up>
+
+" ----------------------------------------------------------------------------
+" Operator Mapping
+" ----------------------------------------------------------------------------
+
+" ----------------------------------------------------------------------------
+" Visual Mode
+" ----------------------------------------------------------------------------
+" Search visualed context
+vnoremap // y/<C-R>"<CR>
 
 " ----------------------------------------------------------------------------
 " Terminal Emulator
@@ -374,8 +392,20 @@ inoremap <C-s> <C-O>:update<CR><Right>
 " ----------------------------------------------------------------------------
 " Go
 " ----------------------------------------------------------------------------
-autocmd FileType go set tabstop=8
-autocmd FileType go set shiftwidth=8
+augroup filetype_go
+  au!
+  autocmd FileType go setlocal tabstop=8
+  autocmd FileType go setlocal shiftwidth=8
+augroup END
+
+" ----------------------------------------------------------------------------
+" HTML, ERB
+" ----------------------------------------------------------------------------
+augroup filetype_html
+  au!
+  autocmd FileType eruby nnoremap <buffer> zc zfat
+  autocmd FileType html nnoremap <buffer> zc zfat
+augroup END
 
 " ============================================================================
 " Plugs Settings
@@ -391,6 +421,7 @@ call camelcasemotion#CreateMotionMappings('<leader>i')
 " ----------------------------------------------------------------------------
 if has('nvim') || has('gui_running')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  let $FZF_DEFAULT_COMMAND= 'ag -g ""'
 endif
 
 nnoremap <silent> <C-p> :Files<CR>
@@ -434,36 +465,36 @@ command! -nargs=+ -complete=dir AgIn call s:ag_in(<f-args>)
 " Command for git grep
 " - fzf#vim#grep(command, with_column, [options], [fullscreen])
 command! -bang -nargs=* GGrep
-  \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
+      \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
 command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+      \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
 
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+      \   <bang>0 ? fzf#vim#with_preview('up:60%')
+      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \   <bang>0)
 
 " Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Type'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Identifier'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Type'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Identifier'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
@@ -487,10 +518,23 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 let g:goyo_width = 85
 
 function! s:goyo_enter()
+  nnoremap k gkzz
+  nnoremap gk kzz
+  nnoremap j gjzz
+  nnoremap gj jzz
+  set wrap
+  set linebreak
+
   Limelight
 endfunction
 
 function! s:goyo_leave()
+  nnoremap k gk
+  nnoremap gk k
+  nnoremap j gj
+  nnoremap gj j
+  set nowrap
+
   Limelight!
 endfunction
 
@@ -515,7 +559,7 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+  let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 
@@ -529,19 +573,27 @@ nnoremap <silent><leader>git :Git
 " ----------------------------------------------------------------------------
 " vimwiki
 " ----------------------------------------------------------------------------
-autocmd FileType vimwiki normal zM
-" 避免中文不正常斷行
-autocmd FileType vimwiki setlocal breakat=^I!@+;:,./?
+augroup filetype_vimwiki
+  au!
+  au FileType vimwiki normal zM
+  au FileType vimwiki let &l:showbreak = ""
+  au FileType vimwiki nnoremap <buffer> <leader>k :VimwikiDiaryPrevDay<CR>
+  au FileType vimwiki nnoremap <buffer> <leader>j :VimwikiDiaryNextDay<CR>
+  au FileType vimwiki nmap <buffer> <Leader>tt <Plug>VimwikiToggleListItem
+
+  " 避免中文不正常斷行
+  " au FileType vimwiki setlocal breakat=^I!@+;:,./?
+augroup END
+
 
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
-                     \ 'path_html': '~/Dropbox/vimwiki_html/',
-                     \ 'syntax': 'markdown', 'ext': '.md'}]
-
+      \ 'path_html': '~/Dropbox/vimwiki_html/',
+      \ 'syntax': 'markdown', 'ext': '.md',
+      \ 'auto_diary_index': 1}]
 let g:vimwiki_CJK_length = 1
-let g:vimwiki_folding = 'expr'
+let g:vimwiki_folding = 'expr:quick'
 let g:vimwiki_use_calendar = 1
 
-nmap <Leader>tt <Plug>VimwikiToggleListItem
 " ----------------------------------------------------------------------------
 " vim-orgmode
 " ----------------------------------------------------------------------------
@@ -584,7 +636,7 @@ nmap <F8> :TagbarToggle<CR>
 " indentLine
 " ----------------------------------------------------------------------------
 let g:indentLine_setColors = 0
-let g:indentLine_enabled = 0
+let g:indentLine_fileType = ['ruby', 'javascript']
 nnoremap <silent><leader>ig :IndentLinesToggle<CR>
 
 " ----------------------------------------------------------------------------
@@ -650,11 +702,11 @@ call deoplete#custom#option({
       \ 'on_insert_enter': v:false,
       \ })
 " deoplete tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <silent> <CR> <C-r>=<SID>return_without_deoplete()<CR>
-function! s:return_without_deoplete() abort
-  return deoplete#mappings#close_popup() . "\<CR>"
-endfunction
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" inoremap <silent> <CR> <C-r>=<SID>return_without_deoplete()<CR>
+" function! s:return_without_deoplete() abort
+"   return deoplete#mappings#close_popup() . "\<CR>"
+" endfunction
 
 " ----------------------------------------------------------------------------
 " BufOnly
