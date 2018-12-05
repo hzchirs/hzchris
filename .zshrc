@@ -33,7 +33,7 @@ export UPDATE_ZSH_DAYS=13
 # ENABLE_CORRECTION="false"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -55,8 +55,9 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   osx git rails
   bundler rake ruby
-  elixir autojump zsh-completions
+  elixir autojump
   zsh-autosuggestions alias-tips
+  zsh-completions
   notify
   docker
   docker-compose
@@ -93,10 +94,6 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-function org() {
-  nvim ~/Dropbox/orgbook/index.org
-}
-
 export GOPATH=$HOME/golang
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
@@ -104,6 +101,7 @@ export PATH=$PATH:$GOROOT/bin
 
 export TODOTXT_DEFAULT_ACTION=ls
 alias t="todo.sh"
+alias ping="prettyping"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="$HOME/.rbenv/bin:$PATH"

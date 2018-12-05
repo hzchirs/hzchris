@@ -12,33 +12,43 @@ endif
 " ----------------------------------------------------------------------------
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Konfekt/FastFold'
-Plug 'bkad/CamelCaseMotion'
 Plug 'chrisbra/Colorizer'
 Plug 'chrisbra/NrrwRgn'
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase'
 Plug 'gcmt/wildfire.vim'
-Plug 'haya14busa/vim-textobj-function-syntax'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'thinca/vim-textobj-function-javascript'
-Plug 'kana/vim-textobj-function'
-Plug 'kana/vim-textobj-user'
 Plug 'mattn/emmet-vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-surround'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'vim-scripts/SyntaxRange'
 Plug 'vim-scripts/utl.vim'
 Plug 'wellle/targets.vim'
+
+" ----------------------------------------------------------------------------
+" Motion
+" ----------------------------------------------------------------------------
+Plug 'bkad/CamelCaseMotion'
+Plug 'easymotion/vim-easymotion'
+Plug 'junegunn/vim-slash'
+Plug 'tmhedberg/matchit'
+
+" ----------------------------------------------------------------------------
+" Text Object
+" ----------------------------------------------------------------------------
+Plug 'haya14busa/vim-textobj-function-syntax'
+Plug 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-user'
+Plug 'rhysd/vim-textobj-ruby', { 'for': 'ruby' }
+Plug 'tpope/vim-surround'
 
 " ----------------------------------------------------------------------------
 " linter
@@ -47,18 +57,21 @@ Plug 'wellle/targets.vim'
 " 只在 save 時才 link
 " 因為隨時 lint 非常耗電
 Plug 'w0rp/ale'
-nmap <silent> <leader>p <plug>(ale_previous_wrap)
-nmap <silent> <leader>n <plug>(ale_next_wrap)
+nmap <silent> <leader><leader>f <Plug>(ale_fix)
+
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_set_loclist = 0
+let g:ale_lint_on_enter = 0
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'vue': ['vls', 'eslint', 'stylelint']
+\   'vue': ['vls', 'eslint', 'stylelint'],
+\   'ruby': ['rubocop']
 \}
 let g:ale_linter_aliases = {'vue': ['css', 'javascript']}
-let g:ale_fixers = {'vue': ['eslint']}
-let g:ale_fix_on_save = 1
-" let g:ale_linters_ignore = {'javascript': ['eslint']}
+let g:ale_fixers = {
+      \'vue': ['eslint'],
+      \'javascript': ['eslint'],
+      \'ruby': ['rubocop']
+      \}
 
 " ----------------------------------------------------------------------------
 " Languages
@@ -75,7 +88,9 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'posva/vim-vue'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
-Plug 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+
+let g:vue_disable_pre_processors = 1
 
 " ----------------------------------------------------------------------------
 " Development Tools
@@ -102,12 +117,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
 " ----------------------------------------------------------------------------
-" Motion
-" ----------------------------------------------------------------------------
-Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/vim-slash'
-
-" ----------------------------------------------------------------------------
 " Fuzzy finder
 " ----------------------------------------------------------------------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -121,10 +130,10 @@ Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'chriskempson/base16-vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'dracula/vim'
-Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material/' }
+Plug 'hzchirs/vim-material'
 Plug 'lifepillar/vim-solarized8'
 Plug 'morhetz/gruvbox'
-Plug 'rakr/vim-one'
+Plug 'reedes/vim-colors-pencil'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -240,21 +249,14 @@ endif
 
 set linespace=5
 
-if $TERM_PROGRAM =~ "iTerm"
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
-endif"
-
 let g:rubycomplete_buffer_loading = 1
 
 set laststatus=2
 
 set background=dark
-" let g:material_style='palenight'
+" let g:material_style='oceanic'
 color vim-material
 let g:airline_theme="material"
-" color iceberg
-" let g:airline_theme="iceberg"
 
 
 highlight ALEErrorSign guibg=red
@@ -346,10 +348,18 @@ inoremap <C-p> <up>
 " Search visualed context
 vnoremap // y/<C-R>"<CR>
 
+" 以螢幕所見的行而非實際的行來移動
+vnoremap k gkzz
+vnoremap gk kzz
+vnoremap j gjzz
+vnoremap gj jzz
 " ----------------------------------------------------------------------------
 " Terminal Emulator
 " ----------------------------------------------------------------------------
-au TermOpen * setlocal nonumber norelativenumber
+augroup term_emulator
+  au!
+  au TermOpen * setlocal nonumber norelativenumber
+augroup END
 
 nnoremap <leader>rc :belowright split \| terminal rails console<CR> \| i
 nnoremap <leader>vt :vsplit \| terminal<CR> \| i
@@ -481,6 +491,10 @@ command! -bang -nargs=* Rg
 command! -bang -nargs=? -complete=dir Files
       \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Buffers
+      \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview(), <bang>0)
+
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
       \ { 'fg':      ['fg', 'Normal'],
@@ -515,13 +529,9 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 " ----------------------------------------------------------------------------
 " Goyo
 " ----------------------------------------------------------------------------
-let g:goyo_width = 85
+let g:goyo_width = 120
 
 function! s:goyo_enter()
-  nnoremap k gkzz
-  nnoremap gk kzz
-  nnoremap j gjzz
-  nnoremap gj jzz
   set wrap
   set linebreak
 
@@ -529,10 +539,6 @@ function! s:goyo_enter()
 endfunction
 
 function! s:goyo_leave()
-  nnoremap k gk
-  nnoremap gk k
-  nnoremap j gj
-  nnoremap gj j
   set nowrap
 
   Limelight!
@@ -579,8 +585,11 @@ augroup filetype_vimwiki
   au FileType vimwiki let &l:showbreak = ""
   au FileType vimwiki nnoremap <buffer> <leader>k :VimwikiDiaryPrevDay<CR>
   au FileType vimwiki nnoremap <buffer> <leader>j :VimwikiDiaryNextDay<CR>
-  au FileType vimwiki nmap <buffer> <Leader>tt <Plug>VimwikiToggleListItem
-
+  au FileType vimwiki nmap <buffer> <leader>tt <Plug>VimwikiToggleListItem
+  au FileType vimwiki nnoremap <buffer> // :VWS<space>
+  au FileType vimwiki colorscheme pencil
+  au FileType vimwiki set background=light
+  au FileType vimwiki :AirlineTheme pencil
   " 避免中文不正常斷行
   " au FileType vimwiki setlocal breakat=^I!@+;:,./?
 augroup END
@@ -593,11 +602,6 @@ let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
 let g:vimwiki_CJK_length = 1
 let g:vimwiki_folding = 'expr:quick'
 let g:vimwiki_use_calendar = 1
-
-" ----------------------------------------------------------------------------
-" vim-orgmode
-" ----------------------------------------------------------------------------
-let g:org_agenda_files = ['~/Dropbox/orgbook/index.org', '~/Dropbox/orgbook/*/*.org']
 
 " ----------------------------------------------------------------------------
 " utl.vim
