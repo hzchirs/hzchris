@@ -24,7 +24,7 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'vue'] }
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
@@ -36,7 +36,6 @@ Plug 'wellle/targets.vim'
 " ----------------------------------------------------------------------------
 " Motion
 " ----------------------------------------------------------------------------
-Plug 'bkad/CamelCaseMotion'
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-slash'
 Plug 'tmhedberg/matchit'
@@ -59,6 +58,7 @@ Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 nmap <silent> <leader><leader>f <Plug>(ale_fix)
 
+let g:ale_set_quickfix = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_linters = {
@@ -70,24 +70,25 @@ let g:ale_linter_aliases = {'vue': ['css', 'javascript']}
 let g:ale_fixers = {
       \'vue': ['eslint'],
       \'javascript': ['eslint'],
+      \'typescript': ['eslint'],
       \'ruby': ['rubocop']
       \}
 
 " ----------------------------------------------------------------------------
 " Languages
 " ----------------------------------------------------------------------------
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'elixir-editors/vim-elixir'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'tsx'] }
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
+Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 Plug 'gavocanov/vim-js-indent'
 Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-Plug 'mxw/vim-jsx'
-Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx', { 'for': 'jsx' }
+Plug 'othree/html5.vim', { 'for': 'html' }
+Plug 'pangloss/vim-javascript', { 'for': ['vue' ,'javascript', 'javascript.jsx'] }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'posva/vim-vue'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 
 let g:vue_disable_pre_processors = 1
@@ -127,10 +128,8 @@ Plug 'junegunn/fzf.vim'
 " ----------------------------------------------------------------------------
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
-Plug 'chriskempson/base16-vim'
-Plug 'cocopon/iceberg.vim'
 Plug 'dracula/vim'
-Plug 'hzchirs/vim-material'
+Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
 Plug 'lifepillar/vim-solarized8'
 Plug 'morhetz/gruvbox'
 Plug 'reedes/vim-colors-pencil'
@@ -172,9 +171,12 @@ Plug 'vim-scripts/BufOnly.vim'
 
 call plug#end()
 
-
 " ============================================================================
 " Basic settings
+" ============================================================================
+let mapleader=" "
+
+set list lcs=tab:\|\ " tab indent guide
 set fileencodings=utf-8,cp950
 set nocompatible              " be iMproved, required
 set hidden
@@ -239,6 +241,9 @@ set formatoptions+=mM
 set sidescroll=1
 set sidescrolloff=3
 
+" 游標置中
+set scrolloff=999
+
 " 讓滑鼠在所有模式下均可正常使用
 set mouse=a
 
@@ -258,14 +263,13 @@ set background=dark
 color vim-material
 let g:airline_theme="material"
 
-
 highlight ALEErrorSign guibg=red
 highlight ALEWarningSign guibg=orange
 
 function! RemoveTrailingSpace()
   %s/\s\+$//e
 endfunction
-nmap <leader><leader>rt :call RemoveTrailingSpace()<CR>
+nnoremap <leader><leader>rt :call RemoveTrailingSpace()<CR>
 
 " 檢查文字 highlight
 function! SyntaxItem()
@@ -281,20 +285,18 @@ function! SynStack()
   echo map(synstack(line('.'), col('.')), "synIDattr(v:val, 'name')")
 endfunc
 
-nmap <leader><leader>x :call SyntaxItem()<CR>
+nnoremap <leader><leader>x :call SyntaxItem()<CR>
 
 " ============================================================================
 " Autocmds
 " ============================================================================
 " ----------------------------------------------------------------------------
+" vue 相關設定
+" ----------------------------------------------------------------------------
+autocmd FileType vue syntax sync fromstart
+" ----------------------------------------------------------------------------
 " 進入 markdown 文件時的相關設定
 " ----------------------------------------------------------------------------
-" ============================================================================
-" Mappings
-" ============================================================================
-nnoremap <space> <nop>
-let mapleader=" "
-
 " ----------------------------------------------------------------------------
 " Normal mode
 " ----------------------------------------------------------------------------
@@ -308,10 +310,10 @@ nnoremap <leader>rspd :!puma-dev -stop<CR>
 nnoremap <silent><S-L> :set rnu!<CR>
 
 " 以螢幕所見的行而非實際的行來移動
-nnoremap k gkzz
-nnoremap gk kzz
-nnoremap j gjzz
-nnoremap gj jzz
+nnoremap k gk
+nnoremap gk k
+nnoremap j gj
+nnoremap gj j
 
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
@@ -420,11 +422,6 @@ augroup END
 " ============================================================================
 " Plugs Settings
 " ============================================================================
-
-" ----------------------------------------------------------------------------
-" CamelCaseMotion
-" ----------------------------------------------------------------------------
-call camelcasemotion#CreateMotionMappings('<leader>i')
 
 " ----------------------------------------------------------------------------
 " FZF
@@ -585,6 +582,9 @@ augroup filetype_vimwiki
   au FileType vimwiki let &l:showbreak = ""
   au FileType vimwiki nnoremap <buffer> <leader>k :VimwikiDiaryPrevDay<CR>
   au FileType vimwiki nnoremap <buffer> <leader>j :VimwikiDiaryNextDay<CR>
+  au FileType vimwiki nnoremap <buffer> <leader>n :lnext<CR>
+  au FileType vimwiki nnoremap <buffer> <leader>p :lprevious<CR>
+  au FileType vimwiki nnoremap <buffer> <leader>j :VimwikiDiaryNextDay<CR>
   au FileType vimwiki nmap <buffer> <leader>tt <Plug>VimwikiToggleListItem
   au FileType vimwiki nnoremap <buffer> // :VWS<space>
   au FileType vimwiki colorscheme pencil
@@ -640,7 +640,7 @@ nmap <F8> :TagbarToggle<CR>
 " indentLine
 " ----------------------------------------------------------------------------
 let g:indentLine_setColors = 0
-let g:indentLine_fileType = ['ruby', 'javascript']
+let g:indentLine_fileType = ['ruby', 'javascript', 'html', 'eruby']
 nnoremap <silent><leader>ig :IndentLinesToggle<CR>
 
 " ----------------------------------------------------------------------------
@@ -738,9 +738,3 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 " ----------------------------------------------------------------------------
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
-
-" ----------------------------------------------------------------------------
-" keepeye
-" ----------------------------------------------------------------------------
-" let g:keepeye_autostart = 1
-" let g:keepeye_message   = '眼睛累了嗎？休息一下吧！'
