@@ -58,9 +58,13 @@ Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 nmap <silent> <leader><leader>f <Plug>(ale_fix)
 
-let g:ale_set_quickfix = 1
+let g:ale_lint_on_enter        = 0
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
+let g:ale_open_list            = 1
+let g:ale_sign_column_always   = 1
+let g:ale_sign_error           = '●'
+let g:ale_sign_warning         = '●'
+
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'vue': ['vls', 'eslint', 'stylelint'],
@@ -263,8 +267,8 @@ set background=dark
 color vim-material
 let g:airline_theme="material"
 
-highlight ALEErrorSign guibg=red
-highlight ALEWarningSign guibg=orange
+highlight ALEErrorSign guifg=red
+highlight ALEWarningSign guifg=orange
 
 function! RemoveTrailingSpace()
   %s/\s\+$//e
