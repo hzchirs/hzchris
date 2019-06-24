@@ -33,12 +33,16 @@ Plug 'vim-scripts/SyntaxRange'
 Plug 'vim-scripts/utl.vim'
 Plug 'wellle/targets.vim'
 
+" 讓 vim 的 command line mode 支援 command line 快捷鍵
+Plug 'ryvnf/readline.vim'
+
 " ----------------------------------------------------------------------------
 " Motion
 " ----------------------------------------------------------------------------
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-slash'
 Plug 'tmhedberg/matchit'
+Plug 'airblade/vim-matchquote'
 
 " ----------------------------------------------------------------------------
 " Text Object
@@ -55,42 +59,50 @@ Plug 'tpope/vim-surround'
 " asynchronous lint engine
 " 只在 save 時才 link
 " 因為隨時 lint 非常耗電
-Plug 'w0rp/ale'
-nmap <silent> <leader><leader>f <Plug>(ale_fix)
+" Plug 'w0rp/ale', { 'for': ['ruby', 'vue', 'javascript'] }
 
-let g:ale_lint_on_enter        = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_open_list            = 1
-let g:ale_sign_column_always   = 1
-let g:ale_sign_error           = '●'
-let g:ale_sign_warning         = '●'
+" nnoremap <F8> <Plug>(ale_fix)
+" nnoremap <silent> <leader>p <Plug>(ale_previous)
+" nnoremap <silent> <leader>n <Plug>(ale_next)
 
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'vue': ['vls', 'eslint', 'stylelint'],
-\   'ruby': ['rubocop']
-\}
-let g:ale_linter_aliases = {'vue': ['css', 'javascript']}
-let g:ale_fixers = {
-      \'vue': ['eslint'],
-      \'javascript': ['eslint'],
-      \'typescript': ['eslint'],
-      \'ruby': ['rubocop']
-      \}
+" let g:airline#extensions#ale#enabled = 1
+" let g:ale_lint_on_enter        = 0
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_open_list            = 0
+" let g:ale_sign_column_always   = 0
+" let g:ale_sign_error           = '●'
+" let g:ale_sign_warning         = '●'
+"
+" let g:ale_linters = {
+" \   'javascript': ['eslint'],
+" \   'vue': ['vls', 'eslint', 'stylelint'],
+" \   'ruby': ['rubocop']
+" \}
+" let g:ale_linter_aliases = {'vue': ['css', 'javascript']}
+" let g:ale_fixers = {
+"       \'vue': ['eslint'],
+"       \'javascript': ['eslint'],
+"       \'ruby': ['rubocop']
+"       \}
+" let g:ale_fix_on_save = 1
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
 
 " ----------------------------------------------------------------------------
 " Languages
 " ----------------------------------------------------------------------------
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'tsx'] }
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
+" Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 Plug 'gavocanov/vim-js-indent'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+" Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript'] }
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'pangloss/vim-javascript', { 'for': ['vue' ,'javascript', 'javascript.jsx'] }
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
@@ -134,9 +146,10 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'dracula/vim'
 Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
+Plug 'hzchirs/nature', { 'dir': '~/Projects/sunshine' }
 Plug 'lifepillar/vim-solarized8'
 Plug 'morhetz/gruvbox'
-Plug 'reedes/vim-colors-pencil'
+Plug 'junegunn/seoul256.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -154,24 +167,27 @@ Plug 'rizzatti/dash.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
-" ----------------------------------------------------------------------------
-" Note
-" ----------------------------------------------------------------------------
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+" if has('nvim')
+"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
 
 " ----------------------------------------------------------------------------
 " Others
 " ----------------------------------------------------------------------------
 Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
+
+" ----------------------------------------------------------------------------
+" Note
+" ----------------------------------------------------------------------------
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+
 
 call plug#end()
 
@@ -203,6 +219,23 @@ set lazyredraw
 set synmaxcol=256
 syntax sync minlines=256
 
+" coc recommend settings
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+" set cmdheight=2
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
 " 視覺斷行，不會插入 EOL
 " set wrap
 " 讓視覺斷行斷在文字結束的地方而非中間
@@ -217,7 +250,6 @@ set cpoptions+=n
 
 " paste without replace
 xnoremap p pgvy
-
 
 " 編輯喜好設定
 set ai           " 自動縮排
@@ -263,12 +295,14 @@ let g:rubycomplete_buffer_loading = 1
 set laststatus=2
 
 set background=dark
-" let g:material_style='oceanic'
+" let g:material_style='palenight'
 color vim-material
+" color nature
 let g:airline_theme="material"
+" let g:airline_theme="nature"
 
-highlight ALEErrorSign guifg=red
-highlight ALEWarningSign guifg=orange
+" highlight ALEErrorSign guifg=red
+" highlight ALEWarningSign guifg=orange
 
 function! RemoveTrailingSpace()
   %s/\s\+$//e
@@ -302,6 +336,10 @@ autocmd FileType vue syntax sync fromstart
 " 進入 markdown 文件時的相關設定
 " ----------------------------------------------------------------------------
 " ----------------------------------------------------------------------------
+" GV 寬度設定
+" ----------------------------------------------------------------------------
+autocmd FileType git vertical resize 120
+" ----------------------------------------------------------------------------
 " Normal mode
 " ----------------------------------------------------------------------------
 " go run python3 for current file
@@ -311,19 +349,21 @@ nnoremap <silent><leader>rr :!ruby %<CR>
 
 nnoremap <leader>rspd :!puma-dev -stop<CR>
 
-nnoremap <silent><S-L> :set rnu!<CR>
-
 " 以螢幕所見的行而非實際的行來移動
 nnoremap k gk
 nnoremap gk k
 nnoremap j gj
 nnoremap gj j
 
+" 水平 scroll
+nnoremap <S-L> 10zl
+nnoremap <S-H> 10zh
+
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 " 縮放視窗
-nnoremap <silent><leader>= :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
-nnoremap <silent><leader>- :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
+nnoremap <silent><leader>= :exe "vertical resize " . (winwidth(0) * 10/9)<CR>
+nnoremap <silent><leader>- :exe "vertical resize " . (winwidth(0) * 9/10)<CR>
 
 " buffer 移動
 nnoremap <Tab> :bnext<CR>
@@ -334,7 +374,6 @@ nnoremap <S-X> :bp\|bd #<CR>
 " Insert Mode
 " ----------------------------------------------------------------------------
 inoremap jk <esc>
-inoremap <C-u> <esc>g~iwi
 
 " 模擬 Emacs 操作
 inoremap <C-e> <esc>A
@@ -530,7 +569,7 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 " ----------------------------------------------------------------------------
 " Goyo
 " ----------------------------------------------------------------------------
-let g:goyo_width = 120
+let g:goyo_width = 80
 
 function! s:goyo_enter()
   set wrap
@@ -584,25 +623,28 @@ augroup filetype_vimwiki
   au!
   au FileType vimwiki normal zM
   au FileType vimwiki let &l:showbreak = ""
-  au FileType vimwiki nnoremap <buffer> <leader>k :VimwikiDiaryPrevDay<CR>
-  au FileType vimwiki nnoremap <buffer> <leader>j :VimwikiDiaryNextDay<CR>
-  au FileType vimwiki nnoremap <buffer> <leader>n :lnext<CR>
-  au FileType vimwiki nnoremap <buffer> <leader>p :lprevious<CR>
-  au FileType vimwiki nnoremap <buffer> <leader>j :VimwikiDiaryNextDay<CR>
+  au FileType vimwiki nnoremap <buffer> <leader><leader>n :lnext<CR>
+  au FileType vimwiki nnoremap <buffer> <leader><leader>p :lprevious<CR>
+  au FileType vimwiki nnoremap <buffer> <leader><leader>g :Goyo<CR>
   au FileType vimwiki nmap <buffer> <leader>tt <Plug>VimwikiToggleListItem
-  au FileType vimwiki nnoremap <buffer> // :VWS<space>
-  au FileType vimwiki colorscheme pencil
-  au FileType vimwiki set background=light
-  au FileType vimwiki :AirlineTheme pencil
+  au FileType vimwiki nnoremap <buffer> //s :VWS<space>
+  au FileType vimwiki nnoremap <buffer> //t :VimwikiSearchTags<space>
+  " au FileType vimwiki setlocal background=light
+  " au FileType vimwiki colorscheme nature
+  " au FileType vimwiki :AirlineTheme nature
   " 避免中文不正常斷行
   " au FileType vimwiki setlocal breakat=^I!@+;:,./?
 augroup END
 
 
+" let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
+"       \ 'path_html': '~/Dropbox/vimwiki_html/',
+"       \ 'syntax': 'markdown', 'ext': '.md',
+"       \ 'auto_diary_index': 1,
+"       \ 'auto_tags': 1}]
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
       \ 'path_html': '~/Dropbox/vimwiki_html/',
-      \ 'syntax': 'markdown', 'ext': '.md',
-      \ 'auto_diary_index': 1}]
+      \ 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_CJK_length = 1
 let g:vimwiki_folding = 'expr:quick'
 let g:vimwiki_use_calendar = 1
@@ -621,6 +663,7 @@ let g:jsx_ext_required = 0
 " vim-ruby
 " ----------------------------------------------------------------------------
 let g:ruby_indent_access_modifier_style = 'indent'
+let g:ruby_indent_assignment_style = 'variable'
 let ruby_operators = 1
 let ruby_fold = 1
 
@@ -688,27 +731,40 @@ nnoremap <silent><leader>d :Dash<CR>
 let g:multi_cursor_quit_key = '<Esc>'
 
 "  解決 multiple cursor  出現異常字元的問題
-function! Multiple_cursors_before()
-  if exists('g:deoplete#disable_auto_complete')
-    let g:deoplete#disable_auto_complete = 1
-  endif
-endfunction
+" function! Multiple_cursors_before()
+"   if exists('g:deoplete#disable_auto_complete')
+"     let g:deoplete#disable_auto_complete = 1
+"   endif
+" endfunction
 
 " Called once only when the multiple selection is canceled (default <Esc>)
-function! Multiple_cursors_after()
-  if exists('g:deoplete#disable_auto_complete')
-    let g:deoplete#disable_auto_complete = 0
-  endif
-endfunction
+" function! Multiple_cursors_after()
+"   if exists('g:deoplete#disable_auto_complete')
+"     let g:deoplete#disable_auto_complete = 0
+"   endif
+" endfunction
+"
+" ----------------------------------------------------------------------------
+" COC
+" ---------------------------------------------------------------------------- COC
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 " ----------------------------------------------------------------------------
 " Deoplete
 " ----------------------------------------------------------------------------
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option({
-      \ 'max_list': 6,
-      \ 'on_insert_enter': v:false,
-      \ })
+" let g:deoplete#enable_at_startup = 1
+" call deoplete#custom#option({
+"       \ 'max_list': 6,
+"       \ 'on_insert_enter': v:false,
+"       \ })
 " deoplete tab-complete
 " inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " inoremap <silent> <CR> <C-r>=<SID>return_without_deoplete()<CR>
@@ -742,3 +798,8 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 " ----------------------------------------------------------------------------
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
+
+" ----------------------------------------------------------------------------
+" quick-scope
+" ----------------------------------------------------------------------------"""
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']

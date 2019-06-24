@@ -7,7 +7,6 @@ export ZSH=/Users/hzchris/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="powerlevel9k/powerlevel9k"
 ZSH_THEME="ys"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -98,10 +97,18 @@ export GOPATH=$HOME/golang
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
+export LDFLAGS="-L/usr/local/opt/readline/lib"
+export CPPFLAGS="-I/usr/local/opt/readline/include"
+
+# conda
+export PATH="/usr/local/miniconda3/bin:$PATH"
 
 export TODOTXT_DEFAULT_ACTION=ls
 alias t="todo.sh"
 alias ping="prettyping"
+alias :e="nvim"
+alias :q="exit"
+alias ipyh="ipython --profile=hzchris"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -109,3 +116,4 @@ export PATH="$HOME/.cargo/bin:$PATH"
 eval "$(rbenv init -)"
 
 export FZF_DEFAULT_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -400'"
+export PATH="/usr/local/opt/openssl/bin:$PATH"
