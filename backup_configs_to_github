@@ -1,1 +1,14 @@
-/Users/hzchris/bin/backup_configs_to_github
+#!/bin/sh
+cd ~/Projects/hzchris
+
+if [[ $(git status -s) ]]
+then
+  echo "Following files were changed!"
+  git status -s
+  git add --all
+  git commit -m "Regular update on: `date +%Y-%m-%d`"
+  git push
+else
+  echo "Nothing changed!"
+fi
+  
