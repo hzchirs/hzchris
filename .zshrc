@@ -8,6 +8,9 @@ export ZSH=/Users/hzchris/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="ys"
+# ZSH_THEME="powerlevel9k/powerlevel9k"
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir dir_writable vcs)
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status ram load battery time)
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -60,6 +63,8 @@ plugins=(
   notify
   docker
   docker-compose
+  pipenv
+  virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -99,9 +104,6 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 export LDFLAGS="-L/usr/local/opt/readline/lib"
 export CPPFLAGS="-I/usr/local/opt/readline/include"
-
-# conda
-export PATH="/usr/local/miniconda3/bin:$PATH"
 
 export TODOTXT_DEFAULT_ACTION=ls
 alias t="todo.sh"

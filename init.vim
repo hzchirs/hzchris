@@ -1,6 +1,9 @@
 " ============================================================================
 " Plugs
 " ============================================================================
+" builtin plugins
+packadd matchit
+
 if has('nvim')
   call plug#begin('~/.config/nvim/plugged')
 else
@@ -23,7 +26,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'terryma/vim-multiple-cursors'
+" Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'test'}
 Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'vue'] }
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
@@ -41,7 +45,6 @@ Plug 'ryvnf/readline.vim'
 " ----------------------------------------------------------------------------
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-slash'
-Plug 'tmhedberg/matchit'
 Plug 'airblade/vim-matchquote'
 
 " ----------------------------------------------------------------------------
@@ -60,11 +63,11 @@ Plug 'tpope/vim-surround'
 " 只在 save 時才 link
 " 因為隨時 lint 非常耗電
 " Plug 'w0rp/ale', { 'for': ['ruby', 'vue', 'javascript'] }
-
+"
 " nnoremap <F8> <Plug>(ale_fix)
-" nnoremap <silent> <leader>p <Plug>(ale_previous)
-" nnoremap <silent> <leader>n <Plug>(ale_next)
-
+" nnoremap <silent> <leader>p :ALEPrevious<CR>
+" nnoremap <silent> <leader>n :ALENext<CR>
+"
 " let g:airline#extensions#ale#enabled = 1
 " let g:ale_lint_on_enter        = 0
 " let g:ale_lint_on_text_changed = 'never'
@@ -85,10 +88,10 @@ Plug 'tpope/vim-surround'
 "       \'ruby': ['rubocop']
 "       \}
 " let g:ale_fix_on_save = 1
-
+"
 " Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 
 " ----------------------------------------------------------------------------
@@ -98,16 +101,21 @@ Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'tsx'] }
 " Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'gavocanov/vim-js-indent'
 " Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript'] }
-Plug 'mxw/vim-jsx', { 'for': 'jsx' }
+" Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'pangloss/vim-javascript', { 'for': ['vue' ,'javascript', 'javascript.jsx'] }
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
+Plug 'plytophogy/vim-virtualenv', { 'for': 'python' }
+Plug 'PieterjanMontens/vim-pipenv', { 'for': 'python' }
 
 let g:vue_disable_pre_processors = 1
+let g:javascript_plugin_jsdoc = 1
 
 " ----------------------------------------------------------------------------
 " Development Tools
@@ -166,6 +174,7 @@ Plug 'rizzatti/dash.vim'
 " ----------------------------------------------------------------------------
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'kkoomen/vim-doge'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
@@ -297,12 +306,12 @@ set laststatus=2
 set background=dark
 " let g:material_style='palenight'
 color vim-material
-" color nature
+" color dracula
 let g:airline_theme="material"
 " let g:airline_theme="nature"
 
-" highlight ALEErrorSign guifg=red
-" highlight ALEWarningSign guifg=orange
+highlight ALEErrorSign guifg=red
+highlight ALEWarningSign guifg=orange
 
 function! RemoveTrailingSpace()
   %s/\s\+$//e
@@ -332,6 +341,15 @@ nnoremap <leader><leader>x :call SyntaxItem()<CR>
 " vue 相關設定
 " ----------------------------------------------------------------------------
 autocmd FileType vue syntax sync fromstart
+
+" ----------------------------------------------------------------------------
+" python 相關設定
+" ----------------------------------------------------------------------------
+augroup filetype_python
+  au!
+  autocmd FileType python set foldmethod=indent
+augroup END
+
 " ----------------------------------------------------------------------------
 " 進入 markdown 文件時的相關設定
 " ----------------------------------------------------------------------------
@@ -346,6 +364,8 @@ autocmd FileType git vertical resize 120
 nnoremap <silent><leader>rp :!python3 %<CR>
 " go run ruby for current file
 nnoremap <silent><leader>rr :!ruby %<CR>
+" go run javascript for current file
+nnoremap <silent><leader>rj :!node %<CR>
 
 nnoremap <leader>rspd :!puma-dev -stop<CR>
 
@@ -406,7 +426,7 @@ augroup term_emulator
   au TermOpen * setlocal nonumber norelativenumber
 augroup END
 
-nnoremap <leader>rc :belowright split \| terminal rails console<CR> \| i
+nnoremap <leader>rc :belowright split \| terminal bundle exec rails console<CR> \| i
 nnoremap <leader>vt :vsplit \| terminal<CR> \| i
 nnoremap <leader>st :belowright split \| terminal<CR> \| i
 nnoremap <leader>cl :call RunCurrentSpecLine()<CR>
@@ -657,7 +677,7 @@ let g:utl_cfg_hdl_scm_http_system = "silent !open -a firefox '%u'"
 " ----------------------------------------------------------------------------
 " vim-jsx
 " ----------------------------------------------------------------------------
-let g:jsx_ext_required = 0
+" let g:jsx_ext_required = 0
 
 " ----------------------------------------------------------------------------
 " vim-ruby
@@ -723,12 +743,12 @@ nmap ga <Plug>(EasyAlign)
 " ----------------------------------------------------------------------------
 " dash
 " ----------------------------------------------------------------------------
-nnoremap <silent><leader>d :Dash<CR>
+nnoremap <silent><leader>dd :Dash<CR>
 
 " ----------------------------------------------------------------------------
 " vim-multiple-cursors
 " ----------------------------------------------------------------------------
-let g:multi_cursor_quit_key = '<Esc>'
+" let g:multi_cursor_quit_key = '<Esc>'
 
 "  解決 multiple cursor  出現異常字元的問題
 " function! Multiple_cursors_before()
@@ -747,11 +767,8 @@ let g:multi_cursor_quit_key = '<Esc>'
 " ----------------------------------------------------------------------------
 " COC
 " ---------------------------------------------------------------------------- COC
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -776,6 +793,11 @@ endfunction
 " BufOnly
 " ----------------------------------------------------------------------------
 nnoremap <leader>bo :BufOnly<CR>
+
+" ----------------------------------------------------------------------------
+" vim-doge
+" ----------------------------------------------------------------------------
+nnoremap <leader>dg :DogeGenerate<CR>
 
 " ----------------------------------------------------------------------------
 " EasyMotion
