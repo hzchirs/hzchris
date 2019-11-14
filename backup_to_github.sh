@@ -8,5 +8,7 @@ then
   git add --all
   git commit -m "Regular update on: `date +%Y-%m-%d`"
   git push
+else
+  echo "Nothing have to update!"
 fi
   
