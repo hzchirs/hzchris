@@ -26,7 +26,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'michaeljsmith/vim-indent-object'
-" Plug 'terryma/vim-multiple-cursors'
 Plug 'mg979/vim-visual-multi', {'branch': 'test'}
 Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'vue'] }
 Plug 'tomtom/tcomment_vim'
