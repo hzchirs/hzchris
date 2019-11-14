@@ -1,6 +1,8 @@
 #!/bin/sh
 cd ~/Projects/hzchris
 
+echo "Executing backup configs to github script. Date: `date +%Y-%m-%d`"
+
 if [[ $(git status -s) ]]
 then
   echo "Following files were changed!"
