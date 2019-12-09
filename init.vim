@@ -35,6 +35,7 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'vim-scripts/SyntaxRange'
 Plug 'vim-scripts/utl.vim'
 Plug 'wellle/targets.vim'
+" Plug 'wellle/context.vim' " 太慢，暫時解除
 
 " 讓 vim 的 command line mode 支援 command line 快捷鍵
 Plug 'ryvnf/readline.vim'
