@@ -144,12 +144,12 @@ Plug 'tpope/vim-rhubarb'
 " ----------------------------------------------------------------------------
 " Fuzzy finder
 " ----------------------------------------------------------------------------
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
- Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-let g:Lf_WindowPosition = 'popup'
-let g:Lf_PreviewInPopup = 1
-let g:Lf_ShortcutF = '<C-P>'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+"  Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" let g:Lf_WindowPosition = 'popup'
+" let g:Lf_PreviewInPopup = 1
+" let g:Lf_ShortcutF = '<C-P>'
 " ----------------------------------------------------------------------------
 " Themes
 " ----------------------------------------------------------------------------
@@ -492,103 +492,103 @@ augroup END
 " ----------------------------------------------------------------------------
 " FZF
 " ----------------------------------------------------------------------------
-" if has('nvim') || has('gui_running')
-"   let $FZF_DEFAULT_OPTS .= ' --inline-info'
-"   let $FZF_DEFAULT_COMMAND= 'ag -g ""'
-" endif
-"
-" nnoremap <silent> <C-p> :Files<CR>
-" nnoremap <silent> <S-p> :Buffers<CR>
-" nnoremap <silent> <leader>? :History<CR>
-" nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-" nnoremap <leader>f :AgIn
-"
-" nnoremap <silent> K :call SearchWordWithAg()<CR>
-" vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
-" nnoremap <silent> <leader>cc :Commits<CR>
-" nnoremap <silent> <leader>bc :BCommits<CR>
-" nnoremap <silent> <leader>ft :Filetypes<CR>
-"
-" imap <c-x><c-k> <plug>(fzf-complete-word)
-" imap <C-x><C-j> <plug>(fzf-complete-file-ag)
-" imap <C-x><C-l> <plug>(fzf-complete-line)
-"
-" function! SearchWordWithAg()
-"   execute 'Ag' expand('<cword>')
-" endfunction
-"
-" function! SearchVisualSelectionWithAg() range
-"   let old_reg = getreg('"')
-"   let old_regtype = getregtype('"')
-"   let old_clipboard = &clipboard
-"   set clipboard&
-"   normal! ""gvy
-"   let selection = getreg('"')
-"   call setreg('"', old_reg, old_regtype)
-"   let &clipboard = old_clipboard
-"   execute 'Ag' selection
-" endfunction
-"
-" function! s:ag_in(...)
-"   call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview(extend({'dir': a:1}, {'down': '~40%', 'options': '--delimiter : --nth 4..'})))
-" endfunction
-"
-" command! -nargs=+ -complete=dir AgIn call s:ag_in(<f-args>)
-"
-" " Command for git grep
-" " - fzf#vim#grep(command, with_column, [options], [fullscreen])
-" command! -bang -nargs=* GGrep
-"       \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
-"
-" command! -bang -nargs=* Ag
-"       \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
-"
-" command! -bang -nargs=* Rg
-"       \ call fzf#vim#grep(
-"       \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-"       \   <bang>0 ? fzf#vim#with_preview('up:60%')
-"       \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-"       \   <bang>0)
-"
-" " Likewise, Files command with preview window
-" command! -bang -nargs=? -complete=dir Files
-"       \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-"
-" " Likewise, Files command with preview window
-" command! -bang -nargs=? -complete=dir Buffers
-"       \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview(), <bang>0)
-"
-" " Customize fzf colors to match your color scheme
-" let g:fzf_colors =
-"       \ { 'fg':      ['fg', 'Normal'],
-"       \ 'bg':      ['bg', 'Normal'],
-"       \ 'hl':      ['fg', 'Type'],
-"       \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-"       \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-"       \ 'hl+':     ['fg', 'Identifier'],
-"       \ 'info':    ['fg', 'PreProc'],
-"       \ 'prompt':  ['fg', 'Conditional'],
-"       \ 'pointer': ['fg', 'Exception'],
-"       \ 'marker':  ['fg', 'Keyword'],
-"       \ 'spinner': ['fg', 'Label'],
-"       \ 'header':  ['fg', 'Comment'] }
-"
-" " Enable per-command history.
-" " CTRL-N and CTRL-P will be automatically bound to next-history and
-" " previous-history instead of down and up. If you don't like the change,
-" " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-" let g:fzf_history_dir = '~/.local/share/fzf-history'
-"
-" function! s:fzf_statusline()
-"   " Override statusline as you like
-"   highlight fzf1 ctermfg=161 ctermbg=251
-"   highlight fzf2 ctermfg=23 ctermbg=251
-"   highlight fzf3 ctermfg=237 ctermbg=251
-"   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-" endfunction
-"
-" autocmd! User FzfStatusLine call <SID>fzf_statusline()
-"
+if has('nvim') || has('gui_running')
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  let $FZF_DEFAULT_COMMAND= 'ag -g ""'
+endif
+
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <S-p> :Buffers<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+nnoremap <leader>f :AgIn
+
+nnoremap <silent> K :call SearchWordWithAg()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+nnoremap <silent> <leader>cc :Commits<CR>
+nnoremap <silent> <leader>bc :BCommits<CR>
+nnoremap <silent> <leader>ft :Filetypes<CR>
+
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <C-x><C-j> <plug>(fzf-complete-file-ag)
+imap <C-x><C-l> <plug>(fzf-complete-line)
+
+function! SearchWordWithAg()
+  execute 'Ag' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Ag' selection
+endfunction
+
+function! s:ag_in(...)
+  call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview(extend({'dir': a:1}, {'down': '~40%', 'options': '--delimiter : --nth 4..'})))
+endfunction
+
+command! -nargs=+ -complete=dir AgIn call s:ag_in(<f-args>)
+
+" Command for git grep
+" - fzf#vim#grep(command, with_column, [options], [fullscreen])
+command! -bang -nargs=* GGrep
+      \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
+
+command! -bang -nargs=* Ag
+      \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+
+command! -bang -nargs=* Rg
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+      \   <bang>0 ? fzf#vim#with_preview('up:60%')
+      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \   <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Buffers
+      \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Type'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Identifier'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
 " ----------------------------------------------------------------------------
 " Goyo
 " ----------------------------------------------------------------------------
