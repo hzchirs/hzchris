@@ -150,6 +150,7 @@ Plug 'junegunn/fzf.vim'
 " let g:Lf_WindowPosition = 'popup'
 " let g:Lf_PreviewInPopup = 1
 " let g:Lf_ShortcutF = '<C-P>'
+" let g:Lf_StlSeparator = { 'left': "", 'right': "", 'font': "DejaVu Sans Mono for Powerline" }
 " ----------------------------------------------------------------------------
 " Themes
 " ----------------------------------------------------------------------------
