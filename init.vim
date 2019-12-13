@@ -502,13 +502,14 @@ nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <S-p> :Buffers<CR>
 nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-nnoremap <leader>f :AgIn
+nnoremap <leader>fi :AgIn 
 
 nnoremap <silent> K :call SearchWordWithAg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
-nnoremap <silent> <leader>cc :Commits<CR>
-nnoremap <silent> <leader>bc :BCommits<CR>
-nnoremap <silent> <leader>ft :Filetypes<CR>
+nnoremap <silent> <leader>fc :Commits<CR>
+nnoremap <silent> <leader>fbc :BCommits<CR>
+nnoremap <silent> <leader>fl :Lines<CR>
+nnoremap <silent> <leader>fbl :BLines<CR>
 
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <C-x><C-j> <plug>(fzf-complete-file-ag)
@@ -551,11 +552,10 @@ command! -bang -nargs=* Rg
       \           : fzf#vim#with_preview('right:50%:hidden', '?'),
       \   <bang>0)
 
-" Likewise, Files command with preview window
+" Files command with preview window
 command! -bang -nargs=? -complete=dir Files
       \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-" Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Buffers
       \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview(), <bang>0)
 
