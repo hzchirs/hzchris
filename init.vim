@@ -539,19 +539,11 @@ command! -nargs=+ -complete=dir AgIn call s:ag_in(<f-args>)
 
 " Command for git grep
 " - fzf#vim#grep(command, with_column, [options], [fullscreen])
+
 command! -bang -nargs=* GGrep
-      \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
-"
-" command! -bang -nargs=* Ag
-"       \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
-"
-" command! -bang -nargs=* Rg
-"       \ call fzf#vim#grep(<q-args>, fzf#vim#with_preview(), <bang>0)
-      " \ call fzf#vim#grep(
-      " \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-      " \   <bang>0 ? fzf#vim#with_preview('up:60%')
-      " \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-      " \   <bang>0)
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
 " Files command with preview window
 command! -bang -nargs=* Ag
@@ -565,8 +557,8 @@ command! -bang -nargs=* Rg
 command! -bang -nargs=? -complete=dir Files
       \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-command! -bang -nargs=? -complete=dir Buffers
-      \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview(), <bang>0)
+" command! -bang -nargs=? Buffers
+"       \ call fzf#vim#buffers(fzf#vim#with_preview(), <bang>0)
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
