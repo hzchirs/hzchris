@@ -128,7 +128,8 @@ Plug 'tpope/vim-unimpaired'
 " Browsing
 " ----------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine'
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+" Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'liuchengxu/vista.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -706,7 +707,7 @@ nnoremap <silent><C-\> :NERDTreeToggle<CR>
 " ----------------------------------------------------------------------------
 " tagbar
 " ----------------------------------------------------------------------------
-nmap <F8> :TagbarToggle<CR>
+" nmap <F8> :TagbarToggle<CR>
 
 " ----------------------------------------------------------------------------
 " indentLine
