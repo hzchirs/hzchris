@@ -128,7 +128,6 @@ Plug 'tpope/vim-unimpaired'
 " Browsing
 " ----------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine'
-" Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'liuchengxu/vista.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -705,9 +704,10 @@ let g:DevIconsEnableFoldersOpenClose = 1
 nnoremap <silent><C-\> :NERDTreeToggle<CR>
 
 " ----------------------------------------------------------------------------
-" tagbar
+" vista
 " ----------------------------------------------------------------------------
-" nmap <F8> :TagbarToggle<CR>
+nmap <silent> <leader>vo :Vista coc<CR>
+nmap <silent> <leader>vc :Vista!<CR>
 
 " ----------------------------------------------------------------------------
 " indentLine
