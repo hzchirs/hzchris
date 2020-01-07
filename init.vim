@@ -728,15 +728,6 @@ let g:rails_ctags_arguments = ['--languages=ruby --exclude=.git --exclude=log .'
 nnoremap <leader>gr :GoRun<CR>
 
 " ----------------------------------------------------------------------------
-" vim-markdown
-" ----------------------------------------------------------------------------
-" let g:vim_markdown_toc_autofit      = 1
-" let g:vim_markdown_frontmatter      = 1
-" let g:vim_markdown_json_frontmatter = 1
-" let g:vim_markdown_toml_frontmatter = 1
-" let g:vim_markdown_folding_disabled = 1
-
-" ----------------------------------------------------------------------------
 " csv.vim
 " ----------------------------------------------------------------------------
 let g:csv_autocmd_arrange = 1
@@ -752,25 +743,6 @@ nmap ga <Plug>(EasyAlign)
 nnoremap <silent><leader>dd :Dash<CR>
 
 " ----------------------------------------------------------------------------
-" vim-multiple-cursors
-" ----------------------------------------------------------------------------
-" let g:multi_cursor_quit_key = '<Esc>'
-
-"  解決 multiple cursor  出現異常字元的問題
-" function! Multiple_cursors_before()
-"   if exists('g:deoplete#disable_auto_complete')
-"     let g:deoplete#disable_auto_complete = 1
-"   endif
-" endfunction
-
-" Called once only when the multiple selection is canceled (default <Esc>)
-" function! Multiple_cursors_after()
-"   if exists('g:deoplete#disable_auto_complete')
-"     let g:deoplete#disable_auto_complete = 0
-"   endif
-" endfunction
-"
-" ----------------------------------------------------------------------------
 " COC
 " ---------------------------------------------------------------------------- COC
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -780,20 +752,6 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-" ----------------------------------------------------------------------------
-" Deoplete
-" ----------------------------------------------------------------------------
-" let g:deoplete#enable_at_startup = 1
-" call deoplete#custom#option({
-"       \ 'max_list': 6,
-"       \ 'on_insert_enter': v:false,
-"       \ })
-" deoplete tab-complete
-" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" inoremap <silent> <CR> <C-r>=<SID>return_without_deoplete()<CR>
-" function! s:return_without_deoplete() abort
-"   return deoplete#mappings#close_popup() . "\<CR>"
-" endfunction
 
 " ----------------------------------------------------------------------------
 " BufOnly
