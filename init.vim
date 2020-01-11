@@ -706,6 +706,7 @@ nnoremap <silent><C-\> :NERDTreeToggle<CR>
 " ----------------------------------------------------------------------------
 " vista
 " ----------------------------------------------------------------------------
+let g:vista_echo_cursor_strategy = 'floating_win'
 nmap <silent> <leader>vo :Vista coc<CR>
 nmap <silent> <leader>vc :Vista!<CR>
 
