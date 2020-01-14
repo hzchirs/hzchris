@@ -136,6 +136,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " Git
 " ----------------------------------------------------------------------------
 Plug 'airblade/vim-gitgutter'
+Plug 'jreybert/vimagit'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
