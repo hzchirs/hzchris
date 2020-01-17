@@ -715,7 +715,7 @@ nmap <silent> <leader>vc :Vista!<CR>
 " indentLine
 " ----------------------------------------------------------------------------
 let g:indentLine_setColors = 0
-let g:indentLine_fileType = ['ruby', 'javascript', 'html', 'eruby']
+let g:indentLine_fileType = ['ruby', 'javascript', 'html', 'eruby', 'vue']
 nnoremap <silent><leader>ig :IndentLinesToggle<CR>
 
 " ----------------------------------------------------------------------------
