@@ -114,8 +114,8 @@ Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 Plug 'plytophogy/vim-virtualenv', { 'for': 'python' }
 Plug 'PieterjanMontens/vim-pipenv', { 'for': 'python' }
 
-let g:vue_disable_pre_processors = 1
-let g:javascript_plugin_jsdoc = 1
+" let g:vue_disable_pre_processors = 1
+" let g:javascript_plugin_jsdoc = 1
 
 " ----------------------------------------------------------------------------
 " Development Tools
