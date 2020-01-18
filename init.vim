@@ -114,8 +114,8 @@ Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 Plug 'plytophogy/vim-virtualenv', { 'for': 'python' }
 Plug 'PieterjanMontens/vim-pipenv', { 'for': 'python' }
 
-" let g:vue_disable_pre_processors = 1
-" let g:javascript_plugin_jsdoc = 1
+let g:vue_disable_pre_processors = 1
+let g:javascript_plugin_jsdoc = 1
 
 " ----------------------------------------------------------------------------
 " Development Tools
@@ -219,7 +219,8 @@ filetype plugin indent on                  " required
 set relativenumber
 
 set autoindent
-set foldmethod=syntax
+" set foldmethod=syntax
+set foldmethod=indent
 set foldlevel=20
 set clipboard+=unnamed
 set shell=zsh
@@ -345,7 +346,7 @@ nnoremap <leader><leader>x :call SyntaxItem()<CR>
 " ----------------------------------------------------------------------------
 " vue 相關設定
 " ----------------------------------------------------------------------------
-autocmd FileType vue syntax sync fromstart
+" autocmd FileType vue syntax sync fromstart
 
 " ----------------------------------------------------------------------------
 " python 相關設定
