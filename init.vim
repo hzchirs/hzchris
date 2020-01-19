@@ -98,13 +98,9 @@ nmap <silent> ]d <Plug>(coc-diagnostic-next)
 " Languages
 " ----------------------------------------------------------------------------
 Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'tsx'] }
-" Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'gavocanov/vim-js-indent'
-" Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript'] }
-" Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'pangloss/vim-javascript', { 'for': ['vue' ,'javascript', 'javascript.jsx'] }
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
@@ -147,11 +143,6 @@ Plug 'tpope/vim-rhubarb'
 " ----------------------------------------------------------------------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-" let g:Lf_WindowPosition = 'popup'
-" let g:Lf_PreviewInPopup = 1
-" let g:Lf_ShortcutF = '<C-P>'
-" let g:Lf_StlSeparator = { 'left': "", 'right': "", 'font': "DejaVu Sans Mono for Powerline" }
 " ----------------------------------------------------------------------------
 " Themes
 " ----------------------------------------------------------------------------
@@ -159,7 +150,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'dracula/vim'
 Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
-Plug 'hzchirs/nature', { 'dir': '~/Projects/sunshine' }
+" Plug 'hzchirs/nature', { 'dir': '~/Projects/sunshine' }
 Plug 'lifepillar/vim-solarized8'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
@@ -182,15 +173,6 @@ Plug 'honza/vim-snippets'
 Plug 'kkoomen/vim-doge'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-
-" if has('nvim')
-"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-"   Plug 'Shougo/deoplete.nvim'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-" endif
-
 " ----------------------------------------------------------------------------
 " Others
 " ----------------------------------------------------------------------------
