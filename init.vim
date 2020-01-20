@@ -119,6 +119,7 @@ let g:javascript_plugin_jsdoc = 1
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-db', { 'on': 'DB' }
 Plug 'tpope/vim-unimpaired'
+Plug 'janko/vim-test'
 
 " ----------------------------------------------------------------------------
 " Browsing
