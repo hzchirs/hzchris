@@ -59,37 +59,6 @@ Plug 'tpope/vim-surround'
 " ----------------------------------------------------------------------------
 " linter
 " ----------------------------------------------------------------------------
-" asynchronous lint engine
-" 只在 save 時才 link
-" 因為隨時 lint 非常耗電
-" Plug 'w0rp/ale', { 'for': ['ruby', 'vue', 'javascript'] }
-"
-" nnoremap <F8> <Plug>(ale_fix)
-" nnoremap <silent> <leader>p :ALEPrevious<CR>
-" nnoremap <silent> <leader>n :ALENext<CR>
-"
-" let g:airline#extensions#ale#enabled = 1
-" let g:ale_lint_on_enter        = 0
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_open_list            = 0
-" let g:ale_sign_column_always   = 0
-" let g:ale_sign_error           = '●'
-" let g:ale_sign_warning         = '●'
-"
-" let g:ale_linters = {
-" \   'javascript': ['eslint'],
-" \   'vue': ['vls', 'eslint', 'stylelint'],
-" \   'ruby': ['rubocop']
-" \}
-" let g:ale_linter_aliases = {'vue': ['css', 'javascript']}
-" let g:ale_fixers = {
-"       \'vue': ['eslint'],
-"       \'javascript': ['eslint'],
-"       \'ruby': ['rubocop']
-"       \}
-" let g:ale_fix_on_save = 1
-"
-" Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [d <Plug>(coc-diagnostic-prev)
 nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
@@ -128,6 +97,11 @@ Plug 'Yggdroot/indentLine'
 Plug 'liuchengxu/vista.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+" ----------------------------------------------------------------------------
+" Diff
+" ----------------------------------------------------------------------------
+Plug 'AndrewRadev/linediff.vim' 
 
 " ----------------------------------------------------------------------------
 " Git
