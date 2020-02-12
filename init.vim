@@ -269,9 +269,13 @@ set laststatus=2
 
 set background=dark
 " let g:material_style='palenight'
-color vim-material
+let g:forest_night_enable_italic = 1
+color forest-night
+
+" color vim-material
 " color dracula
-let g:airline_theme="material"
+" let g:airline_theme="material"
+let g:airline_theme = 'forest_night'
 " let g:airline_theme="nature"
 
 highlight ALEErrorSign guifg=red
