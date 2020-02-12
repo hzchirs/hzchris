@@ -125,6 +125,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'dracula/vim'
 Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
+Plug 'sainnhe/vim-color-forest-night'
 " Plug 'hzchirs/nature', { 'dir': '~/Projects/sunshine' }
 Plug 'lifepillar/vim-solarized8'
 Plug 'morhetz/gruvbox'
