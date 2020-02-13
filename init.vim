@@ -269,13 +269,12 @@ set laststatus=2
 
 set background=dark
 " let g:material_style='palenight'
-let g:forest_night_enable_italic = 1
-color forest-night
+" let g:forest_night_enable_italic = 1
+" color forest-night
 
-" color vim-material
-" color dracula
-" let g:airline_theme="material"
-let g:airline_theme = 'forest_night'
+color vim-material
+let g:airline_theme="material"
+" let g:airline_theme = 'forest_night'
 " let g:airline_theme="nature"
 
 highlight ALEErrorSign guifg=red
@@ -522,9 +521,6 @@ command! -bang -nargs=* Rg
 
 command! -bang -nargs=? -complete=dir Files
       \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-command! -bang -nargs=? -complete=dir Buffers
-      \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
