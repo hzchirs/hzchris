@@ -456,10 +456,10 @@ augroup END
 " ----------------------------------------------------------------------------
 " FZF
 " ----------------------------------------------------------------------------
-" if has('nvim') || has('gui_running')
-"   let $FZF_DEFAULT_OPTS .= ' --inline-info'
-"   let $FZF_DEFAULT_COMMAND= 'ag -g ""'
-" endif
+if has('nvim') || has('gui_running')
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  let $FZF_DEFAULT_COMMAND= 'ag -g ""'
+endif
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
