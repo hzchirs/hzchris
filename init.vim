@@ -270,12 +270,12 @@ set laststatus=2
 " set background=dark
 set background=dark
 " let g:material_style='palenight'
-let g:forest_night_enable_italic = 1
-color forest-night
+" let g:forest_night_enable_italic = 1
+" color forest-night
 
-" color vim-material
-" let g:airline_theme="material"
-let g:airline_theme = 'forest_night'
+color vim-material
+let g:airline_theme="material"
+" let g:airline_theme = 'forest_night'
 " let g:airline_theme="nature"
 
 highlight ALEErrorSign guifg=red
