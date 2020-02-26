@@ -154,7 +154,6 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 " ----------------------------------------------------------------------------
 Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
-Plug 'skywind3000/vim-quickui'
 
 " ----------------------------------------------------------------------------
 " Note
