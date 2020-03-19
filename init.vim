@@ -97,7 +97,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'liuchengxu/vista.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'junegunn/vim-peekaboo'
 
 " ----------------------------------------------------------------------------
 " Diff
