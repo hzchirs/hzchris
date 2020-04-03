@@ -280,13 +280,15 @@ let g:rubycomplete_buffer_loading = 1
 
 set laststatus=2
 
-set background=dark
+" set background=dark
+set background=light
+colorscheme PaperColor
 " let g:material_style='palenight'
 " let g:forest_night_enable_italic = 1
 " color forest-night
 
-color vim-material
-let g:airline_theme="material"
+" color vim-material
+" let g:airline_theme="material"
 " let g:airline_theme = 'forest_night'
 " let g:airline_theme="nature"
 
