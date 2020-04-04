@@ -44,7 +44,6 @@ Plug 'ryvnf/readline.vim'
 " Motion
 " ----------------------------------------------------------------------------
 Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/vim-slash'
 Plug 'airblade/vim-matchquote'
 
 " ----------------------------------------------------------------------------
