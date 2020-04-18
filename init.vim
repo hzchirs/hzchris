@@ -88,6 +88,7 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-db', { 'on': 'DB' }
 Plug 'tpope/vim-unimpaired'
 Plug 'janko/vim-test'
+Plug 'Lenovsky/nuake'
 
 " ----------------------------------------------------------------------------
 " Browsing
@@ -405,9 +406,13 @@ augroup term_emulator
   au TermOpen * setlocal nonumber norelativenumber
 augroup END
 
+let g:nuake_size = 0.5
+
+nnoremap <F4> :Nuake<CR>
+inoremap <F4> <C-\><C-n>:Nuake<CR>
+tnoremap <F4> <C-\><C-n>:Nuake<CR>
+
 nnoremap <leader>rc :belowright split \| terminal bundle exec rails console<CR> \| i
-nnoremap <leader>vt :vsplit \| terminal<CR> \| i
-nnoremap <leader>st :belowright split \| terminal<CR> \| i
 nnoremap <leader>cl :call RunCurrentSpecLine()<CR>
 nnoremap <leader>cs :call RunCurrentSpecFile()<CR>
 
