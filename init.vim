@@ -408,18 +408,19 @@ augroup END
 
 let g:nuake_size = 0.5
 
-nnoremap <leader>st :Nuake<CR>
+nnoremap <F4> :Nuake<CR>
+tnoremap <F4> <C-\><C-N>:Nuake<CR>
 
 nnoremap <leader>rc :belowright split \| terminal bundle exec rails console<CR> \| i
 nnoremap <leader>cl :call RunCurrentSpecLine()<CR>
 nnoremap <leader>cs :call RunCurrentSpecFile()<CR>
 
 function! RunCurrentSpecLine()
-  let lineNum = line('.')
+let lineNum = line('.')
 
-  exec 'belowright split'
-  exec 'terminal bundle exec rspec %:' . lineNum
-  startinsert!
+exec 'belowright split'
+exec 'terminal bundle exec rspec %:' . lineNum
+startinsert!
 endfunction
 
 function! RunCurrentSpecFile()
