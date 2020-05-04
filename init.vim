@@ -185,6 +185,7 @@ set list lcs=tab:\|\ " tab indent guide
 set fileencodings=utf-8,cp950
 set nocompatible              " be iMproved, required
 set hidden
+set undofile " Maintain undo history between sessions
 " set showcmd
 filetype plugin indent on                  " required
 set relativenumber
