@@ -135,6 +135,7 @@ Plug 'junegunn/fzf.vim'
 " Themes
 " ----------------------------------------------------------------------------
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'sainnhe/edge'
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'dracula/vim'
 Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
@@ -286,6 +287,7 @@ set background=dark
 " let g:forest_night_enable_italic = 1
 " color forest-night
 
+" color vim-material
 color vim-material
 let g:airline_theme="material"
 " let g:airline_theme = 'forest_night'
