@@ -26,7 +26,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'mg979/vim-visual-multi', {'branch': 'test'}
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'vue'] }
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
