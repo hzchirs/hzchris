@@ -97,7 +97,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'liuchengxu/vista.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'pechorin/any-jump.vim'
 
 " Normal mode: Jump to definition under cursore
 nnoremap <leader>j :AnyJump<CR>
