@@ -74,7 +74,6 @@ Plug 'pangloss/vim-javascript', { 'for': ['vue' ,'javascript', 'javascript.jsx']
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 Plug 'plytophogy/vim-virtualenv', { 'for': 'python' }
 Plug 'PieterjanMontens/vim-pipenv', { 'for': 'python' }
 
