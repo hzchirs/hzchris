@@ -74,8 +74,9 @@ Plug 'pangloss/vim-javascript', { 'for': ['vue' ,'javascript', 'javascript.jsx']
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'plytophogy/vim-virtualenv', { 'for': 'python' }
-Plug 'PieterjanMontens/vim-pipenv', { 'for': 'python' }
+Plug 'vim-python/python-syntax', { 'for': 'python' }
+" Plug 'plytophogy/vim-virtualenv', { 'for': 'python' }
+" Plug 'PieterjanMontens/vim-pipenv', { 'for': 'python' }
 
 let g:vue_disable_pre_processors = 1
 let g:javascript_plugin_jsdoc = 1
@@ -456,6 +457,11 @@ augroup filetype_go
   autocmd FileType go setlocal tabstop=8
   autocmd FileType go setlocal shiftwidth=8
 augroup END
+
+" ----------------------------------------------------------------------------
+" Python
+" ----------------------------------------------------------------------------
+let g:python_highlight_all = 1
 
 " ----------------------------------------------------------------------------
 " HTML, ERB
