@@ -271,10 +271,10 @@ set background=dark
 " let g:forest_night_enable_italic = 1
 " color forest-night
 
-color gruvbox
-" color vim-material
-" let g:airline_theme="material"
-let g:airline_theme = 'gruvbox'
+" color gruvbox
+color vim-material
+let g:airline_theme="material"
+" let g:airline_theme = 'gruvbox'
 " let g:airline_theme="nature"
 
 highlight ALEErrorSign guifg=red
