@@ -35,7 +35,6 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'vim-scripts/SyntaxRange'
 Plug 'vim-scripts/utl.vim'
 Plug 'wellle/targets.vim'
-" Plug 'wellle/context.vim' " 太慢，暫時解除
 
 " 讓 vim 的 command line mode 支援 command line 快捷鍵
 Plug 'ryvnf/readline.vim'
@@ -75,8 +74,6 @@ Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'vim-python/python-syntax', { 'for': 'python' }
-" Plug 'plytophogy/vim-virtualenv', { 'for': 'python' }
-" Plug 'PieterjanMontens/vim-pipenv', { 'for': 'python' }
 
 let g:vue_disable_pre_processors = 1
 let g:javascript_plugin_jsdoc = 1
@@ -97,18 +94,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'liuchengxu/vista.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-
-" Normal mode: Jump to definition under cursore
-nnoremap <leader>j :AnyJump<CR>
-
-" Visual mode: jump to selected text in visual mode
-xnoremap <leader>j :AnyJumpVisual<CR>
-
-" Normal mode: open previous opened file (after jump)
-nnoremap <leader>ab :AnyJumpBack<CR>
-
-" Normal mode: open last closed search window again
-nnoremap <leader>al :AnyJumpLastResults<CR>
 
 " ----------------------------------------------------------------------------
 " Diff
@@ -286,10 +271,10 @@ set background=dark
 " let g:forest_night_enable_italic = 1
 " color forest-night
 
+color gruvbox
 " color vim-material
-color vim-material
-let g:airline_theme="material"
-" let g:airline_theme = 'forest_night'
+" let g:airline_theme="material"
+let g:airline_theme = 'gruvbox'
 " let g:airline_theme="nature"
 
 highlight ALEErrorSign guifg=red
