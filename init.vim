@@ -153,6 +153,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 " ----------------------------------------------------------------------------
 Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
+Plug 'mhinz/vim-startify'
 
 " ----------------------------------------------------------------------------
 " Note
