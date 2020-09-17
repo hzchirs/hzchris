@@ -86,7 +86,6 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-db', { 'on': 'DB' }
 Plug 'tpope/vim-unimpaired'
 Plug 'janko/vim-test'
-Plug 'Lenovsky/nuake'
 
 " ----------------------------------------------------------------------------
 " Browsing
@@ -154,6 +153,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'mhinz/vim-startify'
+Plug 'voldikss/vim-floaterm'
 
 " ----------------------------------------------------------------------------
 " Note
@@ -394,11 +394,6 @@ augroup term_emulator
   au!
   au TermOpen * setlocal nonumber norelativenumber
 augroup END
-
-let g:nuake_size = 0.5
-
-nnoremap <F4> :Nuake<CR>
-tnoremap <F4> <C-\><C-N>:Nuake<CR>
 
 nnoremap <leader>rc :belowright split \| terminal bundle exec rails console<CR> \| i
 nnoremap <leader>cl :call RunCurrentSpecLine()<CR>
@@ -768,3 +763,19 @@ let g:calendar_google_task = 1
 " quick-scope
 " ----------------------------------------------------------------------------"""
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+" ----------------------------------------------------------------------------
+" Floaterm
+" ----------------------------------------------------------------------------
+let g:floaterm_keymap_toggle = '<F1>'
+let g:floaterm_keymap_next   = '<F2>'
+let g:floaterm_keymap_prev   = '<F3>'
+let g:floaterm_keymap_new    = '<F4>'
+
+" Floaterm
+let g:floaterm_gitcommit='floaterm'
+let g:floaterm_autoinsert=1
+let g:floaterm_width=0.8
+let g:floaterm_height=0.8
+let g:floaterm_wintitle=0
+let g:floaterm_autoclose=1
