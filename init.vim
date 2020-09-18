@@ -154,6 +154,7 @@ Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'mhinz/vim-startify'
 Plug 'voldikss/vim-floaterm'
+Plug 'metakirby5/codi.vim'
 
 " ----------------------------------------------------------------------------
 " Note
@@ -779,3 +780,8 @@ let g:floaterm_width=0.8
 let g:floaterm_height=0.8
 let g:floaterm_wintitle=0
 let g:floaterm_autoclose=1
+
+" ----------------------------------------------------------------------------
+" Codi
+" ----------------------------------------------------------------------------
+highlight CodiVirtualText guifg=grey
