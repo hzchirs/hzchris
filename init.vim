@@ -420,9 +420,9 @@ noremap <C-k> <C-W>k
 noremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 
-if has('nvim')
-  tnoremap jk <C-\><C-N>
-endif
+" if has('nvim')
+"   tnoremap jk <C-\><C-N>
+" endif
 
 " 不同模式的儲存
 nnoremap <C-s> :update<CR>
