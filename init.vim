@@ -63,23 +63,6 @@ nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 
 " ----------------------------------------------------------------------------
-" Languages
-" ----------------------------------------------------------------------------
-Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
-Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-Plug 'gavocanov/vim-js-indent'
-Plug 'othree/html5.vim', { 'for': 'html' }
-Plug 'pangloss/vim-javascript', { 'for': ['vue' ,'javascript', 'javascript.jsx'] }
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'tpope/vim-rake', { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'vim-python/python-syntax', { 'for': 'python' }
-
-let g:vue_disable_pre_processors = 1
-let g:javascript_plugin_jsdoc = 1
-
-" ----------------------------------------------------------------------------
 " Development Tools
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
@@ -147,6 +130,24 @@ Plug 'honza/vim-snippets'
 Plug 'kkoomen/vim-doge'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+
+" ----------------------------------------------------------------------------
+" Languages
+" ----------------------------------------------------------------------------
+Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+Plug 'gavocanov/vim-js-indent'
+Plug 'othree/html5.vim', { 'for': 'html' }
+Plug 'pangloss/vim-javascript', { 'for': ['vue' ,'javascript', 'javascript.jsx'] }
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'tpope/vim-rake', { 'for': 'ruby' }
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'vim-python/python-syntax', { 'for': 'python' }
+
+let g:vue_disable_pre_processors = 1
+let g:javascript_plugin_jsdoc = 1
+
 " ----------------------------------------------------------------------------
 " Others
 " ----------------------------------------------------------------------------
@@ -155,6 +156,7 @@ Plug 'vim-scripts/BufOnly.vim'
 Plug 'mhinz/vim-startify'
 Plug 'voldikss/vim-floaterm'
 Plug 'metakirby5/codi.vim'
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
 " ----------------------------------------------------------------------------
 " Note
@@ -204,6 +206,7 @@ set nowritebackup
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
+set timeoutlen=500
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -781,7 +784,18 @@ let g:floaterm_height=0.9
 let g:floaterm_wintitle=0
 let g:floaterm_autoclose=1
 
+let g:which_key_map['p'] = [ ':Files'                             , 'search files' ]
+let g:which_key_map.t = {
+      \ 'name' : '+terminal',
+      \ 'g' : 'lazygit'    ,
+      \ 'l' : 'open-locationlist',
+      \ }
 " ----------------------------------------------------------------------------
 " Codi
 " ----------------------------------------------------------------------------
 highlight CodiVirtualText guifg=grey
+
+" ----------------------------------------------------------------------------
+" WhichKey
+" ----------------------------------------------------------------------------
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
