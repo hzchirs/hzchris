@@ -156,7 +156,7 @@ Plug 'vim-scripts/BufOnly.vim'
 Plug 'mhinz/vim-startify'
 Plug 'voldikss/vim-floaterm'
 Plug 'metakirby5/codi.vim'
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+Plug 'liuchengxu/vim-which-key'
 
 " ----------------------------------------------------------------------------
 " Note
@@ -423,9 +423,9 @@ noremap <C-k> <C-W>k
 noremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 
-" if has('nvim')
-"   tnoremap jk <C-\><C-N>
-" endif
+if has('nvim')
+  tnoremap `` <C-\><C-N>
+endif
 
 " 不同模式的儲存
 nnoremap <C-s> :update<CR>
@@ -473,10 +473,10 @@ endif
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
 nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <S-p> :Buffers<CR>
-nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>fh :History<CR>
 nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-nnoremap <leader>fi :AgIn 
+nnoremap <leader>fi :Files 
 
 nnoremap <silent> K :call SearchWordWithAg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
@@ -492,44 +492,6 @@ imap <C-x><C-l> <plug>(fzf-complete-line)
 function! SearchWordWithAg()
   execute 'Ag' expand('<cword>')
 endfunction
-
-function! SearchVisualSelectionWithAg() range
-  let old_reg = getreg('"')
-  let old_regtype = getregtype('"')
-  let old_clipboard = &clipboard
-  set clipboard&
-  normal! ""gvy
-  let selection = getreg('"')
-  call setreg('"', old_reg, old_regtype)
-  let &clipboard = old_clipboard
-  execute 'Ag' selection
-endfunction
-
-function! s:ag_in(...)
-  call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview(extend({'dir': a:1}, {'down': '~40%', 'options': '--delimiter : --nth 4..'})))
-endfunction
-
-command! -nargs=+ -complete=dir AgIn call s:ag_in(<f-args>)
-
-" Command for git grep
-" - fzf#vim#grep(command, with_column, [options], [fullscreen])
-
-command! -bang -nargs=* GGrep
-  \ call fzf#vim#grep(
-  \   'git grep --line-number '.shellescape(<q-args>), 0,
-  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
-
-" Files command with preview window
-command! -bang -nargs=* Ag
-      \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
-
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-
-command! -bang -nargs=? -complete=dir Files
-      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -784,18 +746,9 @@ let g:floaterm_height=0.9
 let g:floaterm_wintitle=0
 let g:floaterm_autoclose=1
 
-let g:which_key_map['p'] = [ ':Files'                             , 'search files' ]
-let g:which_key_map.t = {
-      \ 'name' : '+terminal',
-      \ 'g' : 'lazygit'    ,
-      \ 'l' : 'open-locationlist',
-      \ }
+nnoremap <leader>tg :FloatermNew lazygit<CR>
+
 " ----------------------------------------------------------------------------
 " Codi
 " ----------------------------------------------------------------------------
 highlight CodiVirtualText guifg=grey
-
-" ----------------------------------------------------------------------------
-" WhichKey
-" ----------------------------------------------------------------------------
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
