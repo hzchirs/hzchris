@@ -206,7 +206,6 @@ set nowritebackup
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
-set timeoutlen=500
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -473,7 +472,7 @@ endif
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
 nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <S-p> :Buffers<CR>
 nnoremap <silent> <leader>fh :History<CR>
 nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
 nnoremap <leader>fi :Files 
