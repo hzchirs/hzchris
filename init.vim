@@ -156,7 +156,7 @@ Plug 'vim-scripts/BufOnly.vim'
 Plug 'mhinz/vim-startify'
 Plug 'voldikss/vim-floaterm'
 Plug 'metakirby5/codi.vim'
-Plug 'liuchengxu/vim-which-key'
+" Plug 'liuchengxu/vim-which-key'
 
 " ----------------------------------------------------------------------------
 " Note
