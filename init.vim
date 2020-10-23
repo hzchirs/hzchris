@@ -23,8 +23,8 @@ Plug 'airblade/vim-matchquote'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Konfekt/FastFold'
 Plug 'chrisbra/Colorizer'
-Plug 'chrisbra/NrrwRgn'
-Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+" Plug 'chrisbra/NrrwRgn'
+" Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase'
 Plug 'gcmt/wildfire.vim'
@@ -69,6 +69,7 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-db', { 'on': 'DB' }
 Plug 'tpope/vim-unimpaired'
 Plug 'janko/vim-test'
+Plug 'Lenovsky/nuake'
 
 " ----------------------------------------------------------------------------
 " Browsing
@@ -397,10 +398,14 @@ augroup term_emulator
   au!
   au TermOpen * setlocal nonumber norelativenumber
 augroup END
-
 nnoremap <leader>rc :belowright split \| terminal bundle exec rails console<CR> \| i
 nnoremap <leader>cl :call RunCurrentSpecLine()<CR>
 nnoremap <leader>cs :call RunCurrentSpecFile()<CR>
+
+let g:nuake_size = 0.5
+
+nnoremap <F5> :Nuake<CR>
+tnoremap <F5> <C-\><C-N>:Nuake<CR>
 
 function! RunCurrentSpecLine()
 let lineNum = line('.')
@@ -745,9 +750,9 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " Floaterm
 " ----------------------------------------------------------------------------
 let g:floaterm_keymap_toggle = '<F1>'
-let g:floaterm_keymap_next   = '<F2>'
-let g:floaterm_keymap_prev   = '<F3>'
-let g:floaterm_keymap_new    = '<F4>'
+" let g:floaterm_keymap_next   = '<F2>'
+" let g:floaterm_keymap_prev   = '<F3>'
+" let g:floaterm_keymap_new    = '<F4>'
 
 " Floaterm
 let g:floaterm_gitcommit='floaterm'
