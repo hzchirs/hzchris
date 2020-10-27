@@ -404,8 +404,8 @@ nnoremap <leader>cs :call RunCurrentSpecFile()<CR>
 
 let g:nuake_size = 0.5
 
-nnoremap <F5> :Nuake<CR>
-tnoremap <F5> <C-\><C-N>:Nuake<CR>
+nnoremap <F1> :Nuake<CR>
+tnoremap <F1> <C-\><C-N>:Nuake<CR>
 
 function! RunCurrentSpecLine()
 let lineNum = line('.')
@@ -749,7 +749,7 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " ----------------------------------------------------------------------------
 " Floaterm
 " ----------------------------------------------------------------------------
-let g:floaterm_keymap_toggle = '<F1>'
+" let g:floaterm_keymap_toggle = '<F1>'
 " let g:floaterm_keymap_next   = '<F2>'
 " let g:floaterm_keymap_prev   = '<F3>'
 " let g:floaterm_keymap_new    = '<F4>'
