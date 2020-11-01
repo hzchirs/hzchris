@@ -178,8 +178,9 @@ set nocompatible              " be iMproved, required
 set hidden
 set undofile " Maintain undo history between sessions
 " set showcmd
-filetype plugin indent on                  " required
+set regexpengine=1
 set relativenumber
+filetype plugin indent on                  " required
 
 set autoindent
 " set foldmethod=syntax
