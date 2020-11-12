@@ -129,7 +129,7 @@ Plug 'rizzatti/dash.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'kkoomen/vim-doge'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " ----------------------------------------------------------------------------
 " Languages
