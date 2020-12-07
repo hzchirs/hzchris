@@ -181,8 +181,8 @@ set relativenumber
 filetype plugin indent on                  " required
 
 set autoindent
-" set foldmethod=syntax
-set foldmethod=indent
+set foldmethod=syntax
+" set foldmethod=indent
 set foldlevel=20
 set clipboard+=unnamed
 set shell=zsh
