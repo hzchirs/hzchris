@@ -82,7 +82,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " ----------------------------------------------------------------------------
 " Diff
 " ----------------------------------------------------------------------------
-Plug 'AndrewRadev/linediff.vim' 
+Plug 'AndrewRadev/linediff.vim'
 
 " ----------------------------------------------------------------------------
 " Git
@@ -479,7 +479,7 @@ nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <S-p> :Buffers<CR>
 nnoremap <silent> <leader>fh :History<CR>
 nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-nnoremap <leader>fi :Files 
+nnoremap <leader>fi :Files
 
 nnoremap <silent> K :call SearchWordWithAg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
