@@ -503,7 +503,6 @@ function! s:ag_in(bang, ...)
   " call fzf#vim#ag(join(a:000[1:], ' '), {'dir': a:1}, a:bang)
 endfunction
 
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 command! -bang -nargs=+ -complete=dir AgIn call s:ag_in(<bang>0, <f-args>)
 
 function! SearchWordWithAg()
