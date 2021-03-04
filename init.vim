@@ -145,6 +145,7 @@ Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'rust-lang/rust.vim'
+Plug 'jvirtanen/vim-hcl' " HashiCorp Configuration Language
 
 let g:vue_disable_pre_processors = 1
 let g:javascript_plugin_jsdoc = 1
