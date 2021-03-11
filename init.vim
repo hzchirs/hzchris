@@ -146,6 +146,7 @@ Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'rust-lang/rust.vim'
 Plug 'jvirtanen/vim-hcl' " HashiCorp Configuration Language
+Plug 'chr4/nginx.vim'
 
 let g:vue_disable_pre_processors = 1
 let g:javascript_plugin_jsdoc = 1
