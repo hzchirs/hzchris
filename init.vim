@@ -559,19 +559,19 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 " ----------------------------------------------------------------------------
 " Goyo
 " ----------------------------------------------------------------------------
-let g:goyo_width = 80
+let g:goyo_width = 120
 
 function! s:goyo_enter()
   set wrap
   set linebreak
 
-  Limelight
+  " Limelight
 endfunction
 
 function! s:goyo_leave()
   set nowrap
 
-  Limelight!
+  " Limelight!
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
