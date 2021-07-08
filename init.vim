@@ -93,6 +93,7 @@ Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'rhysd/git-messenger.vim'
 
 " ----------------------------------------------------------------------------
 " Fuzzy finder
