@@ -78,6 +78,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'liuchengxu/vista.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+
 
 " ----------------------------------------------------------------------------
 " Diff
@@ -785,3 +787,28 @@ nnoremap <leader>tg :FloatermNew lazygit<CR>
 " Codi
 " ----------------------------------------------------------------------------
 highlight CodiVirtualText guifg=grey
+
+" lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+"   ensure_installed = {
+"     "ruby",
+"     "lua",
+"     "python",
+"     "javascript",
+"     "typescript",
+"     "json",
+"     "html",
+"     "scss",
+"     "vue",
+"     "tsx",
+"     "scss",
+"     "css",
+"     "yaml"
+"   },
+"   highlight = {
+"     enable = true,              -- false will disable the whole extension
+"     additional_vim_regex_highlighting = false,
+"   },
+" }
+" EOF
+"
