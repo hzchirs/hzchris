@@ -107,7 +107,8 @@ Plug 'junegunn/fzf.vim'
 " ----------------------------------------------------------------------------
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'sainnhe/edge'
-Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
+" Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
+Plug 'shaunsingh/nord.nvim'
 Plug 'dracula/vim'
 Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
 Plug 'sainnhe/vim-color-forest-night'
@@ -811,4 +812,3 @@ highlight CodiVirtualText guifg=grey
 "   },
 " }
 " EOF
-"
