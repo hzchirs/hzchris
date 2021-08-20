@@ -79,6 +79,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/playground'
 
 
 " ----------------------------------------------------------------------------
@@ -111,11 +112,8 @@ Plug 'sainnhe/edge'
 Plug 'shaunsingh/nord.nvim'
 Plug 'dracula/vim'
 Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
-Plug 'sainnhe/vim-color-forest-night'
+Plug 'sainnhe/everforest'
 " Plug 'hzchirs/nature', { 'dir': '~/Projects/sunshine' }
-Plug 'lifepillar/vim-solarized8'
-Plug 'morhetz/gruvbox'
-Plug 'junegunn/seoul256.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -285,11 +283,10 @@ set background=dark
 " let g:forest_night_enable_italic = 1
 " color forest-night
 
-" color gruvbox
-color vim-material
-let g:airline_theme="material"
-" let g:airline_theme = 'gruvbox'
-" let g:airline_theme="nature"
+color everforest
+" color vim-material
+" let g:airline_theme="material"
+let g:airline_theme = 'everforest'
 
 highlight ALEErrorSign guifg=red
 highlight ALEWarningSign guifg=orange
@@ -529,21 +526,6 @@ function! SearchVisualSelectionWithAg() range
   let &clipboard = old_clipboard
   execute 'Ag' selection
 endfunction
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-      \ { 'fg':      ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Normal'],
-      \ 'hl':      ['fg', 'Type'],
-      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-      \ 'hl+':     ['fg', 'Identifier'],
-      \ 'info':    ['fg', 'PreProc'],
-      \ 'prompt':  ['fg', 'Conditional'],
-      \ 'pointer': ['fg', 'Exception'],
-      \ 'marker':  ['fg', 'Keyword'],
-      \ 'spinner': ['fg', 'Label'],
-      \ 'header':  ['fg', 'Comment'] }
 
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
