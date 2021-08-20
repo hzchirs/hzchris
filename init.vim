@@ -138,16 +138,16 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " ----------------------------------------------------------------------------
 " Languages
 " ----------------------------------------------------------------------------
-Plug 'posva/vim-vue', { 'for': 'vue' }
+" Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-Plug 'gavocanov/vim-js-indent'
-Plug 'othree/html5.vim', { 'for': 'html' }
-Plug 'pangloss/vim-javascript', { 'for': ['vue' ,'javascript', 'javascript.jsx'] }
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'tpope/vim-rake', { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'vim-python/python-syntax', { 'for': 'python' }
+" Plug 'gavocanov/vim-js-indent'
+" Plug 'othree/html5.vim', { 'for': 'html' }
+" Plug 'pangloss/vim-javascript', { 'for': ['vue' ,'javascript', 'javascript.jsx'] }
+" Plug 'tpope/vim-rails', { 'for': 'ruby' }
+" Plug 'tpope/vim-rake', { 'for': 'ruby' }
+" Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+" Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'rust-lang/rust.vim'
 Plug 'jvirtanen/vim-hcl' " HashiCorp Configuration Language
 Plug 'chr4/nginx.vim'
@@ -189,8 +189,9 @@ set relativenumber
 filetype plugin indent on                  " required
 
 set autoindent
-set foldmethod=syntax
-" set foldmethod=indent
+" set foldmethod=syntax
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=20
 set clipboard+=unnamed
 set shell=zsh
@@ -789,26 +790,26 @@ nnoremap <leader>tg :FloatermNew lazygit<CR>
 " ----------------------------------------------------------------------------
 highlight CodiVirtualText guifg=grey
 
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-"   ensure_installed = {
-"     "ruby",
-"     "lua",
-"     "python",
-"     "javascript",
-"     "typescript",
-"     "json",
-"     "html",
-"     "scss",
-"     "vue",
-"     "tsx",
-"     "scss",
-"     "css",
-"     "yaml"
-"   },
-"   highlight = {
-"     enable = true,              -- false will disable the whole extension
-"     additional_vim_regex_highlighting = false,
-"   },
-" }
-" EOF
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "ruby",
+    "lua",
+    "python",
+    "javascript",
+    "typescript",
+    "json",
+    "html",
+    "scss",
+    "vue",
+    "tsx",
+    "scss",
+    "css",
+    "yaml"
+  },
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
