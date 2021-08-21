@@ -136,18 +136,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " ----------------------------------------------------------------------------
 " Languages
 " ----------------------------------------------------------------------------
-" Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
-Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-" Plug 'gavocanov/vim-js-indent'
-" Plug 'othree/html5.vim', { 'for': 'html' }
-" Plug 'pangloss/vim-javascript', { 'for': ['vue' ,'javascript', 'javascript.jsx'] }
-" Plug 'tpope/vim-rails', { 'for': 'ruby' }
-" Plug 'tpope/vim-rake', { 'for': 'ruby' }
-" Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-" Plug 'vim-python/python-syntax', { 'for': 'python' }
-Plug 'rust-lang/rust.vim'
-Plug 'jvirtanen/vim-hcl' " HashiCorp Configuration Language
 Plug 'chr4/nginx.vim'
 
 let g:vue_disable_pre_processors = 1
@@ -787,7 +775,9 @@ require'nvim-treesitter.configs'.setup {
     "tsx",
     "scss",
     "css",
-    "yaml"
+    "yaml",
+    "vim",
+    "hcl"
   },
   highlight = {
     enable = true,              -- false will disable the whole extension
