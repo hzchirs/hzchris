@@ -12,7 +12,7 @@ endif
 
 " ----------------------------------------------------------------------------
 " Navigation
-" ----------------------------------------------------------------------------"""
+" ----------------------------------------------------------------------------
 Plug 'unblevable/quick-scope'
 Plug 'easymotion/vim-easymotion'
 Plug 'airblade/vim-matchquote'
@@ -77,9 +77,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'liuchengxu/vista.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
-
 
 " ----------------------------------------------------------------------------
 " Diff
@@ -137,10 +136,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " ----------------------------------------------------------------------------
 Plug 'chr4/nginx.vim'
 
-let g:vue_disable_pre_processors = 1
-let g:javascript_plugin_jsdoc = 1
-let g:rustfmt_autosave = 1
-
 " ----------------------------------------------------------------------------
 " Others
 " ----------------------------------------------------------------------------
@@ -148,7 +143,6 @@ Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'metakirby5/codi.vim'
-" Plug 'liuchengxu/vim-which-key'
 
 " ----------------------------------------------------------------------------
 " Note
@@ -472,7 +466,6 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <S-p> :Buffers<CR>
 nnoremap <silent> <leader>fh :History<CR>
-nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
 nnoremap <leader>fi :Files
 
 nnoremap <silent> K :call SearchWordWithAg()<CR>
@@ -486,15 +479,14 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <C-x><C-j> <plug>(fzf-complete-file-ag)
 imap <C-x><C-l> <plug>(fzf-complete-line)
 
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+
 function! s:ag_in(bang, ...)
   if !isdirectory(a:1)
     throw 'not a valid directory: ' .. a:1
   endif
   " Press `?' to enable preview window.
   call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview({'dir': a:1}, 'up:50%:hidden', '?'), a:bang)
-
-  " If you don't want preview option, use this
-  " call fzf#vim#ag(join(a:000[1:], ' '), {'dir': a:1}, a:bang)
 endfunction
 
 command! -bang -nargs=+ -complete=dir AgIn call s:ag_in(<bang>0, <f-args>)
@@ -520,16 +512,6 @@ endfunction
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 " ----------------------------------------------------------------------------
 " Goyo
