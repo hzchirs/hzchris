@@ -49,10 +49,10 @@ Plug 'ryvnf/readline.vim'
 " ----------------------------------------------------------------------------
 " Text Object
 " ----------------------------------------------------------------------------
-Plug 'haya14busa/vim-textobj-function-syntax'
-Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
-Plug 'rhysd/vim-textobj-ruby', { 'for': 'ruby' }
+Plug 'kana/vim-textobj-function'
+Plug 'haya14busa/vim-textobj-function-syntax'
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
 Plug 'tpope/vim-surround'
 
 " ----------------------------------------------------------------------------
@@ -65,7 +65,6 @@ nmap <silent> ]d <Plug>(coc-diagnostic-next)
 " ----------------------------------------------------------------------------
 " Development Tools
 " ----------------------------------------------------------------------------
-Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-db', { 'on': 'DB' }
 Plug 'tpope/vim-unimpaired'
 Plug 'janko/vim-test'
@@ -271,10 +270,10 @@ set background=dark
 " let g:forest_night_enable_italic = 1
 " color forest-night
 
-color everforest
-" color vim-material
-" let g:airline_theme="material"
-let g:airline_theme = 'everforest'
+" color everforest
+color vim-material
+let g:airline_theme="material"
+" let g:airline_theme = 'everforest'
 
 highlight ALEErrorSign guifg=red
 highlight ALEWarningSign guifg=orange
@@ -298,7 +297,8 @@ function! SynStack()
   echo map(synstack(line('.'), col('.')), "synIDattr(v:val, 'name')")
 endfunc
 
-nnoremap <leader><leader>x :call SyntaxItem()<CR>
+" nnoremap <leader><leader>x :call SyntaxItem()<CR>
+nnoremap <silent><leader><leader>x :TSHighlightCapturesUnderCursor<CR>
 
 " ============================================================================
 " Autocmds
@@ -594,19 +594,8 @@ augroup filetype_vimwiki
   au FileType vimwiki nmap <buffer> <leader>tt <Plug>VimwikiToggleListItem
   au FileType vimwiki nnoremap <buffer> //s :VWS<space>
   au FileType vimwiki nnoremap <buffer> //t :VimwikiSearchTags<space>
-  " au FileType vimwiki setlocal background=light
-  " au FileType vimwiki colorscheme nature
-  " au FileType vimwiki :AirlineTheme nature
-  " 避免中文不正常斷行
-  " au FileType vimwiki setlocal breakat=^I!@+;:,./?
 augroup END
 
-
-" let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
-"       \ 'path_html': '~/Dropbox/vimwiki_html/',
-"       \ 'syntax': 'markdown', 'ext': '.md',
-"       \ 'auto_diary_index': 1,
-"       \ 'auto_tags': 1}]
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
       \ 'path_html': '~/Dropbox/vimwiki_html/',
       \ 'syntax': 'markdown', 'ext': '.md'}]
@@ -618,19 +607,6 @@ let g:vimwiki_use_calendar = 1
 " utl.vim
 " ----------------------------------------------------------------------------
 let g:utl_cfg_hdl_scm_http_system = "silent !open -a firefox '%u'"
-
-" ----------------------------------------------------------------------------
-" vim-jsx
-" ----------------------------------------------------------------------------
-" let g:jsx_ext_required = 0
-
-" ----------------------------------------------------------------------------
-" vim-ruby
-" ----------------------------------------------------------------------------
-let g:ruby_indent_access_modifier_style = 'indent'
-let g:ruby_indent_assignment_style = 'variable'
-let ruby_operators = 1
-let ruby_fold = 1
 
 " ----------------------------------------------------------------------------
 " vim-devicons
@@ -740,11 +716,6 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " ----------------------------------------------------------------------------
 " Floaterm
 " ----------------------------------------------------------------------------
-" let g:floaterm_keymap_toggle = '<F1>'
-" let g:floaterm_keymap_next   = '<F2>'
-" let g:floaterm_keymap_prev   = '<F3>'
-" let g:floaterm_keymap_new    = '<F4>'
-
 " Floaterm
 let g:floaterm_gitcommit='floaterm'
 let g:floaterm_autoinsert=1
@@ -776,12 +747,20 @@ require'nvim-treesitter.configs'.setup {
     "scss",
     "css",
     "yaml",
-    "vim",
     "hcl"
   },
   highlight = {
     enable = true,              -- false will disable the whole extension
     additional_vim_regex_highlighting = false,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "vv",
+      node_incremental = "vv",
+      scope_incremental = "vc",
+      node_decremental = "vd",
+    },
   },
 }
 EOF
