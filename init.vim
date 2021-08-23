@@ -110,6 +110,7 @@ Plug 'sainnhe/edge'
 Plug 'shaunsingh/nord.nvim'
 Plug 'dracula/vim'
 Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'sainnhe/everforest'
 " Plug 'hzchirs/nature', { 'dir': '~/Projects/sunshine' }
 Plug 'ryanoasis/vim-devicons'
@@ -134,6 +135,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " ----------------------------------------------------------------------------
 " Languages
 " ----------------------------------------------------------------------------
+Plug 'tpope/vim-rails'
 Plug 'chr4/nginx.vim'
 
 " ----------------------------------------------------------------------------
