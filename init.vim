@@ -73,7 +73,8 @@ Plug 'Lenovsky/nuake'
 " ----------------------------------------------------------------------------
 " Browsing
 " ----------------------------------------------------------------------------
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'liuchengxu/vista.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
