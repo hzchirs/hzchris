@@ -100,10 +100,10 @@ Plug 'rhysd/git-messenger.vim'
 " ----------------------------------------------------------------------------
 " Fuzzy finder
 " ----------------------------------------------------------------------------
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
 " ----------------------------------------------------------------------------
 " Themes
 " ----------------------------------------------------------------------------
@@ -458,70 +458,91 @@ augroup END
 " Plugs Settings
 " ============================================================================
 
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " ----------------------------------------------------------------------------
-" FZF
+" Telescope TODO UX  讚，但速度太慢 2021/08/28，等穩定一點再用
 " ----------------------------------------------------------------------------
-" if has('nvim') || has('gui_running')
-"   let $FZF_DEFAULT_OPTS .= ' --inline-info'
-"   let $FZF_DEFAULT_COMMAND= 'ag -g ""'
-" endif
+" nnoremap <C-p> <cmd>Telescope find_files<cr>
+" nnoremap <S-p> <cmd>Telescope buffers<cr>
+" nnoremap <S-k> <cmd>Telescope grep_string<cr>
+" nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 "
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
-"
-" nnoremap <silent> <C-p> :Files<CR>
-" nnoremap <silent> <S-p> :Buffers<CR>
-" nnoremap <silent> <leader>fh :History<CR>
-" nnoremap <leader>fi :Files
-"
-" nnoremap <silent> K :call SearchWordWithAg()<CR>
-" vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
-" nnoremap <silent> <leader>fc :Commits<CR>
-" nnoremap <silent> <leader>fbc :BCommits<CR>
-" nnoremap <silent> <leader>fl :Lines<CR>
-" nnoremap <silent> <leader>fbl :BLines<CR>
-"
-" imap <c-x><c-k> <plug>(fzf-complete-word)
-" imap <C-x><C-j> <plug>(fzf-complete-file-ag)
-" imap <C-x><C-l> <plug>(fzf-complete-line)
-"
-" command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
-"
-" function! s:ag_in(bang, ...)
-"   if !isdirectory(a:1)
-"     throw 'not a valid directory: ' .. a:1
-"   endif
-"   " Press `?' to enable preview window.
-"   call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview({'dir': a:1}, 'up:50%:hidden', '?'), a:bang)
-" endfunction
-"
-" command! -bang -nargs=+ -complete=dir AgIn call s:ag_in(<bang>0, <f-args>)
-"
-" function! SearchWordWithAg()
-"   execute 'Ag' expand('<cword>')
-" endfunction
-"
-" function! SearchVisualSelectionWithAg() range
-"   let old_reg = getreg('"')
-"   let old_regtype = getregtype('"')
-"   let old_clipboard = &clipboard
-"   set clipboard&
-"   normal! ""gvy
-"   let selection = getreg('"')
-"   call setreg('"', old_reg, old_regtype)
-"   let &clipboard = old_clipboard
-"   execute 'Ag' selection
-" endfunction
-"
-" " Enable per-command history.
-" " CTRL-N and CTRL-P will be automatically bound to next-history and
-" " previous-history instead of down and up. If you don't like the change,
-" " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-" let g:fzf_history_dir = '~/.local/share/fzf-history'
-"
+" lua << EOF
+" local actions = require('telescope.actions')
+" -- Global remapping
+" ------------------------------
+" require('telescope').setup{
+"   defaults = {
+"     mappings = {
+"       i = {
+"         ["<C-j>"] = actions.move_selection_next,
+"         ["<C-k>"] = actions.move_selection_previous
+"       }
+"     },
+"   }
+" }
+" EOF
+
+" ----------------------------------------------------------------------------
+" FZF 
+" ----------------------------------------------------------------------------
+if has('nvim') || has('gui_running')
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  let $FZF_DEFAULT_COMMAND= 'ag -g ""'
+endif
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <S-p> :Buffers<CR>
+nnoremap <silent> <leader>fh :History<CR>
+nnoremap <leader>fi :Files
+
+nnoremap <silent> K :call SearchWordWithAg()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+nnoremap <silent> <leader>fc :Commits<CR>
+nnoremap <silent> <leader>fbc :BCommits<CR>
+nnoremap <silent> <leader>fl :Lines<CR>
+nnoremap <silent> <leader>fbl :BLines<CR>
+
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <C-x><C-j> <plug>(fzf-complete-file-ag)
+imap <C-x><C-l> <plug>(fzf-complete-line)
+
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+
+function! s:ag_in(bang, ...)
+  if !isdirectory(a:1)
+    throw 'not a valid directory: ' .. a:1
+  endif
+  " Press `?' to enable preview window.
+  call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview({'dir': a:1}, 'up:50%:hidden', '?'), a:bang)
+endfunction
+
+command! -bang -nargs=+ -complete=dir AgIn call s:ag_in(<bang>0, <f-args>)
+
+function! SearchWordWithAg()
+  execute 'Ag' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Ag' selection
+endfunction
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
 " ----------------------------------------------------------------------------
 " Goyo
 " ----------------------------------------------------------------------------
@@ -744,6 +765,7 @@ require'nvim-treesitter.configs'.setup {
     enable = true,              -- false will disable the whole extension
     additional_vim_regex_highlighting = false,
   },
+
   incremental_selection = {
     enable = true,
     keymaps = {
