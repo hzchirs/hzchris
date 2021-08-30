@@ -69,6 +69,7 @@ Plug 'tpope/vim-db', { 'on': 'DB' }
 Plug 'tpope/vim-unimpaired'
 Plug 'janko/vim-test'
 Plug 'Lenovsky/nuake'
+Plug 'nvim-lua/plenary.nvim'
 
 " ----------------------------------------------------------------------------
 " Browsing
@@ -89,20 +90,20 @@ Plug 'AndrewRadev/linediff.vim'
 " ----------------------------------------------------------------------------
 " Git
 " ----------------------------------------------------------------------------
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 Plug 'jreybert/vimagit'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/git-messenger.vim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " ----------------------------------------------------------------------------
 " Fuzzy finder
 " ----------------------------------------------------------------------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" Plug 'nvim-lua/plenary.nvim'
 " Plug 'nvim-telescope/telescope.nvim'
 " ----------------------------------------------------------------------------
 " Themes
@@ -794,5 +795,14 @@ require'nvim-treesitter.configs'.setup {
       show_help = '?',
     },
   }
+}
+EOF
+
+" ----------------------------------------------------------------------------
+" gitsigns
+" ----------------------------------------------------------------------------
+lua <<EOF
+require('gitsigns').setup {
+  current_line_blame = true
 }
 EOF
