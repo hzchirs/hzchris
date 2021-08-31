@@ -590,7 +590,7 @@ let g:airline_symbols.space = "\ua0"
 " Git Related
 " ----------------------------------------------------------------------------
 nnoremap <silent><leader>gs :Gstatus<CR>
-nnoremap <silent><leader>gc :Gcommit<CR>
+nnoremap <silent><leader>gc :Git commit<CR>
 nnoremap <silent><leader>git :Git
 
 " ----------------------------------------------------------------------------
