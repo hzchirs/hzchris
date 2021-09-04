@@ -42,6 +42,7 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'vim-scripts/SyntaxRange'
 Plug 'vim-scripts/utl.vim'
 Plug 'wellle/targets.vim'
+Plug 'matze/vim-move'
 
 " 讓 vim 的 command line mode 支援 command line 快捷鍵
 Plug 'ryvnf/readline.vim'
@@ -138,6 +139,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " ----------------------------------------------------------------------------
 " Languages
 " ----------------------------------------------------------------------------
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-rails'
 Plug 'chr4/nginx.vim'
 
@@ -650,6 +652,12 @@ nnoremap <silent><leader>ig :IndentLinesToggle<CR>
 " ----------------------------------------------------------------------------
 let g:rails_ctags_arguments = ['--languages=ruby --exclude=.git --exclude=log .']
 " let g:rails_ctags_arguments = ['--languages=Ruby --exclude=.git --exclude=log . $(bundle list --paths)']
+
+" ----------------------------------------------------------------------------
+" vim-ruby
+" ----------------------------------------------------------------------------
+let g:ruby_indent_access_modifier_style = 'indent'
+let g:ruby_indent_assignment_style = 'hanging'
 
 " ----------------------------------------------------------------------------
 " vim-go
