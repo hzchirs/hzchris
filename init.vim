@@ -97,7 +97,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/git-messenger.vim'
-Plug 'lewis6991/gitsigns.nvim'
+Plug 'lewis6991/gitsigns.nvim', { 'branch': 'main' }
 
 " ----------------------------------------------------------------------------
 " Fuzzy finder
@@ -771,7 +771,7 @@ require'nvim-treesitter.configs'.setup {
   },
   highlight = {
     enable = true,              -- false will disable the whole extension
-    additional_vim_regex_highlighting = false,
+    additional_vim_regex_highlighting = true,
   },
 
   incremental_selection = {
