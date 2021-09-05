@@ -99,6 +99,8 @@ Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/git-messenger.vim'
 Plug 'lewis6991/gitsigns.nvim', { 'branch': 'main' }
 
+let g:git_messenger_always_into_popup = v:true
+
 " ----------------------------------------------------------------------------
 " Fuzzy finder
 " ----------------------------------------------------------------------------
