@@ -90,14 +90,14 @@ Plug 'AndrewRadev/linediff.vim'
 " ----------------------------------------------------------------------------
 " Git
 " ----------------------------------------------------------------------------
-" Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 Plug 'jreybert/vimagit'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/git-messenger.vim'
-Plug 'lewis6991/gitsigns.nvim', { 'branch': 'main' }
+" Plug 'lewis6991/gitsigns.nvim', { 'branch': 'main' }
 
 let g:git_messenger_always_into_popup = v:true
 
@@ -810,8 +810,8 @@ EOF
 " ----------------------------------------------------------------------------
 " gitsigns
 " ----------------------------------------------------------------------------
-lua <<EOF
-require('gitsigns').setup {
-  current_line_blame = true
-}
-EOF
+" lua <<EOF
+" require('gitsigns').setup {
+"   current_line_blame = true
+" }
+" EOF
