@@ -29,6 +29,7 @@ Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase'
 Plug 'gcmt/wildfire.vim'
 " Plug 'LunarWatcher/auto-pairs', { 'tag': '*' }
+" Plug 'cohama/lexima.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
