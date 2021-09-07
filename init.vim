@@ -28,7 +28,7 @@ Plug 'chrisbra/Colorizer'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase'
 Plug 'gcmt/wildfire.vim'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'LunarWatcher/auto-pairs', { 'tag': '*' }
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
@@ -139,13 +139,6 @@ Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " ----------------------------------------------------------------------------
-" Languages
-" ----------------------------------------------------------------------------
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'tpope/vim-rails'
-Plug 'chr4/nginx.vim'
-
-" ----------------------------------------------------------------------------
 " Others
 " ----------------------------------------------------------------------------
 Plug 'itchyny/calendar.vim'
@@ -157,6 +150,14 @@ Plug 'metakirby5/codi.vim'
 " Note
 " ----------------------------------------------------------------------------
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+
+" ----------------------------------------------------------------------------
+" Languages
+" ----------------------------------------------------------------------------
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'tpope/vim-rails'
+Plug 'chr4/nginx.vim'
+
 
 
 call plug#end()
