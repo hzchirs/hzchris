@@ -107,7 +107,7 @@ let g:git_messenger_always_into_popup = v:true
 " ----------------------------------------------------------------------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 " ----------------------------------------------------------------------------
 " Themes
 " ----------------------------------------------------------------------------
@@ -468,27 +468,31 @@ augroup END
 " ----------------------------------------------------------------------------
 " Telescope TODO UX  讚，但速度太慢 2021/08/28，等穩定一點再用
 " ----------------------------------------------------------------------------
-" nnoremap <C-p> <cmd>Telescope find_files<cr>
-" nnoremap <S-p> <cmd>Telescope buffers<cr>
-" nnoremap <S-k> <cmd>Telescope grep_string<cr>
-" nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-"
-" lua << EOF
-" local actions = require('telescope.actions')
-" -- Global remapping
-" ------------------------------
-" require('telescope').setup{
-"   defaults = {
-"     mappings = {
-"       i = {
-"         ["<C-j>"] = actions.move_selection_next,
-"         ["<C-k>"] = actions.move_selection_previous
-"       }
-"     },
-"   }
-" }
-" EOF
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fs <cmd>Telescope grep_string<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+lua << EOF
+local actions = require('telescope.actions')
+-- Global remapping
+------------------------------
+require('telescope').setup{
+  defaults = {
+    layout_strategy = 'vertical',
+    layout_config = {
+      vertical = { width = 0.8 }
+    },
+    mappings = {
+      i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous
+      }
+    },
+  }
+}
+EOF
 
 " ----------------------------------------------------------------------------
 " FZF 
@@ -500,17 +504,17 @@ endif
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
-nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <S-p> :Buffers<CR>
-nnoremap <silent> <leader>fh :History<CR>
-nnoremap <leader>fi :Files
+" nnoremap <silent> <C-p> :Files<CR>
+" nnoremap <silent> <S-p> :Buffers<CR>
+" nnoremap <silent> <leader>fh :History<CR>
+" nnoremap <leader>fi :Files
 
-nnoremap <silent> K :call SearchWordWithAg()<CR>
-vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
-nnoremap <silent> <leader>fc :Commits<CR>
-nnoremap <silent> <leader>fbc :BCommits<CR>
-nnoremap <silent> <leader>fl :Lines<CR>
-nnoremap <silent> <leader>fbl :BLines<CR>
+" nnoremap <silent> K :call SearchWordWithAg()<CR>
+" vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+" nnoremap <silent> <leader>fc :Commits<CR>
+" nnoremap <silent> <leader>fbc :BCommits<CR>
+" nnoremap <silent> <leader>fl :Lines<CR>
+" nnoremap <silent> <leader>fbl :BLines<CR>
 
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <C-x><C-j> <plug>(fzf-complete-file-ag)
