@@ -98,15 +98,14 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/git-messenger.vim'
-" Plug 'lewis6991/gitsigns.nvim', { 'branch': 'main' }
 
 let g:git_messenger_always_into_popup = v:true
 
 " ----------------------------------------------------------------------------
 " Fuzzy finder
 " ----------------------------------------------------------------------------
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
 Plug 'nvim-telescope/telescope.nvim'
 " ----------------------------------------------------------------------------
 " Themes
@@ -151,7 +150,8 @@ Plug 'metakirby5/codi.vim'
 " ----------------------------------------------------------------------------
 " Note
 " ----------------------------------------------------------------------------
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+" Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plug 'mickael-menu/zk-nvim'
 
 " ----------------------------------------------------------------------------
 " Languages
@@ -483,13 +483,14 @@ require('telescope').setup{
     layout_strategy = 'vertical',
     layout_config = {
       vertical = { width = 0.8 }
-    },
+      },
+    file_ignore_patterns = { "vendor/" },
     mappings = {
       i = {
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous
-      }
-    },
+        }
+      },
   }
 }
 EOF
@@ -497,12 +498,12 @@ EOF
 " ----------------------------------------------------------------------------
 " FZF 
 " ----------------------------------------------------------------------------
-if has('nvim') || has('gui_running')
-  let $FZF_DEFAULT_OPTS .= ' --inline-info'
-  let $FZF_DEFAULT_COMMAND= 'ag -g ""'
-endif
-
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+" if has('nvim') || has('gui_running')
+"   let $FZF_DEFAULT_OPTS .= ' --inline-info'
+"   let $FZF_DEFAULT_COMMAND= 'ag -g ""'
+" endif
+"
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
 " nnoremap <silent> <C-p> :Files<CR>
 " nnoremap <silent> <S-p> :Buffers<CR>
@@ -516,43 +517,43 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 " nnoremap <silent> <leader>fl :Lines<CR>
 " nnoremap <silent> <leader>fbl :BLines<CR>
 
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <C-x><C-j> <plug>(fzf-complete-file-ag)
-imap <C-x><C-l> <plug>(fzf-complete-line)
-
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
-
-function! s:ag_in(bang, ...)
-  if !isdirectory(a:1)
-    throw 'not a valid directory: ' .. a:1
-  endif
-  " Press `?' to enable preview window.
-  call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview({'dir': a:1}, 'up:50%:hidden', '?'), a:bang)
-endfunction
-
-command! -bang -nargs=+ -complete=dir AgIn call s:ag_in(<bang>0, <f-args>)
-
-function! SearchWordWithAg()
-  execute 'Ag' expand('<cword>')
-endfunction
-
-function! SearchVisualSelectionWithAg() range
-  let old_reg = getreg('"')
-  let old_regtype = getregtype('"')
-  let old_clipboard = &clipboard
-  set clipboard&
-  normal! ""gvy
-  let selection = getreg('"')
-  call setreg('"', old_reg, old_regtype)
-  let &clipboard = old_clipboard
-  execute 'Ag' selection
-endfunction
+" imap <c-x><c-k> <plug>(fzf-complete-word)
+" imap <C-x><C-j> <plug>(fzf-complete-file-ag)
+" imap <C-x><C-l> <plug>(fzf-complete-line)
+"
+" command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+"
+" function! s:ag_in(bang, ...)
+"   if !isdirectory(a:1)
+"     throw 'not a valid directory: ' .. a:1
+"   endif
+"   " Press `?' to enable preview window.
+"   call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview({'dir': a:1}, 'up:50%:hidden', '?'), a:bang)
+" endfunction
+"
+" command! -bang -nargs=+ -complete=dir AgIn call s:ag_in(<bang>0, <f-args>)
+"
+" function! SearchWordWithAg()
+"   execute 'Ag' expand('<cword>')
+" endfunction
+"
+" function! SearchVisualSelectionWithAg() range
+"   let old_reg = getreg('"')
+"   let old_regtype = getregtype('"')
+"   let old_clipboard = &clipboard
+"   set clipboard&
+"   normal! ""gvy
+"   let selection = getreg('"')
+"   call setreg('"', old_reg, old_regtype)
+"   let &clipboard = old_clipboard
+"   execute 'Ag' selection
+" endfunction
 
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
+" let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " ----------------------------------------------------------------------------
 " Goyo
@@ -607,24 +608,24 @@ nnoremap <silent><leader>git :Git
 " ----------------------------------------------------------------------------
 " vimwiki
 " ----------------------------------------------------------------------------
-augroup filetype_vimwiki
-  au!
-  au FileType vimwiki normal zM
-  au FileType vimwiki let &l:showbreak = ""
-  au FileType vimwiki nnoremap <buffer> <leader><leader>n :lnext<CR>
-  au FileType vimwiki nnoremap <buffer> <leader><leader>p :lprevious<CR>
-  au FileType vimwiki nnoremap <buffer> <leader><leader>g :Goyo<CR>
-  au FileType vimwiki nmap <buffer> <leader>tt <Plug>VimwikiToggleListItem
-  au FileType vimwiki nnoremap <buffer> //s :VWS<space>
-  au FileType vimwiki nnoremap <buffer> //t :VimwikiSearchTags<space>
-augroup END
-
-let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
-      \ 'path_html': '~/Dropbox/vimwiki_html/',
-      \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_CJK_length = 1
-let g:vimwiki_folding = 'expr:quick'
-let g:vimwiki_use_calendar = 1
+" augroup filetype_vimwiki
+"   au!
+"   au FileType vimwiki normal zM
+"   au FileType vimwiki let &l:showbreak = ""
+"   au FileType vimwiki nnoremap <buffer> <leader><leader>n :lnext<CR>
+"   au FileType vimwiki nnoremap <buffer> <leader><leader>p :lprevious<CR>
+"   au FileType vimwiki nnoremap <buffer> <leader><leader>g :Goyo<CR>
+"   au FileType vimwiki nmap <buffer> <leader>tt <Plug>VimwikiToggleListItem
+"   au FileType vimwiki nnoremap <buffer> //s :VWS<space>
+"   au FileType vimwiki nnoremap <buffer> //t :VimwikiSearchTags<space>
+" augroup END
+"
+" let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
+"       \ 'path_html': '~/Dropbox/vimwiki_html/',
+"       \ 'syntax': 'markdown', 'ext': '.md'}]
+" let g:vimwiki_CJK_length = 1
+" let g:vimwiki_folding = 'expr:quick'
+" let g:vimwiki_use_calendar = 1
 
 " ----------------------------------------------------------------------------
 " utl.vim
@@ -815,10 +816,8 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 " ----------------------------------------------------------------------------
-" gitsigns
+" zk
 " ----------------------------------------------------------------------------
-" lua <<EOF
-" require('gitsigns').setup {
-"   current_line_blame = true
-" }
-" EOF
+lua <<EOF
+require('zk').setup()
+EOF
