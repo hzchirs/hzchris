@@ -150,7 +150,7 @@ Plug 'metakirby5/codi.vim'
 " ----------------------------------------------------------------------------
 " Note
 " ----------------------------------------------------------------------------
-" Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'mickael-menu/zk-nvim'
 
 " ----------------------------------------------------------------------------
@@ -230,8 +230,8 @@ xnoremap p pgvy
 
 " 編輯喜好設定
 set ai           " 自動縮排
-set shiftwidth=2 " 設定縮排寬度 = 2
-set tabstop=2    " tab 的字元數
+set shiftwidth=4 " 設定縮排寬度 = 2
+set tabstop=4    " tab 的字元數
 " set softtabstop=2
 
 set expandtab   " 用 space 代替 tab
@@ -608,24 +608,24 @@ nnoremap <silent><leader>git :Git
 " ----------------------------------------------------------------------------
 " vimwiki
 " ----------------------------------------------------------------------------
-" augroup filetype_vimwiki
-"   au!
-"   au FileType vimwiki normal zM
-"   au FileType vimwiki let &l:showbreak = ""
-"   au FileType vimwiki nnoremap <buffer> <leader><leader>n :lnext<CR>
-"   au FileType vimwiki nnoremap <buffer> <leader><leader>p :lprevious<CR>
-"   au FileType vimwiki nnoremap <buffer> <leader><leader>g :Goyo<CR>
-"   au FileType vimwiki nmap <buffer> <leader>tt <Plug>VimwikiToggleListItem
-"   au FileType vimwiki nnoremap <buffer> //s :VWS<space>
-"   au FileType vimwiki nnoremap <buffer> //t :VimwikiSearchTags<space>
-" augroup END
-"
-" let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
-"       \ 'path_html': '~/Dropbox/vimwiki_html/',
-"       \ 'syntax': 'markdown', 'ext': '.md'}]
-" let g:vimwiki_CJK_length = 1
-" let g:vimwiki_folding = 'expr:quick'
-" let g:vimwiki_use_calendar = 1
+augroup filetype_vimwiki
+  au!
+  au FileType vimwiki let &l:showbreak = ""
+  au FileType vimwiki nnoremap <buffer> <leader><leader>n :lnext<CR>
+  au FileType vimwiki nnoremap <buffer> <leader><leader>p :lprevious<CR>
+  au FileType vimwiki nnoremap <buffer> <leader><leader>g :Goyo<CR>
+  au FileType vimwiki nmap <buffer> <leader>tt <Plug>VimwikiToggleListItem
+  au FileType vimwiki nnoremap <buffer> //s :VWS<space>
+  au FileType vimwiki nnoremap <buffer> //t :VimwikiSearchTags<space>
+augroup END
+
+let g:vimwiki_key_mappings = { 'table_mappings': 0 }
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
+      \ 'path_html': '~/Dropbox/vimwiki_html/',
+      \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_CJK_length = 1
+let g:vimwiki_folding = 'expr:quick'
+let g:vimwiki_use_calendar = 1
 
 " ----------------------------------------------------------------------------
 " utl.vim
