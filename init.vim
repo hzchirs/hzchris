@@ -468,7 +468,7 @@ augroup END
 " ----------------------------------------------------------------------------
 " Telescope TODO UX  讚，但速度太慢 2021/08/28，等穩定一點再用
 " ----------------------------------------------------------------------------
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fs <cmd>Telescope grep_string<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
