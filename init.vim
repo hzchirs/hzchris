@@ -468,7 +468,7 @@ augroup END
 " ============================================================================
 
 " ----------------------------------------------------------------------------
-" Telescope TODO UX  讚，但速度太慢 2021/08/28，等穩定一點再用
+" Telescope
 " ----------------------------------------------------------------------------
 nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <S-p> <cmd>Telescope buffers<cr>
@@ -493,8 +493,18 @@ require('telescope').setup{
         ["<C-k>"] = actions.move_selection_previous
         }
       },
+  },
+  extentions = {
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = 'smart',
+    }
   }
 }
+
+require('telescope').load_extension('fzf')
 EOF
 
 " ----------------------------------------------------------------------------
