@@ -121,6 +121,7 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'sainnhe/everforest'
 " Plug 'hzchirs/nature', { 'dir': '~/Projects/sunshine' }
 Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -386,11 +387,11 @@ inoremap <C-p> <up>
 " Search visualed context
 vnoremap // y/<C-R>"<CR>
 
-" 以螢幕所見的行而非實際的行來移動
-vnoremap k gkzz
-vnoremap gk kzz
-vnoremap j gjzz
-vnoremap gj jzz
+" 移動游標隨時置中
+" vnoremap k gkzz
+" vnoremap gk kzz
+" vnoremap j gjzz
+" vnoremap gj jzz
 " ----------------------------------------------------------------------------
 " Terminal Emulator
 " ----------------------------------------------------------------------------
