@@ -107,6 +107,7 @@ let g:git_messenger_always_into_popup = v:true
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " ----------------------------------------------------------------------------
 " Themes
 " ----------------------------------------------------------------------------
@@ -469,7 +470,7 @@ augroup END
 " Telescope TODO UX  讚，但速度太慢 2021/08/28，等穩定一點再用
 " ----------------------------------------------------------------------------
 nnoremap <C-p> <cmd>Telescope find_files<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <S-p> <cmd>Telescope buffers<cr>
 nnoremap <leader>fs <cmd>Telescope grep_string<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
