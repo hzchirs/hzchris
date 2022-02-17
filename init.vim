@@ -139,8 +139,8 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'github/copilot.vim' " no next suggestion, 過一段時間再回來看
-Plug 'Lucklyric/copilot.vim'
+Plug 'github/copilot.vim' " no next suggestion, 過一段時間再回來看
+" Plug 'Lucklyric/copilot.vim'
 
 " ----------------------------------------------------------------------------
 " Others
