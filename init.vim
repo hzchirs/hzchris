@@ -98,6 +98,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/git-messenger.vim'
+Plug 'pwntester/octo.nvim'
 
 let g:git_messenger_always_into_popup = v:true
 
@@ -106,7 +107,7 @@ let g:git_messenger_always_into_popup = v:true
 " ----------------------------------------------------------------------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 " Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " ----------------------------------------------------------------------------
 " Themes
@@ -131,6 +132,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'rizzatti/dash.vim'
 " Plug 'soywod/vim-keepeye'
+Plug 'nvim-lua/plenary.nvim'
+
 
 " ----------------------------------------------------------------------------
 " Completion/Snippets
@@ -826,3 +829,12 @@ EOF
 lua <<EOF
 require('zk').setup()
 EOF
+
+" ----------------------------------------------------------------------------
+" octo.nvim
+" ----------------------------------------------------------------------------
+lua <<EOF
+require('octo').setup()
+EOF
+
+nnoremap <leader>lp :Octo pr list<CR>
