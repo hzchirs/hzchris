@@ -78,10 +78,11 @@ Plug 'nvim-lua/plenary.nvim'
 " Plug 'Yggdroot/indentLine'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'liuchengxu/vista.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Plug 'scrooloose/nerdtree'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
+Plug 'kyazdani42/nvim-tree.lua'
 
 " ----------------------------------------------------------------------------
 " Diff
@@ -112,19 +113,19 @@ Plug 'nvim-telescope/telescope.nvim'
 " ----------------------------------------------------------------------------
 " Themes
 " ----------------------------------------------------------------------------
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'sainnhe/edge'
-" Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'shaunsingh/nord.nvim'
 Plug 'dracula/vim'
 Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'sainnhe/everforest'
+Plug 'EdenEast/nightfox.nvim'
 " Plug 'hzchirs/nature', { 'dir': '~/Projects/sunshine' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 " ----------------------------------------------------------------------------
 " Supports
@@ -282,10 +283,13 @@ set background=dark
 " let g:forest_night_enable_italic = 1
 " color forest-night
 
-" color everforest
+" color nightfox
 color vim-material
-let g:airline_theme="material"
-" let g:airline_theme = 'everforest'
+" let g:airline_theme="material"
+lua <<EOF
+require('lualine').setup()
+require('nvim-tree').setup()
+EOF
 
 highlight ALEErrorSign guifg=red
 highlight ALEWarningSign guifg=orange
