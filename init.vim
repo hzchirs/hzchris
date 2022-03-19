@@ -78,11 +78,11 @@ Plug 'nvim-lua/plenary.nvim'
 " Plug 'Yggdroot/indentLine'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'liuchengxu/vista.vim'
-" Plug 'scrooloose/nerdtree'
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'scrooloose/nerdtree'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
-Plug 'kyazdani42/nvim-tree.lua'
+" Plug 'kyazdani42/nvim-tree.lua'
 
 " ----------------------------------------------------------------------------
 " Diff
@@ -122,10 +122,12 @@ Plug 'EdenEast/nightfox.nvim'
 " Plug 'hzchirs/nature', { 'dir': '~/Projects/sunshine' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'nvim-lualine/lualine.nvim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'nvim-lualine/lualine.nvim'
+" Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
 
 " ----------------------------------------------------------------------------
 " Supports
@@ -285,10 +287,10 @@ set background=dark
 
 " color nightfox
 color vim-material
-" let g:airline_theme="material"
+let g:airline_theme="material"
 lua <<EOF
-require('lualine').setup()
-require('nvim-tree').setup()
+-- require('lualine').setup()
+-- require('nvim-tree').setup()
 EOF
 
 highlight ALEErrorSign guifg=red
@@ -598,11 +600,6 @@ let g:UltiSnipsExpandTrigger="<tab>"
 " ----------------------------------------------------------------------------
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
@@ -610,6 +607,13 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.space = "\ua0"
 
+" ----------------------------------------------------------------------------
+" barbar.nvim
+" ----------------------------------------------------------------------------
+nnoremap <silent><A-{> :BufferPrevious<CR>
+nnoremap <silent><A-}> :BufferPrevious<CR>
+nnoremap <silent><A-left> :BufferMovePrevious<CR>
+nnoremap <silent><A-right> :BufferMoveNext<CR>
 " ----------------------------------------------------------------------------
 " Git Related
 " ----------------------------------------------------------------------------
