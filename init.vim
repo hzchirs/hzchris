@@ -612,8 +612,8 @@ let g:airline_symbols.space = "\ua0"
 " ----------------------------------------------------------------------------
 nnoremap <silent><A-{> :BufferPrevious<CR>
 nnoremap <silent><A-}> :BufferPrevious<CR>
-nnoremap <silent><A-left> :BufferMovePrevious<CR>
-nnoremap <silent><A-right> :BufferMoveNext<CR>
+nnoremap <silent><A-[> :BufferMovePrevious<CR>
+nnoremap <silent><A-]> :BufferMoveNext<CR>
 " ----------------------------------------------------------------------------
 " Git Related
 " ----------------------------------------------------------------------------
