@@ -611,7 +611,7 @@ let g:airline_symbols.space = "\ua0"
 " barbar.nvim
 " ----------------------------------------------------------------------------
 nnoremap <silent><A-{> :BufferPrevious<CR>
-nnoremap <silent><A-}> :BufferPrevious<CR>
+nnoremap <silent><A-}> :BufferNext<CR>
 nnoremap <silent><A-[> :BufferMovePrevious<CR>
 nnoremap <silent><A-]> :BufferMoveNext<CR>
 " ----------------------------------------------------------------------------
