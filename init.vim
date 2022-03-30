@@ -277,6 +277,7 @@ endif
 set linespace=5
 
 let g:rubycomplete_buffer_loading = 1
+let g:python3_host_prog = '/opt/homebrew/bin/python3'
 
 set laststatus=2
 
