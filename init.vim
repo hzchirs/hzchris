@@ -169,9 +169,19 @@ Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-rails'
 Plug 'chr4/nginx.vim'
 
+" Vim Script
+Plug 'ahmedkhalf/jupyter-nvim', { 'do': ':UpdateRemotePlugins' }
 
 
 call plug#end()
+
+lua << EOF
+  require("jupyter-nvim").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
 
 " ============================================================================
 " Basic settings
@@ -277,6 +287,7 @@ endif
 set linespace=5
 
 let g:rubycomplete_buffer_loading = 1
+let g:python3_host_prog = '/opt/homebrew/bin/python3'
 
 set laststatus=2
 
