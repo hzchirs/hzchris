@@ -189,7 +189,7 @@ filetype plugin indent on                  " required
 set autoindent
 " set foldmethod=syntax
 set foldmethod=expr
-" set foldexpr=nvim_treesitter#foldexpr()
+set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=20
 set clipboard+=unnamed
 set shell=zsh
@@ -777,57 +777,58 @@ nnoremap <leader>tg :FloatermNew lazygit<CR>
 highlight CodiVirtualText guifg=grey
 
 lua <<EOF
--- require'nvim-treesitter.configs'.setup {
---   ensure_installed = {
---     "ruby",
---     "lua",
---     "python",
---     "javascript",
---     "typescript",
---     "json",
---     "html",
---     "scss",
---     "vue",
---     "tsx",
---     "scss",
---     "css",
---     "yaml",
---     "hcl"
---   },
---   highlight = {
---     enable = true,              -- false will disable the whole extension
---     additional_vim_regex_highlighting = true,
---   },
---
---   incremental_selection = {
---     enable = true,
---     keymaps = {
---       init_selection = "vv",
---       node_incremental = "vv",
---       scope_incremental = "vc",
---       node_decremental = "vd",
---     },
---   },
---
---   playground = {
---     enable = true,
---     disable = {},
---     updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
---     persist_queries = false, -- Whether the query persists across vim sessions
---     keybindings = {
---       toggle_query_editor = 'o',
---       toggle_hl_groups = 'i',
---       toggle_injected_languages = 't',
---       toggle_anonymous_nodes = 'a',
---       toggle_language_display = 'I',
---       focus_language = 'f',
---       unfocus_language = 'F',
---       update = 'R',
---       goto_node = '<cr>',
---       show_help = '?',
---     },
---   }
--- }
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "ruby",
+    "lua",
+    "python",
+    "javascript",
+    "typescript",
+    "json",
+    "html",
+    "scss",
+    "vue",
+    "tsx",
+    "scss",
+    "css",
+    "yaml",
+    "hcl"
+  },
+  sync_install = false,
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    additional_vim_regex_highlighting = true,
+  },
+
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "vv",
+      node_incremental = "vv",
+      scope_incremental = "vc",
+      node_decremental = "vd",
+    },
+  },
+
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
+  }
+}
 EOF
 
 " ----------------------------------------------------------------------------
