@@ -82,6 +82,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
+Plug 'RRethy/nvim-treesitter-endwise'
 " Plug 'kyazdani42/nvim-tree.lua'
 
 " ----------------------------------------------------------------------------
@@ -827,6 +828,10 @@ require'nvim-treesitter.configs'.setup {
       goto_node = '<cr>',
       show_help = '?',
     },
+  },
+
+  endwise = {
+    enable = true
   }
 }
 EOF
