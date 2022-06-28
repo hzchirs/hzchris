@@ -414,10 +414,11 @@ nnoremap <leader>rc :belowright split \| terminal bundle exec rails console<CR> 
 nnoremap <leader>cl :call RunCurrentSpecLine()<CR>
 nnoremap <leader>cs :call RunCurrentSpecFile()<CR>
 
-" let g:nuake_size = 0.5
-"
-" nnoremap <F1> :Nuake<CR>
-" tnoremap <F1> <C-\><C-N>:Nuake<CR>
+nnoremap <leader>t1 :ToggleTerm1 size=20<CR>
+nnoremap <leader>t2 :ToggleTerm2 size=20<CR>
+nnoremap <leader>t3 :ToggleTerm3 size=20<CR>
+nnoremap <F1> :ToggleTermToggleAll<CR>
+tnoremap <F1> <C-\><C-N>:ToggleTermToggleAll<CR>
 
 function! RunCurrentSpecLine()
 let lineNum = line('.')
