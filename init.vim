@@ -69,7 +69,8 @@ nmap <silent> ]d <Plug>(coc-diagnostic-next)
 Plug 'tpope/vim-db', { 'on': 'DB' }
 Plug 'tpope/vim-unimpaired'
 Plug 'janko/vim-test'
-Plug 'Lenovsky/nuake'
+Plug 'akinsho/toggleterm.nvim', { 'tag': 'v1.*' }
+" Plug 'Lenovsky/nuake'
 Plug 'nvim-lua/plenary.nvim'
 
 " ----------------------------------------------------------------------------
@@ -413,10 +414,10 @@ nnoremap <leader>rc :belowright split \| terminal bundle exec rails console<CR> 
 nnoremap <leader>cl :call RunCurrentSpecLine()<CR>
 nnoremap <leader>cs :call RunCurrentSpecFile()<CR>
 
-let g:nuake_size = 0.5
-
-nnoremap <F1> :Nuake<CR>
-tnoremap <F1> <C-\><C-N>:Nuake<CR>
+" let g:nuake_size = 0.5
+"
+" nnoremap <F1> :Nuake<CR>
+" tnoremap <F1> <C-\><C-N>:Nuake<CR>
 
 function! RunCurrentSpecLine()
 let lineNum = line('.')
@@ -851,3 +852,10 @@ require('octo').setup()
 EOF
 
 nnoremap <leader>lp :Octo pr list<CR>
+
+" ----------------------------------------------------------------------------
+" toggleterm
+" ----------------------------------------------------------------------------
+lua <<EOF
+require("toggleterm").setup{}
+EOF
