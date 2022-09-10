@@ -1,1 +1,850 @@
-/Users/hzchris/.config/nvim/init.vim
+" ============================================================================
+" Plugs
+" ============================================================================
+" builtin plugins
+packadd matchit
+
+if has('nvim')
+  call plug#begin('~/.config/nvim/plugged')
+else
+  call plug#begin('~/.vim/plugged')
+endif
+
+" ----------------------------------------------------------------------------
+" Navigation
+" ----------------------------------------------------------------------------
+Plug 'unblevable/quick-scope'
+Plug 'phaazon/hop.nvim'
+Plug 'airblade/vim-matchquote'
+
+" ----------------------------------------------------------------------------
+" Edit
+" ----------------------------------------------------------------------------
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'Konfekt/FastFold'
+Plug 'chrisbra/Colorizer'
+Plug 'christoomey/vim-sort-motion'
+Plug 'christoomey/vim-titlecase'
+Plug 'gcmt/wildfire.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'vue'] }
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-repeat'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'vim-scripts/SyntaxRange'
+Plug 'vim-scripts/utl.vim'
+Plug 'wellle/targets.vim'
+Plug 'matze/vim-move'
+
+" 讓 vim 的 command line mode 支援 command line 快捷鍵
+Plug 'ryvnf/readline.vim'
+" ----------------------------------------------------------------------------
+" Text Object
+" ----------------------------------------------------------------------------
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-function'
+Plug 'haya14busa/vim-textobj-function-syntax'
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
+Plug 'tpope/vim-surround'
+
+" ----------------------------------------------------------------------------
+" linter
+" ----------------------------------------------------------------------------
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
+
+
+" ----------------------------------------------------------------------------
+" Development Tools
+" ----------------------------------------------------------------------------
+Plug 'tpope/vim-db', { 'on': 'DB' }
+Plug 'tpope/vim-unimpaired'
+Plug 'janko/vim-test'
+Plug 'akinsho/toggleterm.nvim', { 'tag': 'v2.1.0' }
+Plug 'nvim-lua/plenary.nvim'
+
+" ----------------------------------------------------------------------------
+" Browsing
+" ----------------------------------------------------------------------------
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'liuchengxu/vista.vim'
+Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+Plug 'RRethy/nvim-treesitter-endwise'
+
+" ----------------------------------------------------------------------------
+" Git
+" ----------------------------------------------------------------------------
+Plug 'airblade/vim-gitgutter'
+Plug 'jreybert/vimagit'
+Plug 'junegunn/gv.vim'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+
+" ----------------------------------------------------------------------------
+" Fuzzy finder
+" ----------------------------------------------------------------------------
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+" ----------------------------------------------------------------------------
+" Themes
+" ----------------------------------------------------------------------------
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'shaunsingh/nord.nvim'
+Plug 'dracula/vim'
+Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'sainnhe/everforest'
+" Plug 'ryanoasis/vim-devicons'
+" Plug 'kyazdani42/nvim-web-devicons'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
+
+" ----------------------------------------------------------------------------
+" Supports
+" ----------------------------------------------------------------------------
+Plug 'editorconfig/editorconfig-vim'
+Plug 'rizzatti/dash.vim'
+
+
+" ----------------------------------------------------------------------------
+" Completion/Snippets
+" ----------------------------------------------------------------------------
+" Plug 'SirVer/ultisnips'
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v<CurrentMajor>.*'}
+Plug 'rafamadriz/friendly-snippets'
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'github/copilot.vim' " no next suggestion, 過一段時間再回來看
+
+
+" ----------------------------------------------------------------------------
+" Others
+" ----------------------------------------------------------------------------
+Plug 'itchyny/calendar.vim'
+Plug 'vim-scripts/BufOnly.vim'
+Plug 'voldikss/vim-floaterm'
+Plug 'metakirby5/codi.vim'
+
+" ----------------------------------------------------------------------------
+" Note
+" ----------------------------------------------------------------------------
+" Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+" Plug 'mickael-menu/zk-nvim'
+
+" ----------------------------------------------------------------------------
+" Languages
+" ----------------------------------------------------------------------------
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'tpope/vim-rails'
+Plug 'chr4/nginx.vim'
+
+call plug#end()
+
+" ============================================================================
+" Basic settings
+" ============================================================================
+let mapleader=" "
+
+set list lcs=tab:\|\ " tab indent guide
+set fileencodings=utf-8,cp950
+set nocompatible              " be iMproved, required
+set hidden
+set undofile " Maintain undo history between sessions
+" set showcmd
+set regexpengine=1
+set relativenumber
+filetype plugin indent on                  " required
+
+set autoindent
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldlevel=20
+set clipboard+=unnamed
+set shell=zsh
+
+" ctags
+set tags=./tags;/
+
+" mouse scroll smooth
+set cursorline!
+set lazyredraw
+set synmaxcol=256
+syntax sync minlines=256
+
+" coc recommend settings
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+" set cmdheight=2
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" 視覺斷行，不會插入 EOL
+" set wrap
+" 讓視覺斷行斷在文字結束的地方而非中間
+" set linebreak
+" 斷行會自動縮排
+" set breakindent
+" 視覺斷行前顯示記號
+" let &showbreak = '↳ '
+set nowrap
+
+set cpoptions+=n
+
+" paste without replace
+xnoremap p pgvy
+
+" 編輯喜好設定
+set ai           " 自動縮排
+set shiftwidth=4 " 設定縮排寬度 = 2
+set tabstop=4    " tab 的字元數
+" set softtabstop=2
+
+set expandtab   " 用 space 代替 tab
+set nu          " Show line number
+
+set cc=120       " 在第120的寬度顯示提示線
+set ruler        " 顯示右下角設定值
+set backspace=2  " 在 insert 也可用 backspace
+set ic           " 設定搜尋忽略大小寫
+set hlsearch     " 設定高亮度顯示搜尋結果
+set incsearch    " 在關鍵字還沒完全輸入完畢前就顯示結果
+set smartindent  " 設定 smartindent
+set confirm      " 操作過程有衝突時，以明確的文字來詢問
+set history=100  " 保留 100 個使用過的指令
+set cursorline   " 顯示目前的游標位置
+set formatoptions+=mM
+
+
+" 让水平滚动更加自然
+set sidescroll=1
+set sidescrolloff=3
+
+" 游標置中
+set scrolloff=999
+
+" 讓滑鼠在所有模式下均可正常使用
+set mouse=a
+
+if has('nvim')
+  set termguicolors
+  set inccommand=nosplit
+endif
+
+set linespace=5
+
+let g:rubycomplete_buffer_loading = 1
+let g:python3_host_prog = '/opt/homebrew/bin/python3'
+
+set laststatus=2
+
+set background=dark
+" let g:material_style='palenight'
+" let g:forest_night_enable_italic = 1
+" color forest-night
+
+" color nightfox
+color vim-material
+let g:airline_theme="material"
+lua <<EOF
+-- require('lualine').setup()
+-- require('nvim-tree').setup()
+EOF
+
+highlight ALEErrorSign guifg=red
+highlight ALEWarningSign guifg=orange
+
+function! RemoveTrailingSpace()
+  %s/\s\+$//e
+endfunction
+nnoremap <leader><leader>rt :call RemoveTrailingSpace()<CR>
+
+" 檢查文字 highlight
+function! SyntaxItem()
+  echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+        \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+endfunction
+
+function! SynStack()
+  if !exists('*synstack')
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), "synIDattr(v:val, 'name')")
+endfunc
+
+" nnoremap <leader><leader>x :call SyntaxItem()<CR>
+nnoremap <silent><leader><leader>x :TSHighlightCapturesUnderCursor<CR>
+
+" ============================================================================
+" Autocmds
+" ============================================================================
+" ----------------------------------------------------------------------------
+" vue 相關設定
+" ----------------------------------------------------------------------------
+" autocmd FileType vue syntax sync fromstart
+
+" ----------------------------------------------------------------------------
+" 進入 markdown 文件時的相關設定
+" ----------------------------------------------------------------------------
+" ----------------------------------------------------------------------------
+" GV 寬度設定
+" ----------------------------------------------------------------------------
+autocmd FileType git vertical resize 120
+" ----------------------------------------------------------------------------
+" Normal mode
+" ----------------------------------------------------------------------------
+" go run python3 for current file
+nnoremap <silent><leader>rp :!python3 %<CR>
+" go run ruby for current file
+nnoremap <silent><leader>rr :!ruby %<CR>
+" go run javascript for current file
+nnoremap <silent><leader>rj :!node %<CR>
+
+nnoremap <leader>rspd :!puma-dev -stop<CR>
+
+" 以螢幕所見的行而非實際的行來移動
+nnoremap k gk
+nnoremap gk k
+nnoremap j gj
+nnoremap gj j
+
+" 水平 scroll
+nnoremap <S-L> 10zl
+nnoremap <S-H> 10zh
+
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+" 縮放視窗
+nnoremap <silent><leader>= :exe "vertical resize " . (winwidth(0) * 10/9)<CR>
+nnoremap <silent><leader>- :exe "vertical resize " . (winwidth(0) * 9/10)<CR>
+
+" buffer 移動
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+nnoremap <S-X> :bp\|bd #<CR>
+
+" ----------------------------------------------------------------------------
+" Insert Mode
+" ----------------------------------------------------------------------------
+inoremap jk <esc>
+
+" 模擬 Emacs 操作
+inoremap <C-e> <esc>A
+inoremap <C-a> <esc>I
+inoremap <C-f> <right>
+inoremap <C-b> <left>
+inoremap <C-n> <down>
+inoremap <C-p> <up>
+
+" ----------------------------------------------------------------------------
+" Operator Mapping
+" ----------------------------------------------------------------------------
+
+" ----------------------------------------------------------------------------
+" Visual Mode
+" ----------------------------------------------------------------------------
+" Search visualed context
+vnoremap // y/<C-R>"<CR>
+
+" 移動游標隨時置中
+" vnoremap k gkzz
+" vnoremap gk kzz
+" vnoremap j gjzz
+" vnoremap gj jzz
+" ----------------------------------------------------------------------------
+" Terminal Emulator
+" ----------------------------------------------------------------------------
+augroup term_emulator
+  au!
+  au TermOpen * setlocal nonumber norelativenumber
+augroup END
+nnoremap <leader>rc :belowright split \| terminal bundle exec rails console<CR> \| i
+nnoremap <leader>cl :call RunCurrentSpecLine()<CR>
+nnoremap <leader>cs :call RunCurrentSpecFile()<CR>
+
+nnoremap <F1> :ToggleTerm1 size=20<CR>
+nnoremap <F2> :ToggleTerm2 size=20<CR>
+nnoremap <F3> :ToggleTerm3 size=20<CR>
+nnoremap <F5> :ToggleTermToggleAll<CR>
+tnoremap <F1> <C-\><C-N>:ToggleTerm1<CR>
+tnoremap <F2> <C-\><C-N>:ToggleTerm2<CR>
+tnoremap <F3> <C-\><C-N>:ToggleTerm3<CR>
+tnoremap <F5> <C-\><C-N>:ToggleTermToggleAll<CR>
+" tnoremap <C-j> <C-\><C-N><C-W>j
+" tnoremap <C-k> <C-\><C-N><C-W>k
+" tnoremap <C-l> <C-\><C-N><C-W>l
+" tnoremap <C-h> <C-\><C-N><C-W>h
+
+function! RunCurrentSpecLine()
+let lineNum = line('.')
+
+exec 'belowright split'
+exec 'terminal bundle exec rspec %:' . lineNum
+startinsert!
+endfunction
+
+function! RunCurrentSpecFile()
+  exec 'belowright split'
+  exec 'terminal bundle exec rspec %'
+  startinsert!
+endfunction
+
+" Smart way to move between windows
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-l> <C-W>l
+nnoremap <C-h> <C-W>h
+
+if has('nvim')
+  tnoremap `` <C-\><C-N>
+endif
+
+" 不同模式的儲存
+nnoremap <C-s> :update<CR>
+vnoremap <C-s> <C-C>:update<CR>
+inoremap <C-s> <C-O>:update<CR><Right>
+
+
+" ----------------------------------------------------------------------------
+" Floaterm
+" ----------------------------------------------------------------------------
+" Floaterm
+let g:floaterm_gitcommit='floaterm'
+let g:floaterm_autoinsert=1
+let g:floaterm_width=0.9
+let g:floaterm_height=0.9
+let g:floaterm_wintitle=0
+let g:floaterm_autoclose=1
+
+nnoremap <leader>tg :FloatermNew lazygit<CR>
+
+" ============================================================================
+" Language Settings
+" ============================================================================
+" ----------------------------------------------------------------------------
+" Go
+" ----------------------------------------------------------------------------
+augroup filetype_go
+  au!
+  autocmd FileType go setlocal tabstop=8
+  autocmd FileType go setlocal shiftwidth=8
+augroup END
+
+" ----------------------------------------------------------------------------
+" Python
+" ----------------------------------------------------------------------------
+let g:python_highlight_all = 1
+
+" ----------------------------------------------------------------------------
+" HTML, ERB
+" ----------------------------------------------------------------------------
+augroup filetype_html
+  au!
+  autocmd FileType eruby nnoremap <buffer> zc zfat
+  autocmd FileType html nnoremap <buffer> zc zfat
+augroup END
+
+" ============================================================================
+" Plugs Settings
+" ============================================================================
+
+" ----------------------------------------------------------------------------
+" Telescope TODO UX  讚，但速度太慢 2021/08/28，等穩定一點再用
+" ----------------------------------------------------------------------------
+" nnoremap <C-p> <cmd>Telescope find_files<cr>
+" nnoremap <S-p> <cmd>Telescope buffers<cr>
+" nnoremap <leader>fs <cmd>Telescope grep_string<cr>
+" nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+lua << EOF
+-- local actions = require('telescope.actions')
+-- Global remapping
+------------------------------
+-- require('telescope').setup{
+--   defaults = {
+--     layout_strategy = 'vertical',
+--     layout_config = {
+--       vertical = { width = 0.8 }
+--       },
+--     file_ignore_patterns = { "vendor/" },
+--     mappings = {
+--       i = {
+--         ["<C-j>"] = actions.move_selection_next,
+--         ["<C-k>"] = actions.move_selection_previous
+--         }
+--       },
+--   }
+-- }
+--
+-- require('telescope').load_extension('fzf')
+EOF
+
+" ----------------------------------------------------------------------------
+" FZF 
+" ----------------------------------------------------------------------------
+if has('nvim') || has('gui_running')
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  let $FZF_DEFAULT_COMMAND= 'ag -g ""'
+endif
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <S-p> :Buffers<CR>
+nnoremap <silent> <leader>fh :History<CR>
+nnoremap <leader>fi :Files
+
+nnoremap <silent> K :call SearchWordWithAg()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+nnoremap <silent> <leader>fc :Commits<CR>
+nnoremap <silent> <leader>fbc :BCommits<CR>
+nnoremap <silent> <leader>fl :Lines<CR>
+nnoremap <silent> <leader>fbl :BLines<CR>
+
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <C-x><C-j> <plug>(fzf-complete-file-ag)
+imap <C-x><C-l> <plug>(fzf-complete-line)
+
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+
+function! s:ag_in(bang, ...)
+  if !isdirectory(a:1)
+    throw 'not a valid directory: ' .. a:1
+  endif
+  " Press `?' to enable preview window.
+  call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview({'dir': a:1}, 'up:50%:hidden', '?'), a:bang)
+endfunction
+
+command! -bang -nargs=+ -complete=dir AgIn call s:ag_in(<bang>0, <f-args>)
+
+function! SearchWordWithAg()
+  execute 'Ag' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Ag' selection
+endfunction
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+" ----------------------------------------------------------------------------
+" Goyo
+" ----------------------------------------------------------------------------
+let g:goyo_width = 120
+
+function! s:goyo_enter()
+  set wrap
+  set linebreak
+
+  " Limelight
+endfunction
+
+function! s:goyo_leave()
+  set nowrap
+
+  " Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+" ----------------------------------------------------------------------------
+" ultisnips
+" ----------------------------------------------------------------------------
+" let g:UltiSnipsExpandTrigger="<tab>"
+
+" ----------------------------------------------------------------------------
+" vim-airline
+" ----------------------------------------------------------------------------
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+" ----------------------------------------------------------------------------
+" barbar.nvim
+" ----------------------------------------------------------------------------
+nnoremap <silent><A-{> :BufferPrevious<CR>
+nnoremap <silent><A-}> :BufferNext<CR>
+nnoremap <silent><A-[> :BufferMovePrevious<CR>
+nnoremap <silent><A-]> :BufferMoveNext<CR>
+" ----------------------------------------------------------------------------
+" Git Related
+" ----------------------------------------------------------------------------
+nnoremap <silent><leader>gs :Gstatus<CR>
+nnoremap <silent><leader>gc :Git commit<CR>
+nnoremap <silent><leader>git :Git
+
+" ----------------------------------------------------------------------------
+" vimwiki
+" ----------------------------------------------------------------------------
+augroup filetype_vimwiki
+  au!
+  au FileType vimwiki let &l:showbreak = ""
+  au FileType vimwiki nnoremap <buffer> <leader><leader>n :lnext<CR>
+  au FileType vimwiki nnoremap <buffer> <leader><leader>p :lprevious<CR>
+  au FileType vimwiki nnoremap <buffer> <leader><leader>g :Goyo<CR>
+  au FileType vimwiki nnoremap <buffer> //s :VWS<space>
+  au FileType vimwiki nnoremap <buffer> //t :VimwikiSearchTags<space>
+augroup END
+
+let g:vimwiki_key_mappings = { 'table_mappings': 0 }
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
+      \ 'path_html': '~/Dropbox/vimwiki_html/',
+      \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_CJK_length = 1
+let g:vimwiki_folding = 'expr:quick'
+let g:vimwiki_use_calendar = 1
+
+" ----------------------------------------------------------------------------
+" utl.vim
+" ----------------------------------------------------------------------------
+let g:utl_cfg_hdl_scm_http_system = "silent !open -a firefox '%u'"
+
+" ----------------------------------------------------------------------------
+" vim-devicons
+" ----------------------------------------------------------------------------
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+
+" ----------------------------------------------------------------------------
+" nerdtree
+" ----------------------------------------------------------------------------
+" nnoremap <silent><C-\> :NERDTreeToggle<CR>
+
+nnoremap <silent><C-\> :NvimTreeToggle<CR>
+lua <<EOF
+require('nvim-tree').setup()
+EOF
+
+" ----------------------------------------------------------------------------
+" vista
+" ----------------------------------------------------------------------------
+let g:vista_echo_cursor_strategy = 'floating_win'
+nmap <silent> <leader>vo :Vista coc<CR>
+nmap <silent> <leader>vc :Vista!<CR>
+
+" ----------------------------------------------------------------------------
+" indentLine
+" ----------------------------------------------------------------------------
+let g:indentLine_setColors = 0
+let g:indentLine_fileType = ['ruby', 'javascript', 'html', 'eruby', 'vue']
+nnoremap <silent><leader>ig :IndentLinesToggle<CR>
+
+" ----------------------------------------------------------------------------
+" vim-rails
+" ----------------------------------------------------------------------------
+let g:rails_ctags_arguments = ['--languages=ruby --exclude=.git --exclude=log .']
+" let g:rails_ctags_arguments = ['--languages=Ruby --exclude=.git --exclude=log . $(bundle list --paths)']
+
+" ----------------------------------------------------------------------------
+" vim-ruby
+" ----------------------------------------------------------------------------
+let g:ruby_indent_access_modifier_style = 'indent'
+let g:ruby_indent_assignment_style = 'hanging'
+
+" ----------------------------------------------------------------------------
+" vim-go
+" ----------------------------------------------------------------------------
+nnoremap <leader>gr :GoRun<CR>
+
+" ----------------------------------------------------------------------------
+" csv.vim
+" ----------------------------------------------------------------------------
+let g:csv_autocmd_arrange = 1
+
+" ----------------------------------------------------------------------------
+" vim-easy-align
+" ----------------------------------------------------------------------------
+nmap ga <Plug>(EasyAlign)
+
+" ----------------------------------------------------------------------------
+" dash
+" ----------------------------------------------------------------------------
+nnoremap <silent><leader>dd :Dash<CR>
+
+" ----------------------------------------------------------------------------
+" COC
+" ---------------------------------------------------------------------------- COC
+inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+inoremap <expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+inoremap <expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" ----------------------------------------------------------------------------
+" BufOnly
+" ----------------------------------------------------------------------------
+nnoremap <leader>bo :BufOnly<CR>
+
+" ----------------------------------------------------------------------------
+" vim-doge
+" ----------------------------------------------------------------------------
+nnoremap <leader>dg :DogeGenerate<CR>
+
+" ----------------------------------------------------------------------------
+" quick-scope
+" ----------------------------------------------------------------------------"""
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+" ----------------------------------------------------------------------------
+" Calendar
+" ----------------------------------------------------------------------------
+source ~/.cache/calendar.vim/credentials.vim
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+
+" ----------------------------------------------------------------------------
+" quick-scope
+" ----------------------------------------------------------------------------"""
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+" ----------------------------------------------------------------------------
+" Codi
+" ----------------------------------------------------------------------------
+highlight CodiVirtualText guifg=grey
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "ruby",
+    "lua",
+    "python",
+    "javascript",
+    "typescript",
+    "json",
+    "html",
+    "scss",
+    "vue",
+    "tsx",
+    "scss",
+    "css",
+    "yaml",
+    "hcl"
+  },
+  sync_install = false,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "vv",
+      node_incremental = "vv",
+      scope_incremental = "vc",
+      node_decremental = "vd",
+    },
+  },
+
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
+  },
+
+  endwise = {
+    enable = true
+  }
+}
+EOF
+
+" ----------------------------------------------------------------------------
+" toggleterm
+" ----------------------------------------------------------------------------
+lua <<EOF
+require("toggleterm").setup{}
+EOF
+
+" ----------------------------------------------------------------------------
+" hop
+" ----------------------------------------------------------------------------
+lua <<EOF
+require'hop'.setup()
+EOF
+
+nnoremap <leader><leader>w :HopWordAC<CR>
+nnoremap <leader><leader>b :HopWordBC<CR>
+nnoremap <leader><leader>l :HopLineStart<CR>
+
+" ----------------------------------------------------------------------------
+"  LuaSnip
+" ----------------------------------------------------------------------------
+lua <<EOF
+require('luasnip/loaders/from_vscode').lazy_load()
+require'luasnip'.filetype_extend("ruby", {"rails"})
+EOF
+
+" press <Tab> to expand or jump in a snippet. These can also be mapped separately
+" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+" -1 for jumping backwards.
+inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+
+snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+
+" For changing choices in choiceNodes (not strictly necessary for a basic setup).
+imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+
+" ----------------------------------------------------------------------------
+"  Copilot
+" ----------------------------------------------------------------------------
+let g:copilot_node_command = '~/.nvm/versions/node/v17.9.1/bin/node'
