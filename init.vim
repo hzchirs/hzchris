@@ -841,3 +841,5 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 "  Copilot
 " ----------------------------------------------------------------------------
 let g:copilot_node_command = '~/.nvm/versions/node/v17.9.1/bin/node'
+
+command! Scratch lua require 'tools'.makeScratch()
