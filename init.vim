@@ -4,15 +4,153 @@
 " builtin plugins
 packadd matchit
 
-lua require('plugins')
+if has('nvim')
+  call plug#begin('~/.config/nvim/plugged')
+else
+  call plug#begin('~/.vim/plugged')
+endif
+
+" ----------------------------------------------------------------------------
+" Navigation
+" ----------------------------------------------------------------------------
+Plug 'unblevable/quick-scope'
+Plug 'phaazon/hop.nvim'
+Plug 'airblade/vim-matchquote'
+
+" ----------------------------------------------------------------------------
+" Edit
+" ----------------------------------------------------------------------------
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'Konfekt/FastFold'
+Plug 'chrisbra/Colorizer'
+Plug 'christoomey/vim-sort-motion'
+Plug 'christoomey/vim-titlecase'
+Plug 'gcmt/wildfire.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'vue'] }
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-repeat'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'vim-scripts/SyntaxRange'
+Plug 'vim-scripts/utl.vim'
+Plug 'wellle/targets.vim'
+Plug 'matze/vim-move'
+
+" 讓 vim 的 command line mode 支援 command line 快捷鍵
+Plug 'ryvnf/readline.vim'
+" ----------------------------------------------------------------------------
+" Text Object
+" ----------------------------------------------------------------------------
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-function'
+Plug 'haya14busa/vim-textobj-function-syntax'
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
+Plug 'tpope/vim-surround'
+
+" ----------------------------------------------------------------------------
+" linter
+" ----------------------------------------------------------------------------
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
+
+
+" ----------------------------------------------------------------------------
+" Development Tools
+" ----------------------------------------------------------------------------
+Plug 'tpope/vim-db', { 'on': 'DB' }
+Plug 'tpope/vim-unimpaired'
+Plug 'janko/vim-test'
+Plug 'akinsho/toggleterm.nvim', { 'tag': 'v2.1.0' }
+Plug 'nvim-lua/plenary.nvim'
+
+" ----------------------------------------------------------------------------
+" Browsing
+" ----------------------------------------------------------------------------
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+Plug 'RRethy/nvim-treesitter-endwise'
+
+" ----------------------------------------------------------------------------
+" Git
+" ----------------------------------------------------------------------------
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/gv.vim'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+
+" ----------------------------------------------------------------------------
+" Fuzzy finder
+" ----------------------------------------------------------------------------
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+" ----------------------------------------------------------------------------
+" Themes
+" ----------------------------------------------------------------------------
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'shaunsingh/nord.nvim'
+Plug 'dracula/vim'
+Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'sainnhe/everforest'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'romgrk/barbar.nvim'
+
+" ----------------------------------------------------------------------------
+" Supports
+" ----------------------------------------------------------------------------
+Plug 'editorconfig/editorconfig-vim'
+Plug 'rizzatti/dash.vim'
+
+
+" ----------------------------------------------------------------------------
+" Completion/Snippets
+" ----------------------------------------------------------------------------
+" Plug 'SirVer/ultisnips'
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v<CurrentMajor>.*'}
+Plug 'rafamadriz/friendly-snippets'
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'github/copilot.vim' " no next suggestion, 過一段時間再回來看
+
+
+" ----------------------------------------------------------------------------
+" Others
+" ----------------------------------------------------------------------------
+Plug 'itchyny/calendar.vim'
+Plug 'vim-scripts/BufOnly.vim'
+Plug 'voldikss/vim-floaterm'
+Plug 'metakirby5/codi.vim'
+
+" ----------------------------------------------------------------------------
+" Note
+" ----------------------------------------------------------------------------
+" Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+" Plug 'mickael-menu/zk-nvim'
+
+" ----------------------------------------------------------------------------
+" Languages
+" ----------------------------------------------------------------------------
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'tpope/vim-rails'
+Plug 'chr4/nginx.vim'
+
+call plug#end()
 
 " ============================================================================
 " Basic settings
 " ============================================================================
 let mapleader=" "
-
-nmap <silent> [d <Plug>(coc-diagnostic-prev)
-nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 set list lcs=tab:\|\ " tab indent guide
 set fileencodings=utf-8,cp950
@@ -75,7 +213,7 @@ xnoremap p pgvy
 " 編輯喜好設定
 set ai           " 自動縮排
 set shiftwidth=2 " 設定縮排寬度 = 2
-set tabstop=4    " tab 的字元數
+" set tabstop=4    " tab 的字元數
 set softtabstop=2
 
 set expandtab   " 用 space 代替 tab
@@ -512,13 +650,6 @@ nnoremap <silent><C-\> :NvimTreeToggle<CR>
 lua <<EOF
 require('nvim-tree').setup()
 EOF
-
-" ----------------------------------------------------------------------------
-" vista
-" ----------------------------------------------------------------------------
-let g:vista_echo_cursor_strategy = 'floating_win'
-nmap <silent> <leader>vo :Vista coc<CR>
-nmap <silent> <leader>vc :Vista!<CR>
 
 " ----------------------------------------------------------------------------
 " indentLine
