@@ -117,7 +117,7 @@ Plug 'rizzatti/dash.vim'
 " Completion/Snippets
 " ----------------------------------------------------------------------------
 " Plug 'SirVer/ultisnips'
-Plug 'L3MON4D3/LuaSnip', {'tag': 'v<CurrentMajor>.*'}
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*'}
 Plug 'rafamadriz/friendly-snippets'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
