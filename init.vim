@@ -648,7 +648,11 @@ let g:DevIconsEnableFoldersOpenClose = 1
 
 nnoremap <silent><C-\> :NvimTreeToggle<CR>
 lua <<EOF
-require('nvim-tree').setup()
+require('nvim-tree').setup({
+  view = {
+    adaptive_size = true
+  }
+})
 EOF
 
 " ----------------------------------------------------------------------------
