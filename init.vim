@@ -837,5 +837,5 @@ command! Scratch lua require 'tools'.makeScratch()
 " alpha-nvim
 " ----------------------------------------------------------------------------
 lua <<EOF
-require'alpha'.setup(require'alpha.themes.dashboard'.config)
+require'alpha'.setup(require'alpha.themes.startify'.config)
 EOF
