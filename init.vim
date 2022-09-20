@@ -99,11 +99,10 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'shaunsingh/nord.nvim'
 Plug 'dracula/vim'
-Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
+" Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'sainnhe/everforest'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'romgrk/barbar.nvim'
 
 " ----------------------------------------------------------------------------
@@ -260,11 +259,11 @@ set background=dark
 " color forest-night
 
 " color nightfox
-color vim-material
-let g:airline_theme="material"
+color tokyonight
 lua <<EOF
--- require('lualine').setup()
--- require('nvim-tree').setup()
+require('lualine').setup({
+  options = { theme = 'tokyonight' }
+})
 EOF
 
 highlight ALEErrorSign guifg=red
@@ -582,18 +581,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " ultisnips
 " ----------------------------------------------------------------------------
 " let g:UltiSnipsExpandTrigger="<tab>"
-
-" ----------------------------------------------------------------------------
-" vim-airline
-" ----------------------------------------------------------------------------
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_powerline_fonts = 1
-
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
 
 " ----------------------------------------------------------------------------
 " barbar.nvim
