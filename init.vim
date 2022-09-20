@@ -70,6 +70,7 @@ Plug 'nvim-lua/plenary.nvim'
 " ----------------------------------------------------------------------------
 " Browsing
 " ----------------------------------------------------------------------------
+Plug 'goolord/alpha-nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
@@ -96,14 +97,14 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " ----------------------------------------------------------------------------
 " Themes
 " ----------------------------------------------------------------------------
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'shaunsingh/nord.nvim'
-Plug 'dracula/vim'
-" Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'sainnhe/everforest'
+" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+" Plug 'shaunsingh/nord.nvim'
+" Plug 'dracula/vim'
+Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
+" Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+" Plug 'sainnhe/everforest'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'romgrk/barbar.nvim'
+" Plug 'romgrk/barbar.nvim'
 
 " ----------------------------------------------------------------------------
 " Supports
@@ -259,10 +260,10 @@ set background=dark
 " color forest-night
 
 " color nightfox
-color tokyonight
+color vim-material
 lua <<EOF
 require('lualine').setup({
-  options = { theme = 'tokyonight' }
+  options = { theme = 'material' }
 })
 EOF
 
@@ -831,3 +832,10 @@ snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
 let g:copilot_node_command = '~/.nvm/versions/node/v17.9.1/bin/node'
 
 command! Scratch lua require 'tools'.makeScratch()
+
+" ----------------------------------------------------------------------------
+" alpha-nvim
+" ----------------------------------------------------------------------------
+lua <<EOF
+require'alpha'.setup(require'alpha.themes.dashboard'.config)
+EOF
