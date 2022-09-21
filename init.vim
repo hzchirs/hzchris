@@ -104,7 +104,7 @@ Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
 " Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 " Plug 'sainnhe/everforest'
 Plug 'nvim-lualine/lualine.nvim'
-" Plug 'romgrk/barbar.nvim'
+Plug 'romgrk/barbar.nvim'
 
 " ----------------------------------------------------------------------------
 " Supports
