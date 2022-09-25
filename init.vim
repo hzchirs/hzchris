@@ -145,13 +145,13 @@ call plug#end()
 " ============================================================================
 let mapleader=" "
 
-set list lcs=tab:\|\ " tab indent guide
-set fileencodings=utf-8,cp950
+" set list lcs=tab:\|\ " tab indent guide
+" set fileencodings=utf-8,cp950
 set nocompatible              " be iMproved, required
-set hidden
+" set hidden
 set undofile " Maintain undo history between sessions
 " set showcmd
-set regexpengine=1
+" set regexpengine=1
 set relativenumber
 filetype plugin indent on                  " required
 
