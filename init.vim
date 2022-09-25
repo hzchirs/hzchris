@@ -52,16 +52,8 @@ Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
 Plug 'tpope/vim-surround'
 
 " ----------------------------------------------------------------------------
-" linter
-" ----------------------------------------------------------------------------
-nmap <silent> [d <Plug>(coc-diagnostic-prev)
-nmap <silent> ]d <Plug>(coc-diagnostic-next)
-
-
-" ----------------------------------------------------------------------------
 " Development Tools
 " ----------------------------------------------------------------------------
-Plug 'tpope/vim-db', { 'on': 'DB' }
 Plug 'tpope/vim-unimpaired'
 Plug 'janko/vim-test'
 Plug 'akinsho/toggleterm.nvim', { 'tag': 'v2.1.0' }
@@ -101,6 +93,7 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " Plug 'shaunsingh/nord.nvim'
 " Plug 'dracula/vim'
 Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
+
 " Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 " Plug 'sainnhe/everforest'
 Plug 'nvim-lualine/lualine.nvim'
@@ -258,9 +251,9 @@ set background=dark
 " let g:material_style='palenight'
 " let g:forest_night_enable_italic = 1
 " color forest-night
+color vim-material
 
 " color nightfox
-color vim-material
 lua <<EOF
 require('lualine').setup({
   options = { theme = 'material' }
@@ -688,6 +681,9 @@ nnoremap <silent><leader>dd :Dash<CR>
 inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 inoremap <expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
 inoremap <expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 function! s:check_back_space() abort
   let col = col('.') - 1
