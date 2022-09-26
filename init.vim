@@ -825,7 +825,7 @@ snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
 " ----------------------------------------------------------------------------
 "  Copilot
 " ----------------------------------------------------------------------------
-let g:copilot_node_command = '~/.nvm/versions/node/v17.9.1/bin/node'
+let g:copilot_node_command = '~/.nvm/versions/node/v16.17.0/bin/node'
 
 command! Scratch lua require 'tools'.makeScratch()
 
