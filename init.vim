@@ -113,13 +113,14 @@ Plug 'rizzatti/dash.vim'
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*'}
 Plug 'rafamadriz/friendly-snippets'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'github/copilot.vim' " no next suggestion, 過一段時間再回來看
 
 
 " ----------------------------------------------------------------------------
 " Others
 " ----------------------------------------------------------------------------
+Plug 'neovim/nvim-lspconfig' " Configurations for Nvim LSP
 Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'voldikss/vim-floaterm'
@@ -145,10 +146,7 @@ call plug#end()
 " ============================================================================
 let mapleader=" "
 
-" set list lcs=tab:\|\ " tab indent guide
-" set fileencodings=utf-8,cp950
 set nocompatible              " be iMproved, required
-" set hidden
 set undofile " Maintain undo history between sessions
 " set showcmd
 " set regexpengine=1
@@ -168,7 +166,7 @@ set tags=./tags;/
 " mouse scroll smooth
 set cursorline!
 set lazyredraw
-set synmaxcol=256
+" set synmaxcol=256
 syntax sync minlines=256
 
 " coc recommend settings
@@ -260,42 +258,9 @@ require('lualine').setup({
 })
 EOF
 
-highlight ALEErrorSign guifg=red
-highlight ALEWarningSign guifg=orange
-
-function! RemoveTrailingSpace()
-  %s/\s\+$//e
-endfunction
-nnoremap <leader><leader>rt :call RemoveTrailingSpace()<CR>
-
-" 檢查文字 highlight
-function! SyntaxItem()
-  echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-        \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
-endfunction
-
-function! SynStack()
-  if !exists('*synstack')
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), "synIDattr(v:val, 'name')")
-endfunc
-
-" nnoremap <leader><leader>x :call SyntaxItem()<CR>
-nnoremap <silent><leader><leader>x :TSHighlightCapturesUnderCursor<CR>
-
 " ============================================================================
 " Autocmds
 " ============================================================================
-" ----------------------------------------------------------------------------
-" vue 相關設定
-" ----------------------------------------------------------------------------
-" autocmd FileType vue syntax sync fromstart
-
-" ----------------------------------------------------------------------------
-" 進入 markdown 文件時的相關設定
-" ----------------------------------------------------------------------------
 " ----------------------------------------------------------------------------
 " GV 寬度設定
 " ----------------------------------------------------------------------------
@@ -678,17 +643,17 @@ nnoremap <silent><leader>dd :Dash<CR>
 " ----------------------------------------------------------------------------
 " COC
 " ---------------------------------------------------------------------------- COC
-inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-inoremap <expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
-inoremap <expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+" inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+" inoremap <expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+" inoremap <expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
 
-nmap <silent> [d <Plug>(coc-diagnostic-prev)
-nmap <silent> ]d <Plug>(coc-diagnostic-next)
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" nmap <silent> [d <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]d <Plug>(coc-diagnostic-next)
+"
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
 " ----------------------------------------------------------------------------
 " BufOnly
@@ -834,4 +799,49 @@ command! Scratch lua require 'tools'.makeScratch()
 " ----------------------------------------------------------------------------
 lua <<EOF
 require'alpha'.setup(require'alpha.themes.startify'.config)
+EOF
+
+" ----------------------------------------------------------------------------
+" nvim-lsp
+" ----------------------------------------------------------------------------
+lua <<EOF
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, opts)
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+end
+
+require 'lspconfig'.solargraph.setup{
+  on_attach = on_attach,
+}
+
+require 'lspconfig'.vuels.setup{
+  on_attach = on_attach
+}
 EOF
