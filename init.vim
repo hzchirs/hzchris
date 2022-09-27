@@ -54,7 +54,7 @@ Plug 'tpope/vim-surround'
 " ----------------------------------------------------------------------------
 " Development Tools
 " ----------------------------------------------------------------------------
-Plug 'tpope/vim-unimpaired'
+" Plug 'tpope/vim-unimpaired'
 Plug 'janko/vim-test'
 Plug 'akinsho/toggleterm.nvim', { 'tag': 'v2.1.0' }
 Plug 'nvim-lua/plenary.nvim'
@@ -124,7 +124,7 @@ Plug 'neovim/nvim-lspconfig' " Configurations for Nvim LSP
 Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'voldikss/vim-floaterm'
-Plug 'metakirby5/codi.vim'
+" Plug 'metakirby5/codi.vim'
 
 " ----------------------------------------------------------------------------
 " Note
@@ -245,10 +245,10 @@ let g:python3_host_prog = '/opt/homebrew/bin/python3'
 
 set laststatus=2
 
-set background=dark
-" let g:material_style='palenight'
-" let g:forest_night_enable_italic = 1
-" color forest-night
+" set background=dark
+" " let g:material_style='palenight'
+" " let g:forest_night_enable_italic = 1
+" " color forest-night
 color vim-material
 
 " color nightfox
@@ -258,24 +258,22 @@ require('lualine').setup({
 })
 EOF
 
-" ============================================================================
-" Autocmds
-" ============================================================================
-" ----------------------------------------------------------------------------
-" GV 寬度設定
-" ----------------------------------------------------------------------------
-autocmd FileType git vertical resize 120
-" ----------------------------------------------------------------------------
-" Normal mode
-" ----------------------------------------------------------------------------
+" " ============================================================================
+" " Autocmds
+" " ============================================================================
+" " ----------------------------------------------------------------------------
+" " GV 寬度設定
+" " ----------------------------------------------------------------------------
+" autocmd FileType git vertical resize 120
+" " ----------------------------------------------------------------------------
+" " Normal mode
+" " ----------------------------------------------------------------------------
 " go run python3 for current file
 nnoremap <silent><leader>rp :!python3 %<CR>
 " go run ruby for current file
 nnoremap <silent><leader>rr :!ruby %<CR>
 " go run javascript for current file
 nnoremap <silent><leader>rj :!node %<CR>
-
-nnoremap <leader>rspd :!puma-dev -stop<CR>
 
 " 以螢幕所見的行而非實際的行來移動
 nnoremap k gk
@@ -393,23 +391,23 @@ let g:floaterm_autoclose=1
 
 nnoremap <leader>tg :FloatermNew lazygit<CR>
 
-" ============================================================================
-" Language Settings
-" ============================================================================
-" ----------------------------------------------------------------------------
-" Go
-" ----------------------------------------------------------------------------
-augroup filetype_go
-  au!
-  autocmd FileType go setlocal tabstop=8
-  autocmd FileType go setlocal shiftwidth=8
-augroup END
-
-" ----------------------------------------------------------------------------
-" Python
-" ----------------------------------------------------------------------------
-let g:python_highlight_all = 1
-
+" " ============================================================================
+" " Language Settings
+" " ============================================================================
+" " ----------------------------------------------------------------------------
+" " Go
+" " ----------------------------------------------------------------------------
+" augroup filetype_go
+"   au!
+"   autocmd FileType go setlocal tabstop=8
+"   autocmd FileType go setlocal shiftwidth=8
+" augroup END
+"
+" " ----------------------------------------------------------------------------
+" " Python
+" " ----------------------------------------------------------------------------
+" let g:python_highlight_all = 1
+"
 " ----------------------------------------------------------------------------
 " HTML, ERB
 " ----------------------------------------------------------------------------
@@ -419,45 +417,45 @@ augroup filetype_html
   autocmd FileType html nnoremap <buffer> zc zfat
 augroup END
 
-" ============================================================================
-" Plugs Settings
-" ============================================================================
-
-" ----------------------------------------------------------------------------
-" Telescope TODO UX  讚，但速度太慢 2021/08/28，等穩定一點再用
-" ----------------------------------------------------------------------------
-" nnoremap <C-p> <cmd>Telescope find_files<cr>
-" nnoremap <S-p> <cmd>Telescope buffers<cr>
-" nnoremap <leader>fs <cmd>Telescope grep_string<cr>
-" nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-lua << EOF
--- local actions = require('telescope.actions')
--- Global remapping
-------------------------------
--- require('telescope').setup{
---   defaults = {
---     layout_strategy = 'vertical',
---     layout_config = {
---       vertical = { width = 0.8 }
---       },
---     file_ignore_patterns = { "vendor/" },
---     mappings = {
---       i = {
---         ["<C-j>"] = actions.move_selection_next,
---         ["<C-k>"] = actions.move_selection_previous
---         }
---       },
---   }
--- }
---
--- require('telescope').load_extension('fzf')
-EOF
-
-" ----------------------------------------------------------------------------
-" FZF 
-" ----------------------------------------------------------------------------
+" " ============================================================================
+" " Plugs Settings
+" " ============================================================================
+"
+" " ----------------------------------------------------------------------------
+" " Telescope TODO UX  讚，但速度太慢 2021/08/28，等穩定一點再用
+" " ----------------------------------------------------------------------------
+" " nnoremap <C-p> <cmd>Telescope find_files<cr>
+" " nnoremap <S-p> <cmd>Telescope buffers<cr>
+" " nnoremap <leader>fs <cmd>Telescope grep_string<cr>
+" " nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+" " nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+"
+" lua << EOF
+" -- local actions = require('telescope.actions')
+" -- Global remapping
+" ------------------------------
+" -- require('telescope').setup{
+" --   defaults = {
+" --     layout_strategy = 'vertical',
+" --     layout_config = {
+" --       vertical = { width = 0.8 }
+" --       },
+" --     file_ignore_patterns = { "vendor/" },
+" --     mappings = {
+" --       i = {
+" --         ["<C-j>"] = actions.move_selection_next,
+" --         ["<C-k>"] = actions.move_selection_previous
+" --         }
+" --       },
+" --   }
+" -- }
+" --
+" -- require('telescope').load_extension('fzf')
+" EOF
+"
+" " ----------------------------------------------------------------------------
+" " FZF 
+" " ----------------------------------------------------------------------------
 if has('nvim') || has('gui_running')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
   let $FZF_DEFAULT_COMMAND= 'ag -g ""'
@@ -515,35 +513,30 @@ endfunction
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-" ----------------------------------------------------------------------------
-" Goyo
-" ----------------------------------------------------------------------------
-let g:goyo_width = 120
-
-function! s:goyo_enter()
-  set wrap
-  set linebreak
-
-  " Limelight
-endfunction
-
-function! s:goyo_leave()
-  set nowrap
-
-  " Limelight!
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-" ----------------------------------------------------------------------------
-" ultisnips
-" ----------------------------------------------------------------------------
-" let g:UltiSnipsExpandTrigger="<tab>"
-
-" ----------------------------------------------------------------------------
-" barbar.nvim
-" ----------------------------------------------------------------------------
+" " ----------------------------------------------------------------------------
+" " Goyo
+" " ----------------------------------------------------------------------------
+" let g:goyo_width = 120
+"
+" function! s:goyo_enter()
+"   set wrap
+"   set linebreak
+"
+"   " Limelight
+" endfunction
+"
+" function! s:goyo_leave()
+"   set nowrap
+"
+"   " Limelight!
+" endfunction
+"
+" autocmd! User GoyoEnter nested call <SID>goyo_enter()
+" autocmd! User GoyoLeave nested call <SID>goyo_leave()
+"
+" " ----------------------------------------------------------------------------
+" " barbar.nvim
+" " ----------------------------------------------------------------------------
 nnoremap <silent><A-{> :BufferPrevious<CR>
 nnoremap <silent><A-}> :BufferNext<CR>
 nnoremap <silent><A-[> :BufferMovePrevious<CR>
@@ -555,51 +548,27 @@ nnoremap <silent><leader>gs :Gstatus<CR>
 nnoremap <silent><leader>gc :Git commit<CR>
 nnoremap <silent><leader>git :Git
 
-" ----------------------------------------------------------------------------
-" vimwiki
-" ----------------------------------------------------------------------------
-augroup filetype_vimwiki
-  au!
-  au FileType vimwiki let &l:showbreak = ""
-  au FileType vimwiki nnoremap <buffer> <leader><leader>n :lnext<CR>
-  au FileType vimwiki nnoremap <buffer> <leader><leader>p :lprevious<CR>
-  au FileType vimwiki nnoremap <buffer> <leader><leader>g :Goyo<CR>
-  au FileType vimwiki nnoremap <buffer> //s :VWS<space>
-  au FileType vimwiki nnoremap <buffer> //t :VimwikiSearchTags<space>
-augroup END
-
-let g:vimwiki_key_mappings = { 'table_mappings': 0 }
-let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
-      \ 'path_html': '~/Dropbox/vimwiki_html/',
-      \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_CJK_length = 1
-let g:vimwiki_folding = 'expr:quick'
-let g:vimwiki_use_calendar = 1
-
-" ----------------------------------------------------------------------------
-" utl.vim
-" ----------------------------------------------------------------------------
-let g:utl_cfg_hdl_scm_http_system = "silent !open -a firefox '%u'"
-
-" ----------------------------------------------------------------------------
-" vim-devicons
-" ----------------------------------------------------------------------------
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
-
-" ----------------------------------------------------------------------------
-" nerdtree
-" ----------------------------------------------------------------------------
-" nnoremap <silent><C-\> :NERDTreeToggle<CR>
-
-nnoremap <silent><C-\> :NvimTreeToggle<CR>
-lua <<EOF
-require('nvim-tree').setup({
-  view = {
-    adaptive_size = true
-  }
-})
-EOF
+" " ----------------------------------------------------------------------------
+" " vimwiki
+" " ----------------------------------------------------------------------------
+" " augroup filetype_vimwiki
+" "   au!
+" "   au FileType vimwiki let &l:showbreak = ""
+" "   au FileType vimwiki nnoremap <buffer> <leader><leader>n :lnext<CR>
+" "   au FileType vimwiki nnoremap <buffer> <leader><leader>p :lprevious<CR>
+" "   au FileType vimwiki nnoremap <buffer> <leader><leader>g :Goyo<CR>
+" "   au FileType vimwiki nnoremap <buffer> //s :VWS<space>
+" "   au FileType vimwiki nnoremap <buffer> //t :VimwikiSearchTags<space>
+" " augroup END
+" "
+" " let g:vimwiki_key_mappings = { 'table_mappings': 0 }
+" " let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
+" "       \ 'path_html': '~/Dropbox/vimwiki_html/',
+" "       \ 'syntax': 'markdown', 'ext': '.md'}]
+" " let g:vimwiki_CJK_length = 1
+" " let g:vimwiki_folding = 'expr:quick'
+" " let g:vimwiki_use_calendar = 1
+"
 
 " ----------------------------------------------------------------------------
 " indentLine
@@ -614,23 +583,20 @@ nnoremap <silent><leader>ig :IndentLinesToggle<CR>
 let g:rails_ctags_arguments = ['--languages=ruby --exclude=.git --exclude=log .']
 " let g:rails_ctags_arguments = ['--languages=Ruby --exclude=.git --exclude=log . $(bundle list --paths)']
 
-" ----------------------------------------------------------------------------
-" vim-ruby
-" ----------------------------------------------------------------------------
-let g:ruby_indent_access_modifier_style = 'indent'
-let g:ruby_indent_assignment_style = 'hanging'
+" " ----------------------------------------------------------------------------
+" " vim-ruby
+" " ----------------------------------------------------------------------------
+" let g:ruby_indent_access_modifier_style = 'indent'
+" let g:ruby_indent_assignment_style = 'hanging'
+"
+" " ----------------------------------------------------------------------------
+" " vim-go
+" " ----------------------------------------------------------------------------
+" nnoremap <leader>gr :GoRun<CR>
+"
+" " ----------------------------------------------------------------------------
 
-" ----------------------------------------------------------------------------
-" vim-go
-" ----------------------------------------------------------------------------
-nnoremap <leader>gr :GoRun<CR>
-
-" ----------------------------------------------------------------------------
-" csv.vim
-" ----------------------------------------------------------------------------
-let g:csv_autocmd_arrange = 1
-
-" ----------------------------------------------------------------------------
+" " ----------------------------------------------------------------------------
 " vim-easy-align
 " ----------------------------------------------------------------------------
 nmap ga <Plug>(EasyAlign)
@@ -640,40 +606,36 @@ nmap ga <Plug>(EasyAlign)
 " ----------------------------------------------------------------------------
 nnoremap <silent><leader>dd :Dash<CR>
 
-" ----------------------------------------------------------------------------
-" COC
-" ---------------------------------------------------------------------------- COC
-" inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-" inoremap <expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
-" inoremap <expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
-
-" nmap <silent> [d <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]d <Plug>(coc-diagnostic-next)
+" " ----------------------------------------------------------------------------
+" " COC
+" " ---------------------------------------------------------------------------- COC
+" " inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+" " inoremap <expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+" " inoremap <expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
 "
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-
+" " nmap <silent> [d <Plug>(coc-diagnostic-prev)
+" " nmap <silent> ]d <Plug>(coc-diagnostic-next)
+" "
+" " function! s:check_back_space() abort
+" "   let col = col('.') - 1
+" "   return !col || getline('.')[col - 1]  =~# '\s'
+" " endfunction
+"
 " ----------------------------------------------------------------------------
 " BufOnly
 " ----------------------------------------------------------------------------
 nnoremap <leader>bo :BufOnly<CR>
 
-" ----------------------------------------------------------------------------
-" vim-doge
-" ----------------------------------------------------------------------------
-nnoremap <leader>dg :DogeGenerate<CR>
-
-" ----------------------------------------------------------------------------
-" quick-scope
-" ----------------------------------------------------------------------------"""
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+" " ----------------------------------------------------------------------------
+" " vim-doge
+" " ----------------------------------------------------------------------------
+" nnoremap <leader>dg :DogeGenerate<CR>
+"
 
 " ----------------------------------------------------------------------------
 " Calendar
 " ----------------------------------------------------------------------------
-source ~/.cache/calendar.vim/credentials.vim
+source ~/.cache/calendar.vim/credentials.vim 
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 
@@ -682,11 +644,11 @@ let g:calendar_google_task = 1
 " ----------------------------------------------------------------------------"""
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-" ----------------------------------------------------------------------------
-" Codi
-" ----------------------------------------------------------------------------
-highlight CodiVirtualText guifg=grey
-
+" " ----------------------------------------------------------------------------
+" " Codi
+" " ----------------------------------------------------------------------------
+" highlight CodiVirtualText guifg=grey
+"
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
@@ -751,16 +713,16 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-" ----------------------------------------------------------------------------
-" toggleterm
-" ----------------------------------------------------------------------------
+" " ----------------------------------------------------------------------------
+" " toggleterm
+" " ----------------------------------------------------------------------------
 lua <<EOF
 require("toggleterm").setup{}
 EOF
 
-" ----------------------------------------------------------------------------
-" hop
-" ----------------------------------------------------------------------------
+" " ----------------------------------------------------------------------------
+" " hop
+" " ----------------------------------------------------------------------------
 lua <<EOF
 require'hop'.setup()
 EOF
@@ -769,9 +731,9 @@ nnoremap <leader><leader>w :HopWordAC<CR>
 nnoremap <leader><leader>b :HopWordBC<CR>
 nnoremap <leader><leader>l :HopLineStart<CR>
 
-" ----------------------------------------------------------------------------
-"  LuaSnip
-" ----------------------------------------------------------------------------
+" " ----------------------------------------------------------------------------
+" "  LuaSnip
+" " ----------------------------------------------------------------------------
 lua <<EOF
 require('luasnip/loaders/from_vscode').lazy_load()
 require("luasnip.loaders.from_snipmate").lazy_load({paths = "~/.config/nvim/snippets"})
@@ -790,9 +752,7 @@ snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
 " ----------------------------------------------------------------------------
 "  Copilot
 " ----------------------------------------------------------------------------
-let g:copilot_node_command = '~/.nvm/versions/node/v16.17.0/bin/node'
-
-command! Scratch lua require 'tools'.makeScratch()
+" let g:copilot_node_command = '~/.nvm/versions/node/v16.17.0/bin/node'
 
 " ----------------------------------------------------------------------------
 " alpha-nvim
@@ -801,9 +761,9 @@ lua <<EOF
 require'alpha'.setup(require'alpha.themes.startify'.config)
 EOF
 
-" ----------------------------------------------------------------------------
-" nvim-lsp
-" ----------------------------------------------------------------------------
+" " ----------------------------------------------------------------------------
+" " nvim-lsp
+" " ----------------------------------------------------------------------------
 lua <<EOF
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float, opts)
@@ -849,9 +809,9 @@ require 'lspconfig'.eslint.setup{
   on_attach = on_attach
 }
 
-require 'lsconfig'.tsserver.setup{
+require 'lspconfig'.tsserver.setup{
   on_attach = on_attach
 }
 EOF
 
-autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
+autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js,*.vue EslintFixAll
