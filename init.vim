@@ -844,4 +844,14 @@ require 'lspconfig'.solargraph.setup{
 require 'lspconfig'.vuels.setup{
   on_attach = on_attach
 }
+
+require 'lspconfig'.eslint.setup{
+  on_attach = on_attach
+}
+
+require 'lsconfig'.tsserver.setup{
+  on_attach = on_attach
+}
 EOF
+
+autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
