@@ -245,13 +245,9 @@ let g:python3_host_prog = '/opt/homebrew/bin/python3'
 
 set laststatus=2
 
-" set background=dark
-" " let g:material_style='palenight'
-" " let g:forest_night_enable_italic = 1
-" " color forest-night
+set background=dark
 color vim-material
 
-" color nightfox
 lua <<EOF
 require('lualine').setup({
   options = { theme = 'material' }
@@ -793,7 +789,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
