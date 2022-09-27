@@ -813,3 +813,20 @@ autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js,*.vue EslintFixAll
 " Comment
 " ----------------------------------------------------------------------------
 lua require('Comment').setup()
+
+" ----------------------------------------------------------------------------
+" nvim-tree
+" ----------------------------------------------------------------------------
+lua <<EOF
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
+
+require("nvim-tree").setup({
+  view = {
+    adaptive_size = true
+  }
+})
+EOF
+
+nnoremap <silent><C-\> :NvimTreeToggle<CR>
+
