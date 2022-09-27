@@ -26,13 +26,11 @@ Plug 'chrisbra/Colorizer'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase'
 Plug 'gcmt/wildfire.vim'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'mattn/emmet-vim', { 'for': ['html', 'eruby', 'vue'] }
-Plug 'tomtom/tcomment_vim'
+Plug 'numToStr/Comment.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'vim-scripts/SyntaxRange'
@@ -810,3 +808,8 @@ require 'lspconfig'.tsserver.setup{
 EOF
 
 autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js,*.vue EslintFixAll
+
+" ----------------------------------------------------------------------------
+" Comment
+" ----------------------------------------------------------------------------
+lua require('Comment').setup()
