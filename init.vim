@@ -119,6 +119,13 @@ Plug 'github/copilot.vim' " no next suggestion, 過一段時間再回來看
 " Others
 " ----------------------------------------------------------------------------
 Plug 'neovim/nvim-lspconfig' " Configurations for Nvim LSP
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'saadparwaiz1/cmp_luasnip'
+
 Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'voldikss/vim-floaterm'
@@ -828,3 +835,17 @@ EOF
 
 nnoremap <silent><C-\> :NvimTreeToggle<CR>
 
+" ----------------------------------------------------------------------------
+" nvim-cmp
+" ----------------------------------------------------------------------------
+lua <<EOF
+local cmp = require 'cmp'
+
+cmp.setup({
+  snippets = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end
+  }
+})
+EOF
