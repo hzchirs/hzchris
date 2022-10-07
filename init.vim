@@ -53,8 +53,9 @@ Plug 'tpope/vim-surround'
 " Development Tools
 " ----------------------------------------------------------------------------
 " Plug 'tpope/vim-unimpaired'
+Plug 'windwp/nvim-autopairs'
 Plug 'janko/vim-test'
-Plug 'akinsho/toggleterm.nvim', { 'tag': 'v2.1.0' }
+Plug 'akinsho/toggleterm.nvim', { 'tag': '*' }
 Plug 'nvim-lua/plenary.nvim'
 
 " ----------------------------------------------------------------------------
@@ -62,7 +63,7 @@ Plug 'nvim-lua/plenary.nvim'
 " ----------------------------------------------------------------------------
 Plug 'goolord/alpha-nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
@@ -82,7 +83,7 @@ Plug 'tpope/vim-rhubarb'
 " ----------------------------------------------------------------------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " ----------------------------------------------------------------------------
 " Themes
@@ -109,27 +110,28 @@ Plug 'rizzatti/dash.vim'
 " ----------------------------------------------------------------------------
 " Plug 'SirVer/ultisnips'
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*'}
-Plug 'rafamadriz/friendly-snippets'
-Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'rafamadriz/friendly-snippets'
+
+Plug 'danymat/neogen', { 'on': 'NeogenGenerate' }
+Plug 'stevearc/aerial.nvim' " Outline
 Plug 'github/copilot.vim' " no next suggestion, 過一段時間再回來看
 
 
 " ----------------------------------------------------------------------------
 " Others
 " ----------------------------------------------------------------------------
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig' " Configurations for Nvim LSP
+Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
 Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
-Plug 'voldikss/vim-floaterm'
-" Plug 'metakirby5/codi.vim'
 
 " ----------------------------------------------------------------------------
 " Note
@@ -140,7 +142,7 @@ Plug 'voldikss/vim-floaterm'
 " ----------------------------------------------------------------------------
 " Languages
 " ----------------------------------------------------------------------------
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+" Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-rails'
 Plug 'chr4/nginx.vim'
 
@@ -156,14 +158,15 @@ set undofile " Maintain undo history between sessions
 " set showcmd
 " set regexpengine=1
 set relativenumber
-filetype plugin indent on                  " required
+" filetype plugin indent on                  " required
 
-set autoindent
+" set autoindent
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=20
 set clipboard+=unnamed
 set shell=zsh
+set completeopt=menu,menuone,noselect
 
 " ctags
 set tags=./tags;/
@@ -207,9 +210,9 @@ set cpoptions+=n
 xnoremap p pgvy
 
 " 編輯喜好設定
-set ai           " 自動縮排
+" set ai           " 自動縮排
 set shiftwidth=2 " 設定縮排寬度 = 2
-" set tabstop=4    " tab 的字元數
+" set smartindent  " 不要設定 smartindent! 會造成縮排錯誤
 set softtabstop=2
 
 set expandtab   " 用 space 代替 tab
@@ -221,7 +224,6 @@ set backspace=2  " 在 insert 也可用 backspace
 set ic           " 設定搜尋忽略大小寫
 set hlsearch     " 設定高亮度顯示搜尋結果
 set incsearch    " 在關鍵字還沒完全輸入完畢前就顯示結果
-set smartindent  " 設定 smartindent
 set confirm      " 操作過程有衝突時，以明確的文字來詢問
 set history=100  " 保留 100 個使用過的指令
 set cursorline   " 顯示目前的游標位置
@@ -336,14 +338,6 @@ nnoremap <leader>rc :belowright split \| terminal bundle exec rails console<CR> 
 nnoremap <leader>cl :call RunCurrentSpecLine()<CR>
 nnoremap <leader>cs :call RunCurrentSpecFile()<CR>
 
-nnoremap <F1> :ToggleTerm1 size=20<CR>
-nnoremap <F2> :ToggleTerm2 size=20<CR>
-nnoremap <F3> :ToggleTerm3 size=20<CR>
-nnoremap <F5> :ToggleTermToggleAll<CR>
-tnoremap <F1> <C-\><C-N>:ToggleTerm1<CR>
-tnoremap <F2> <C-\><C-N>:ToggleTerm2<CR>
-tnoremap <F3> <C-\><C-N>:ToggleTerm3<CR>
-tnoremap <F5> <C-\><C-N>:ToggleTermToggleAll<CR>
 " tnoremap <C-j> <C-\><C-N><C-W>j
 " tnoremap <C-k> <C-\><C-N><C-W>k
 " tnoremap <C-l> <C-\><C-N><C-W>l
@@ -378,20 +372,6 @@ nnoremap <C-s> :update<CR>
 vnoremap <C-s> <C-C>:update<CR>
 inoremap <C-s> <C-O>:update<CR><Right>
 
-
-" ----------------------------------------------------------------------------
-" Floaterm
-" ----------------------------------------------------------------------------
-" Floaterm
-let g:floaterm_gitcommit='floaterm'
-let g:floaterm_autoinsert=1
-let g:floaterm_width=0.9
-let g:floaterm_height=0.9
-let g:floaterm_wintitle=0
-let g:floaterm_autoclose=1
-
-nnoremap <leader>tg :FloatermNew lazygit<CR>
-
 " " ============================================================================
 " " Language Settings
 " " ============================================================================
@@ -418,45 +398,100 @@ augroup filetype_html
   autocmd FileType html nnoremap <buffer> zc zfat
 augroup END
 
-" " ============================================================================
-" " Plugs Settings
-" " ============================================================================
-"
-" " ----------------------------------------------------------------------------
-" " Telescope TODO UX  讚，但速度太慢 2021/08/28，等穩定一點再用
-" " ----------------------------------------------------------------------------
-" " nnoremap <C-p> <cmd>Telescope find_files<cr>
-" " nnoremap <S-p> <cmd>Telescope buffers<cr>
-" " nnoremap <leader>fs <cmd>Telescope grep_string<cr>
-" " nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-" " nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-"
-" lua << EOF
-" -- local actions = require('telescope.actions')
-" -- Global remapping
-" ------------------------------
-" -- require('telescope').setup{
-" --   defaults = {
-" --     layout_strategy = 'vertical',
-" --     layout_config = {
-" --       vertical = { width = 0.8 }
-" --       },
-" --     file_ignore_patterns = { "vendor/" },
-" --     mappings = {
-" --       i = {
-" --         ["<C-j>"] = actions.move_selection_next,
-" --         ["<C-k>"] = actions.move_selection_previous
-" --         }
-" --       },
-" --   }
-" -- }
-" --
-" -- require('telescope').load_extension('fzf')
-" EOF
-"
-" " ----------------------------------------------------------------------------
-" " FZF 
-" " ----------------------------------------------------------------------------
+" ============================================================================
+" Plugs Settings
+" ============================================================================
+
+" ----------------------------------------------------------------------------
+" Telescope 
+" ----------------------------------------------------------------------------
+lua <<EOF
+
+-- function vim.getVisualSelection()
+--   vim.cmd('noau normal! "vy"')
+--   local text = vim.fn.getreg('v')
+--   vim.fn.setreg('v', {})
+--
+--   text = string.gsub(text, "\n", "")
+--   if #text > 0 then
+--     return text
+--   else
+--     return ''
+--   end
+-- end
+--
+-- local actions = require('telescope.actions')
+-- local builtin = require('telescope.builtin')
+-- require('telescope').setup({
+--   pickers = {
+--     live_grep = {
+--       mappings = {
+--         i = { ["<c-f>"] = actions.to_fuzzy_refine },
+--       }
+--     }
+--   },
+--   defaults = {
+--     layout_strategy = 'horizontal',
+--     layout_config = {
+--       vertical = { width = 0.8 },
+--       horizontal = { height = 0.9, width = 0.9 }
+--     },
+--     file_ignore_patterns = { 
+--       "public/",
+--       "vendor/",
+--       "data_set",
+--       "node_modules/",
+--       "spec/fixtures/db/",
+--       ".git/",
+--     },
+--     mappings = {
+--       i = {
+--         ["<C-j>"] = actions.move_selection_next,
+--         ["<C-k>"] = actions.move_selection_previous,
+--         ["<C-n>"] = actions.cycle_history_next,
+--         ["<C-p>"] = actions.cycle_history_prev,
+--       }
+--     }
+--    }
+-- })
+--
+-- vim.keymap.set(
+--   'n', 
+--   '<C-p>',
+--   function() 
+--     builtin.find_files({ 
+--       hidden = true,
+--     }) 
+--   end, 
+--   {}
+-- )
+-- vim.keymap.set('n', '<S-p>', builtin.buffers, {})
+-- vim.keymap.set('n', 'K', builtin.grep_string, {})
+-- -- vim.keymap.set('n', '<leader>gg', 
+-- --   function()
+-- --     builtin.grep_string({
+-- --       only_sort_text = true, 
+-- --       search = '',
+-- --     })
+-- --   end,
+-- --   {}
+-- -- )
+-- vim.keymap.set('n', '<leader>hh', builtin.help_tags, {})
+-- require('telescope').load_extension('fzf')
+--
+-- local keymap = vim.keymap.set
+-- local tb = require('telescope.builtin')
+-- local opts = { noremap = true, silent = true }
+--
+-- keymap('v', 'K', function()
+-- 	local text = vim.getVisualSelection()
+-- 	tb.live_grep({ default_text = text })
+-- end, opts)
+EOF
+
+" ----------------------------------------------------------------------------
+" FZF 
+" ----------------------------------------------------------------------------
 if has('nvim') || has('gui_running')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
   let $FZF_DEFAULT_COMMAND= 'ag -g ""'
@@ -467,14 +502,10 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <S-p> :Buffers<CR>
 nnoremap <silent> <leader>fh :History<CR>
-nnoremap <leader>fi :Files
 
 nnoremap <silent> K :call SearchWordWithAg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
-nnoremap <silent> <leader>fc :Commits<CR>
-nnoremap <silent> <leader>fbc :BCommits<CR>
-nnoremap <silent> <leader>fl :Lines<CR>
-nnoremap <silent> <leader>fbl :BLines<CR>
+nnoremap <silent> <leader>hh :Helptags<CR>
 
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <C-x><C-j> <plug>(fzf-complete-file-ag)
@@ -542,12 +573,6 @@ nnoremap <silent><A-{> :BufferPrevious<CR>
 nnoremap <silent><A-}> :BufferNext<CR>
 nnoremap <silent><A-[> :BufferMovePrevious<CR>
 nnoremap <silent><A-]> :BufferMoveNext<CR>
-" ----------------------------------------------------------------------------
-" Git Related
-" ----------------------------------------------------------------------------
-nnoremap <silent><leader>gs :Gstatus<CR>
-nnoremap <silent><leader>gc :Git commit<CR>
-nnoremap <silent><leader>git :Git
 
 " " ----------------------------------------------------------------------------
 " " vimwiki
@@ -575,7 +600,7 @@ nnoremap <silent><leader>git :Git
 " indentLine
 " ----------------------------------------------------------------------------
 let g:indentLine_setColors = 0
-let g:indentLine_fileType = ['ruby', 'javascript', 'html', 'eruby', 'vue']
+let g:indentLine_fileType = ['ruby', 'javascript', 'html', 'eruby', 'vue', 'lua', 'vim']
 nnoremap <silent><leader>ig :IndentLinesToggle<CR>
 
 " ----------------------------------------------------------------------------
@@ -627,12 +652,6 @@ nnoremap <silent><leader>dd :Dash<CR>
 " ----------------------------------------------------------------------------
 nnoremap <leader>bo :BufOnly<CR>
 
-" " ----------------------------------------------------------------------------
-" " vim-doge
-" " ----------------------------------------------------------------------------
-" nnoremap <leader>dg :DogeGenerate<CR>
-"
-
 " ----------------------------------------------------------------------------
 " Calendar
 " ----------------------------------------------------------------------------
@@ -653,20 +672,24 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
-    "ruby",
-    "lua",
-    "python",
-    "javascript",
-    "typescript",
-    "json",
-    "html",
-    "scss",
-    "vue",
-    "tsx",
-    "scss",
     "css",
+    "hcl",
+    "html",
+    "javascript",
+    "json",
+    "lua",
+    "ocaml",
+    "python",
+    "regex",
+    "ruby",
+    "rust",
+    "scss",
+    "toml",
+    "tsx",
+    "typescript",
+    "vim",
+    "vue",
     "yaml",
-    "hcl"
   },
   auto_install = true,
   sync_install = false,
@@ -719,7 +742,34 @@ EOF
 " " ----------------------------------------------------------------------------
 lua <<EOF
 require("toggleterm").setup{}
+
+local Terminal  = require('toggleterm.terminal').Terminal
+local lazygit = Terminal:new({
+  cmd = "lazygit", 
+  direction = "float",
+  float_opts = { 
+    border = "double",
+    height = 35 
+  }
+})
+
+function _lazygit_toggle()
+  lazygit:toggle()
+end
+
+vim.api.nvim_set_keymap("n", "<leader>tg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 EOF
+
+nnoremap <F1> :ToggleTerm1 size=20<CR>
+nnoremap <F2> :ToggleTerm2 size=20<CR>
+nnoremap <F3> :ToggleTerm3 size=20<CR>
+nnoremap <F5> :ToggleTermToggleAll<CR>
+tnoremap <F1> <C-\><C-N>:ToggleTerm1<CR>
+tnoremap <F2> <C-\><C-N>:ToggleTerm2<CR>
+tnoremap <F3> <C-\><C-N>:ToggleTerm3<CR>
+tnoremap <F5> <C-\><C-N>:ToggleTermToggleAll<CR>
+
+
 
 " " ----------------------------------------------------------------------------
 " " hop
@@ -777,38 +827,86 @@ vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, opts)
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  require("aerial").on_attach(client, bufnr)
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
+
+local cmp = require 'cmp'
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
+cmp.setup({
+  snippets = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { 
+      name = 'buffer', 
+      option = {
+        get_bufnrs = function()
+          return vim.api.nvim_list_bufs()
+        end
+      }
+    }
+  })
+})
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+require("mason").setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗"
+    }
+  }
+})
+
+require("mason-lspconfig").setup({
+  automatic_installation = true
+})
 
 require 'lspconfig'.solargraph.setup{
   on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    diagnostics = true
+  }
 }
 
 require 'lspconfig'.vuels.setup{
-  on_attach = on_attach
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 
 require 'lspconfig'.eslint.setup{
-  on_attach = on_attach
+  on_attach = on_attach,
+  capabilities = capabilities
+
 }
 
 require 'lspconfig'.tsserver.setup{
-  on_attach = on_attach
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 EOF
 
@@ -833,19 +931,54 @@ require("nvim-tree").setup({
 })
 EOF
 
+
 nnoremap <silent><C-\> :NvimTreeToggle<CR>
 
 " ----------------------------------------------------------------------------
 " nvim-cmp
 " ----------------------------------------------------------------------------
 lua <<EOF
-local cmp = require 'cmp'
 
-cmp.setup({
-  snippets = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-    end
-  }
+EOF
+
+" ----------------------------------------------------------------------------
+" nvim-autopairs
+" ----------------------------------------------------------------------------
+lua <<EOF
+require("nvim-autopairs").setup {
+  check_ts = true
+}
+EOF
+
+" ----------------------------------------------------------------------------
+" neogen
+" ----------------------------------------------------------------------------"
+lua <<EOF
+require('neogen').setup({ 
+  snippet_engine = "luasnip",
+})
+
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
+EOF
+
+" ----------------------------------------------------------------------------
+" aerial
+" ----------------------------------------------------------------------------"
+lua <<EOF
+require('aerial').setup({
+  backends = { "treesitter" },
+  layout = {
+    min_width = 0.25,
+    default_direction = 'prefer_left'
+  },
+  on_attach = function(bufnr)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ol', '<cmd>AerialToggle!<CR>', {})
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '{', '<cmd>AerialPrev<CR>', {})
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '}', '<cmd>AerialNext<CR>', {})
+    -- Jump up the tree with '[[' or ']]'
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[[', '<cmd>AerialPrevUp<CR>', {})
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']]', '<cmd>AerialNextUp<CR>', {})
+  end
 })
 EOF
