@@ -603,7 +603,7 @@ nnoremap <silent><A-]> :BufferMoveNext<CR>
 " indentLine
 " ----------------------------------------------------------------------------
 let g:indentLine_setColors = 0
-let g:indentLine_fileType = ['ruby', 'javascript', 'html', 'eruby', 'vue', 'lua', 'vim']
+let g:indentLine_fileType = ['ruby', 'javascript', 'html', 'eruby', 'vue', 'lua', 'vim', 'elixir']
 nnoremap <silent><leader>ig :IndentLinesToggle<CR>
 
 " ----------------------------------------------------------------------------
@@ -671,6 +671,7 @@ lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
     "css",
+    "elixir",
     "hcl",
     "html",
     "javascript",
