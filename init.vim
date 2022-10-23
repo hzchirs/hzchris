@@ -57,6 +57,7 @@ Plug 'windwp/nvim-autopairs'
 Plug 'janko/vim-test'
 Plug 'akinsho/toggleterm.nvim', { 'tag': '*' }
 Plug 'nvim-lua/plenary.nvim'
+  
 
 " ----------------------------------------------------------------------------
 " Browsing
@@ -66,6 +67,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/playground'
 Plug 'RRethy/nvim-treesitter-endwise'
 
@@ -114,7 +116,7 @@ Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*'}
 
 Plug 'danymat/neogen', { 'on': 'NeogenGenerate' }
 Plug 'stevearc/aerial.nvim' " Outline
-Plug 'github/copilot.vim' " no next suggestion, 過一段時間再回來看
+Plug 'github/copilot.vim'
 
 
 " ----------------------------------------------------------------------------
@@ -122,16 +124,18 @@ Plug 'github/copilot.vim' " no next suggestion, 過一段時間再回來看
 " ----------------------------------------------------------------------------
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'neovim/nvim-lspconfig' " Configurations for Nvim LSP
+Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 Plug 'itchyny/calendar.vim'
 Plug 'vim-scripts/BufOnly.vim'
+Plug 'szw/vim-maximizer'
 
 " ----------------------------------------------------------------------------
 " Note
@@ -142,7 +146,7 @@ Plug 'vim-scripts/BufOnly.vim'
 " ----------------------------------------------------------------------------
 " Languages
 " ----------------------------------------------------------------------------
-" Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-rails'
 Plug 'chr4/nginx.vim'
 
@@ -212,7 +216,7 @@ xnoremap p pgvy
 " 編輯喜好設定
 " set ai           " 自動縮排
 set shiftwidth=2 " 設定縮排寬度 = 2
-" set smartindent  " 不要設定 smartindent! 會造成縮排錯誤
+set smartindent  " 不要設定 smartindent! 會造成縮排錯誤
 set softtabstop=2
 
 set expandtab   " 用 space 代替 tab
@@ -290,14 +294,13 @@ nnoremap <S-H> 10zh
 
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+
 " 縮放視窗
 nnoremap <silent><leader>= :exe "vertical resize " . (winwidth(0) * 10/9)<CR>
 nnoremap <silent><leader>- :exe "vertical resize " . (winwidth(0) * 9/10)<CR>
 
 " buffer 移動
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
-nnoremap <S-X> :bp\|bd #<CR>
+nnoremap <silent><S-X> <Cmd>BufferClose<CR>
 
 " ----------------------------------------------------------------------------
 " Insert Mode
@@ -612,8 +615,8 @@ let g:rails_ctags_arguments = ['--languages=ruby --exclude=.git --exclude=log .'
 " " ----------------------------------------------------------------------------
 " " vim-ruby
 " " ----------------------------------------------------------------------------
-" let g:ruby_indent_access_modifier_style = 'indent'
-" let g:ruby_indent_assignment_style = 'hanging'
+let g:ruby_indent_access_modifier_style = 'indent'
+let g:ruby_indent_assignment_style = 'hanging'
 "
 " " ----------------------------------------------------------------------------
 " " vim-go
@@ -664,11 +667,6 @@ let g:calendar_google_task = 1
 " ----------------------------------------------------------------------------"""
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-" " ----------------------------------------------------------------------------
-" " Codi
-" " ----------------------------------------------------------------------------
-" highlight CodiVirtualText guifg=grey
-"
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
@@ -733,6 +731,24 @@ require'nvim-treesitter.configs'.setup {
 
   endwise = {
     enable = true
+  },
+
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
+        ["am"] = "@function.outer",
+        ["im"] = "@function.inner",
+        ["mn"] = "@function.name",
+        ["cn"] = "@class.name",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
   }
 }
 EOF
@@ -786,24 +802,34 @@ nnoremap <leader><leader>l :HopLineStart<CR>
 " "  LuaSnip
 " " ----------------------------------------------------------------------------
 lua <<EOF
+local luasnip = require('luasnip')
+
 require('luasnip/loaders/from_vscode').lazy_load()
 require("luasnip.loaders.from_snipmate").lazy_load({paths = "~/.config/nvim/snippets"})
-require'luasnip'.filetype_extend("ruby", {"rails"})
+luasnip.filetype_extend("ruby", {"rails"})
+luasnip.filetype_extend("vue", {"javascript"})
+
+vim.keymap.set("i", "<C-n>", "<Plug>luasnip-next-choice", {})
+vim.keymap.set("s", "<C-n>", "<Plug>luasnip-next-choice", {})
+vim.keymap.set("i", "<C-p>", "<Plug>luasnip-prev-choice", {})
+vim.keymap.set("s", "<C-p>", "<Plug>luasnip-prev-choice", {})
+vim.keymap.set("i", "<C-j>", "<Plug>luasnip-jump-next", {})
 EOF
 
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
 " press <Tab> to expand or jump in a snippet. These can also be mapped separately
 " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
-imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
-" -1 for jumping backwards.
-inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
-
-snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+"
+" imap <silent><expr> <Tab> <cmd>lua require('luasnip').expand()<Cr>
+"
+" snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>
+" snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>
 
 " ----------------------------------------------------------------------------
 "  Copilot
 " ----------------------------------------------------------------------------
-" let g:copilot_node_command = '~/.nvm/versions/node/v16.17.0/bin/node'
+imap <silent><script><expr> <A-s> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 
 " ----------------------------------------------------------------------------
 " alpha-nvim
@@ -816,10 +842,30 @@ EOF
 " " nvim-lsp
 " " ----------------------------------------------------------------------------
 lua <<EOF
+
+vim.diagnostic.config({
+  underline = true,
+  virtual_text = false,
+  signs = true,
+  update_in_insert = true,
+  float = {
+    border = 'single'
+  }
+})
+
 local opts = { noremap=true, silent=true }
+
+local diagnosticGoToNext = function()
+  vim.diagnostic.goto_next({ float = true })
+end
+
+local diagnosticGoToPrev = function()
+  vim.diagnostic.goto_prev({ float = true })
+end
+
 vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', ']d', diagnosticGoToNext, opts)
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
@@ -832,6 +878,8 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 local cmp = require 'cmp'
@@ -869,10 +917,11 @@ cmp.setup({
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 require("mason").setup({
   ui = {
+    border = 'single',
     icons = {
       package_installed = "✓",
       package_pending = "➜",
@@ -889,7 +938,9 @@ require 'lspconfig'.solargraph.setup{
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
-    diagnostics = true
+    solargraph = {
+      diagnostics = false
+    }
   }
 }
 
@@ -898,19 +949,63 @@ require 'lspconfig'.vuels.setup{
   capabilities = capabilities
 }
 
-require 'lspconfig'.eslint.setup{
-  on_attach = on_attach,
-  capabilities = capabilities
-
-}
-
 require 'lspconfig'.tsserver.setup{
   on_attach = on_attach,
   capabilities = capabilities
 }
 EOF
 
-autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js,*.vue EslintFixAll
+" ----------------------------------------------------------------------------
+" null-ls
+" ----------------------------------------------------------------------------
+lua <<EOF
+local null_ls = require("null-ls")
+local code_actions = null_ls.builtins.code_actions
+local diagnostics = null_ls.builtins.diagnostics
+local formatting = null_ls.builtins.formatting
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+null_ls.setup({
+  diagnostics_format = "[#{c}] #{m} (#{s})",
+  update_in_insert = true,
+  sources = {
+    diagnostics.cspell,
+    code_actions.cspell,
+
+    code_actions.eslint,
+    diagnostics.eslint,
+    formatting.eslint,
+
+    diagnostics.rubocop,
+    formatting.rubocop,
+
+    -- diagnostics.erb_lint,
+    -- formatting.erb_lint,
+    formatting.prettier.with({
+      filetypes = { "html", "eruby", "json", "yaml", "markdown" },
+    })
+  },
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ 
+            bufnr = bufnr,
+            async = true,
+            timeout_ms = 2000,
+            filter = function(client)
+              return client.name == "null-ls"
+            end
+          })
+        end,
+      })
+    end
+  end,
+})
+EOF
 
 " ----------------------------------------------------------------------------
 " Comment
@@ -982,3 +1077,8 @@ require('aerial').setup({
   end
 })
 EOF
+
+" ----------------------------------------------------------------------------
+" vim-maximizer
+" ----------------------------------------------------------------------------"
+let g:maximizer_default_mapping_key = '<F5>'
