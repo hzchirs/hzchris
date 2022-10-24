@@ -114,7 +114,7 @@ Plug 'rizzatti/dash.vim'
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*'}
   Plug 'rafamadriz/friendly-snippets'
 
-Plug 'danymat/neogen', { 'on': 'NeogenGenerate' }
+Plug 'danymat/neogen', { 'on': 'Neogen' }
 Plug 'stevearc/aerial.nvim' " Outline
 Plug 'github/copilot.vim'
 
