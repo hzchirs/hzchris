@@ -966,12 +966,24 @@ local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local file_types = { 
+  "markdown", 
+  "ruby", 
+  "javascript", 
+  "elixir",
+  "yaml",
+  "vue" 
+}
 null_ls.setup({
   diagnostics_format = "[#{c}] #{m} (#{s})",
   update_in_insert = true,
   sources = {
-    diagnostics.cspell,
-    code_actions.cspell,
+    diagnostics.cspell.with({
+      filetypes = filetypes,
+    }),
+    code_actions.cspell.with({
+      filetypes = filetypes,
+    }),
 
     code_actions.eslint,
     diagnostics.eslint,
@@ -980,8 +992,8 @@ null_ls.setup({
     diagnostics.rubocop,
     formatting.rubocop,
 
-    -- diagnostics.erb_lint,
-    -- formatting.erb_lint,
+    diagnostics.erb_lint.with({ filetypes = { "eruby" }}),
+    formatting.erb_lint.with({ filetypes = { "eruby" }}),
     formatting.prettier.with({
       filetypes = { "html", "eruby", "json", "yaml", "markdown" },
     })
