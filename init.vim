@@ -996,26 +996,7 @@ null_ls.setup({
     formatting.prettier.with({
       filetypes = { "html", "eruby", "json", "yaml", "markdown" },
     })
-  },
-  on_attach = function(client, bufnr)
-    if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.format({ 
-            bufnr = bufnr,
-            async = true,
-            timeout_ms = 2000,
-            filter = function(client)
-              return client.name == "null-ls"
-            end
-          })
-        end,
-      })
-    end
-  end,
+  }
 })
 EOF
 
