@@ -120,6 +120,7 @@ alias :e="nvim"
 alias :q="exit"
 alias ipyh="ipython --profile=hzchris"
 alias lg="lazygit"
+alias td="~/Projects/rails/td"
 alias arm="env /usr/bin/arch -arm64 /bin/zsh --login"
 alias intel="env /usr/bin/arch -x86_64 /bin/zsh --login"
 
