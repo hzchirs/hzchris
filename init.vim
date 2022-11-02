@@ -991,8 +991,8 @@ null_ls.setup({
     diagnostics.rubocop,
     formatting.rubocop,
 
-    diagnostics.erb_lint.with({ filetypes = { "eruby" }}),
-    formatting.erb_lint.with({ filetypes = { "eruby" }}),
+    -- diagnostics.erb_lint.with({ filetypes = { "eruby" }}),
+    -- formatting.erb_lint.with({ filetypes = { "eruby" }}),
     formatting.prettier.with({
       filetypes = { "html", "eruby", "json", "yaml", "markdown" },
     })
