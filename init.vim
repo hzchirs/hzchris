@@ -693,8 +693,8 @@ require'nvim-treesitter.configs'.setup {
   auto_install = true,
   sync_install = false,
   highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
+    -- enable = true,
+    -- additional_vim_regex_highlighting = false,
   },
 
   indent = {
@@ -706,7 +706,6 @@ require'nvim-treesitter.configs'.setup {
     keymaps = {
       init_selection = "vv",
       node_incremental = "vv",
-      scope_incremental = "vc",
       node_decremental = "vd",
     },
   },
@@ -729,11 +728,11 @@ require'nvim-treesitter.configs'.setup {
       show_help = '?',
     },
   },
-
+  
   endwise = {
     enable = true
   },
-
+  
   textobjects = {
     select = {
       enable = true,
@@ -745,7 +744,7 @@ require'nvim-treesitter.configs'.setup {
         ["am"] = "@function.outer",
         ["im"] = "@function.inner",
         ["mn"] = "@function.name",
-        ["cn"] = "@class.name",
+        ["Mn"] = "@class.name",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
       },
@@ -994,7 +993,7 @@ null_ls.setup({
     -- diagnostics.erb_lint.with({ filetypes = { "eruby" }}),
     -- formatting.erb_lint.with({ filetypes = { "eruby" }}),
     formatting.prettier.with({
-      filetypes = { "html", "eruby", "json", "yaml", "markdown" },
+      filetypes = { "html", "json", "yaml", "markdown" },
     })
   }
 })
@@ -1009,30 +1008,23 @@ lua require('Comment').setup()
 " nvim-tree
 " ----------------------------------------------------------------------------
 lua <<EOF
-vim.g.loaded = 1
-vim.g.loaded_netrwPlugin = 1
-
-require("nvim-tree").setup({
-  view = {
-    adaptive_size = true
-  }
-})
-
-vim.keymap.set("n", "<leader>mn", require("nvim-tree.api").marks.navigate.next)
-vim.keymap.set("n", "<leader>mp", require("nvim-tree.api").marks.navigate.prev)
-vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select)
-
+-- vim.g.loaded = 1
+-- vim.g.loaded_netrwPlugin = 1
+--
+-- require("nvim-tree").setup({
+--   view = {
+--     adaptive_size = true
+--   }
+-- })
+--
+-- vim.keymap.set("n", "<leader>mn", require("nvim-tree.api").marks.navigate.next)
+-- vim.keymap.set("n", "<leader>mp", require("nvim-tree.api").marks.navigate.prev)
+-- vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select)
+--
 EOF
 
 
 nnoremap <silent><C-\> :NvimTreeToggle<CR>
-
-" ----------------------------------------------------------------------------
-" nvim-cmp
-" ----------------------------------------------------------------------------
-lua <<EOF
-
-EOF
 
 " ----------------------------------------------------------------------------
 " nvim-autopairs
