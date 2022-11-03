@@ -65,7 +65,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'goolord/alpha-nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/playground'
@@ -744,7 +744,7 @@ require'nvim-treesitter.configs'.setup {
         ["am"] = "@function.outer",
         ["im"] = "@function.inner",
         ["mn"] = "@function.name",
-        ["Mn"] = "@class.name",
+        ["cn"] = "@class.name",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
       },
@@ -1008,19 +1008,19 @@ lua require('Comment').setup()
 " nvim-tree
 " ----------------------------------------------------------------------------
 lua <<EOF
--- vim.g.loaded = 1
--- vim.g.loaded_netrwPlugin = 1
---
--- require("nvim-tree").setup({
---   view = {
---     adaptive_size = true
---   }
--- })
---
--- vim.keymap.set("n", "<leader>mn", require("nvim-tree.api").marks.navigate.next)
--- vim.keymap.set("n", "<leader>mp", require("nvim-tree.api").marks.navigate.prev)
--- vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select)
---
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
+
+require("nvim-tree").setup({
+  view = {
+    adaptive_size = true
+  }
+})
+
+vim.keymap.set("n", "<leader>mn", require("nvim-tree.api").marks.navigate.next)
+vim.keymap.set("n", "<leader>mp", require("nvim-tree.api").marks.navigate.prev)
+vim.keymap.set("n", "<leader>ms", require("nvim-tree.api").marks.navigate.select)
+
 EOF
 
 
