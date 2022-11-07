@@ -21,7 +21,6 @@ Plug 'airblade/vim-matchquote'
 " Edit
 " ----------------------------------------------------------------------------
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'Konfekt/FastFold'
 Plug 'chrisbra/Colorizer'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-titlecase'
@@ -391,16 +390,6 @@ inoremap <C-s> <C-O>:update<CR><Right>
 " " Python
 " " ----------------------------------------------------------------------------
 " let g:python_highlight_all = 1
-"
-" ----------------------------------------------------------------------------
-" HTML, ERB
-" ----------------------------------------------------------------------------
-augroup filetype_html
-  au!
-  autocmd FileType eruby nnoremap <buffer> zc zfat
-  autocmd FileType html nnoremap <buffer> zc zfat
-augroup END
-
 " ============================================================================
 " Plugs Settings
 " ============================================================================
