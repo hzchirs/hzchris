@@ -733,7 +733,7 @@ require'nvim-treesitter.configs'.setup {
         ["am"] = "@function.outer",
         ["im"] = "@function.inner",
         ["mn"] = "@function.name",
-        ["cn"] = "@class.name",
+        ["Mn"] = "@class.name",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
       },
