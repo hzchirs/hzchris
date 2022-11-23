@@ -976,9 +976,30 @@ null_ls.setup({
     diagnostics.eslint,
     formatting.eslint,
 
-    diagnostics.rubocop,
-    formatting.rubocop,
+    diagnostics.rubocop.with({
+      condition = function(utils)
+        return utils.root_has_file(".rubocop.yml")
+      end,
+    }),
+    formatting.rubocop.with({
+      condition = function(utils)
+        return utils.root_has_file(".rubocop.yml")
+      end,
+    }),
 
+    
+    formatting.standardrb.with({
+      -- disable standardrb when root has .rubocop.yml
+      condition = function(utils)
+        return not utils.root_has_file(".rubocop.yml")
+      end
+    }),
+
+    diagnostics.standardrb.with({
+      condition = function(utils)
+        return not utils.root_has_file(".rubocop.yml")
+      end,
+    }),
     -- diagnostics.erb_lint.with({ filetypes = { "eruby" }}),
     -- formatting.erb_lint.with({ filetypes = { "eruby" }}),
     formatting.prettier.with({
