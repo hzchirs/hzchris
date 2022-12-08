@@ -93,6 +93,7 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " Plug 'shaunsingh/nord.nvim'
 " Plug 'dracula/vim'
 Plug 'hzchirs/vim-material', { 'dir': '~/Projects/vim-material' }
+" Plug 'hzchirs/vim-material', { 'tag': 'v1.0' }
 
 " Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 " Plug 'sainnhe/everforest'
