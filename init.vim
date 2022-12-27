@@ -147,7 +147,7 @@ Plug 'szw/vim-maximizer'
 " ----------------------------------------------------------------------------
 " Languages
 " ----------------------------------------------------------------------------
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+" Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-rails'
 Plug 'chr4/nginx.vim'
 
@@ -1024,7 +1024,7 @@ null_ls.setup({
     -- diagnostics.erb_lint.with({ filetypes = { "eruby" }}),
     -- formatting.erb_lint.with({ filetypes = { "eruby" }}),
     formatting.prettier.with({
-      filetypes = { "html", "json", "yaml", "markdown" },
+      filetypes = { "json", "yaml", "markdown" },
     })
   }
 })
