@@ -984,7 +984,6 @@ local file_types = {
 }
 null_ls.setup({
   diagnostics_format = "[#{c}] #{m} (#{s})",
-  update_in_insert = true,
   sources = {
     diagnostics.cspell.with({
       filetypes = filetypes,
