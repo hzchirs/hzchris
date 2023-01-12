@@ -665,6 +665,7 @@ require'nvim-treesitter.configs'.setup {
     "elixir",
     "hcl",
     "html",
+    "embedded_template",
     "javascript",
     "json",
     "lua",
