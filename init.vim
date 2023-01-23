@@ -836,10 +836,6 @@ EOF
 lua <<EOF
 
 vim.diagnostic.config({
-  underline = true,
-  virtual_text = false,
-  signs = true,
-  update_in_insert = true,
   float = {
     border = 'single'
   }
