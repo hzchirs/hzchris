@@ -204,14 +204,14 @@ require("lazy").setup({
         vim.cmd("Ag " .. selection)
       end
 
-      vim.keymap.set('v', 'K', ':lua SearchVisualSelectionWithAg()<CR>')
+      vim.keymap.set('v', '<leader>ag', ':lua SearchVisualSelectionWithAg()<CR>')
 
       function SearchWordWithAg()
         local word = vim.fn.expand("<cword>")
         vim.cmd("Ag " .. word)
       end
 
-      vim.keymap.set('n', 'K', ':lua SearchWordWithAg()<CR>')
+      vim.keymap.set('n', '<leader>ag', ':lua SearchWordWithAg()<CR>')
 
       function ag_in(path)
         if not vim.fn.isdirectory(path) then
@@ -324,6 +324,8 @@ require("lazy").setup({
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local bufopts = { noremap=true, silent=true, buffer=bufnr }
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
@@ -361,8 +363,6 @@ require("lazy").setup({
   },
   {
     "hrsh7th/nvim-cmp",
-    -- load cmp on InsertEnter
-    event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -486,11 +486,12 @@ require("lazy").setup({
       'kyazdani42/nvim-web-devicons' 
     },
     config = function()
-      vim.keymap.set('n', '<A-{>', ':BufferPrevious<CR>')
-      vim.keymap.set('n', '<A-}>', ':BufferNext<CR>')
-      vim.keymap.set('n', '<A-[>', ':BufferMovePrevious<CR>')
-      vim.keymap.set('n', '<A-]>', ':BufferMoveNext<CR>')
-      vim.keymap.set('n', '<A-x>', ':BufferClose<CR>')
+      local opts = { silent = true }
+      vim.keymap.set('n', '<A-{>', ':BufferPrevious<CR>', opts)
+      vim.keymap.set('n', '<A-}>', ':BufferNext<CR>', opts)
+      vim.keymap.set('n', '<A-[>', ':BufferMovePrevious<CR>', opts)
+      vim.keymap.set('n', '<A-]>', ':BufferMoveNext<CR>', opts)
+      vim.keymap.set('n', '<A-x>', ':BufferClose<CR>', opts)
     end
   },
 
@@ -688,25 +689,8 @@ require("lazy").setup({
   'tpope/vim-eunuch',
   'editorconfig/editorconfig-vim',
   'rizzatti/dash.vim',
-  'itchyny/calendar.vim',
   'metakirby5/codi.vim'
 })
-
-
--- Completion/Snippets
--- Plug 'L3MON4D3/LuaSnip', { tag = 'v1.*' }
--- Plug 'rafamadriz/friendly-snippets'
--- Plug 'kkoomen/vim-doge', { ['do'] = { -> doge#install() } }
--- Plug 'neoclide/coc.nvim', { branch = 'release' }
--- Plug 'github/copilot.vim' "
---
-
--- Others
--- Plug 'itchyny/calendar.vim'
--- Plug 'vim-scripts/BufOnly.vim'
--- Plug 'voldikss/vim-floaterm'
--- Plug 'metakirby5/codi.vim'
---
 
 -- Basic Settings
 vim.g.mapleader = ' '
