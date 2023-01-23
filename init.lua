@@ -445,18 +445,29 @@ require("lazy").setup({
           }
         })
       })
+    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+
+      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        })
+      })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
     end,
   },
   
-  'saadparwaiz1/cmp_luasnip',
-  'onsails/lspkind.nvim',
-
-  -- 讓 vim 的 command line mode 支援 command line 快捷鍵
-  'ryvnf/readline.vim',
-
   -- copilot
   { 
     'github/copilot.vim', 
@@ -468,9 +479,6 @@ require("lazy").setup({
     end
   },
 
-  -- A Vim plugin to provide %-style motion for ' (single quotation mark), 
-  -- " (double quotation mark), ` (backtick), and | (pipe).
-  'airblade/vim-matchquote',
   -- buffer management
   { 
     'romgrk/barbar.nvim',
@@ -666,50 +674,24 @@ require("lazy").setup({
   'AndrewRadev/splitjoin.vim',
   'junegunn/vim-easy-align',
   'matze/vim-move',
-  'michaeljsmith/vim-indent-object'
+  'michaeljsmith/vim-indent-object',
+  'christoomey/vim-sort-motion',
+  -- 讓 vim 的 command line mode 支援 command line 快捷鍵
+  'ryvnf/readline.vim',
+
+  -- A Vim plugin to provide %-style motion for ' (single quotation mark), 
+  -- " (double quotation mark), ` (backtick), and | (pipe).
+  'airblade/vim-matchquote',
+
+  -- eunuch.vim: Helpers for UNIX
+  -- :Remove, :Delete, :Move ...etc
+  'tpope/vim-eunuch',
+  'editorconfig/editorconfig-vim',
+  'rizzatti/dash.vim',
+  'itchyny/calendar.vim',
+  'metakirby5/codi.vim'
 })
 
--- Edit
--- Plug 'AndrewRadev/splitjoin.vim'
--- Plug 'Konfekt/FastFold'
--- Plug 'chrisbra/Colorizer'
--- Plug 'christoomey/vim-sort-motion'
--- Plug 'christoomey/vim-titlecase'
--- Plug 'gcmt/wildfire.vim'
--- Plug 'junegunn/goyo.vim'
--- Plug 'junegunn/limelight.vim'
--- Plug 'junegunn/vim-easy-align'
--- Plug 'michaeljsmith/vim-indent-object'
--- Plug 'mg979/vim-visual-multi', { branch = 'master'}
--- Plug 'mattn/emmet-vim', { ['for'] = ['html', 'eruby', 'vue'] }
--- Plug 'tomtom/tcomment_vim'
--- Plug 'tpope/vim-repeat'
--- Plug 'vim-scripts/ReplaceWithRegister'
--- Plug 'vim-scripts/SyntaxRange'
--- Plug 'vim-scripts/utl.vim'
--- Plug 'wellle/targets.vim'
--- Plug 'matze/vim-move'
--- Plug 'ryvnf/readline.vim' -- 讓 vim 的 command line mode 支援 command line 快捷鍵
-
--- Git
--- Plug 'airblade/vim-gitgutter'
--- Plug 'junegunn/gv.vim'
--- Plug 'tpope/vim-eunuch'
--- Plug 'tpope/vim-fugitive'
--- Plug 'tpope/vim-rhubarb'
---
-
-
--- Themes
--- Plug 'hzchirs/vim-material', { dir = '~/Projects/vim-material' }
--- Plug 'nvim-lualine/lualine.nvim'
--- Plug 'romgrk/barbar.nvim'
---
-
--- Supports
--- Plug 'editorconfig/editorconfig-vim'
--- Plug 'rizzatti/dash.vim'
---
 
 -- Completion/Snippets
 -- Plug 'L3MON4D3/LuaSnip', { tag = 'v1.*' }
@@ -796,5 +778,3 @@ vim.keymap.set('n', '<C-j>', '<C-W>j')
 vim.keymap.set('n', '<C-k>', '<C-W>k')
 vim.keymap.set('n', '<C-l>', '<C-W>l')
 vim.keymap.set('n', '<C-h>', '<C-W>h')
-
-
