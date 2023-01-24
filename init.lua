@@ -491,7 +491,7 @@ require("lazy").setup({
       vim.keymap.set('n', '<A-}>', ':BufferNext<CR>', opts)
       vim.keymap.set('n', '<A-[>', ':BufferMovePrevious<CR>', opts)
       vim.keymap.set('n', '<A-]>', ':BufferMoveNext<CR>', opts)
-      vim.keymap.set('n', '<A-x>', ':BufferClose<CR>', opts)
+      vim.keymap.set('n', '<leader>bc', ':BufferClose<CR>', opts)
     end
   },
 
@@ -667,11 +667,16 @@ require("lazy").setup({
     'mg979/vim-visual-multi',
     branch = 'master'
   },
+  { 
+    'vim-scripts/BufOnly.vim',
+    config = function()
+      vim.keymap.set('n', '<leader>bo', ':BufOnly<CR>')
+    end
+  },
   'tpope/vim-rails',
   'vim-scripts/ReplaceWithRegister',
   'mattn/emmet-vim',
   'chrisbra/Colorizer',
-  'vim-scripts/BufOnly.vim',
   'AndrewRadev/splitjoin.vim',
   'junegunn/vim-easy-align',
   'matze/vim-move',
