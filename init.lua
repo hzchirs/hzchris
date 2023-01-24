@@ -84,12 +84,12 @@ require("lazy").setup({
       null_ls.setup({
         diagnostics_format = "[#{c}] #{m} (#{s})",
         sources = {
-          -- diagnostics.cspell.with({
-          --   filetypes = file_types,
-          -- }),
-          -- code_actions.cspell.with({
-          --   filetypes = file_types,
-          -- }),
+          diagnostics.cspell.with({
+            filetypes = file_types,
+          }),
+          code_actions.cspell.with({
+            filetypes = file_types,
+          }),
 
           code_actions.eslint,
           diagnostics.eslint,
