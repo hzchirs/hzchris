@@ -72,24 +72,11 @@ require("lazy").setup({
       local formatting = null_ls.builtins.formatting
 
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-      local file_types = { 
-        "markdown", 
-        "ruby", 
-        "javascript", 
-        "elixir",
-        "yaml",
-        "vue",
-        "lua"
-      }
       null_ls.setup({
         diagnostics_format = "[#{c}] #{m} (#{s})",
         sources = {
-          diagnostics.cspell.with({
-            filetypes = file_types,
-          }),
-          code_actions.cspell.with({
-            filetypes = file_types,
-          }),
+          diagnostics.cspell,          
+          code_actions.cspell,
 
           code_actions.eslint,
           diagnostics.eslint,
