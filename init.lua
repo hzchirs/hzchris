@@ -353,129 +353,132 @@ require("lazy").setup({
       }
     end
   },
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   dependencies = {
-  --     "hrsh7th/cmp-nvim-lsp",
-  --     "hrsh7th/cmp-buffer",
-  --     "hrsh7th/cmp-path",
-  --     "hrsh7th/cmp-cmdline",
-  --     'onsails/lspkind.nvim',
-  --     'saadparwaiz1/cmp_luasnip'
-  --   },
-  --   config = function()
-  --     local cmp = require('cmp')
-  --     local luasnip = require("luasnip")
-  --     local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-  --     local lspkind = require('lspkind')
-  --
-  --     lspkind.init({
-  --       symbol_map = {
-  --         Copilot = "",
-  --       },
-  --     })
-  --
-  --     cmp.event:on(
-  --       'confirm_done',
-  --       cmp_autopairs.on_confirm_done()
-  --     )
-  --     cmp.setup({
-  --       formatting = {
-  --         format = lspkind.cmp_format(),
-  --       },
-  --       window = {
-  --         completion = cmp.config.window.bordered {
-  --           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-  --         },
-  --         documentation = cmp.config.window.bordered {
-  --           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-  --         },
-  --       },
-  --       snippets = {
-  --         expand = function(args)
-  --           require('luasnip').lsp_expand(args.body)
-  --         end
-  --       },
-  --       mapping = cmp.mapping.preset.insert({
-  --         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-  --         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-  --         ['<C-Space>'] = cmp.mapping.complete(),
-  --         ['<C-e>'] = cmp.mapping.abort(),
-  --         ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  --         ['<Tab>'] = cmp.mapping(function(fallback)
-  --           if cmp.visible() then
-  --             cmp.select_next_item()
-  --           -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
-  --           -- they way you will only jump inside the snippet region
-  --           elseif luasnip.expand_or_jumpable() then
-  --             luasnip.expand_or_jump()
-  --           else
-  --             fallback()
-  --           end
-  --         end, { "i", "s" }),
-  --         ["<S-Tab>"] = cmp.mapping(function(fallback)
-  --           if cmp.visible() then
-  --             cmp.select_prev_item()
-  --           elseif luasnip.jumpable(-1) then
-  --             luasnip.jump(-1)
-  --           else
-  --             fallback()
-  --           end
-  --         end, { "i", "s" }),
-  --       }),
-  --       sources = cmp.config.sources({
-  --         { name = "copilot", group_index = 2 },
-  --         { 
-  --           name = 'nvim_lsp',
-  --           group_index = 2
-  --         },
-  --         { 
-  --           name = 'luasnip',
-  --           group_index = 2
-  --         },
-  --         { 
-  --           name = 'buffer', 
-  --           group_index = 2,
-  --           option = {
-  --             get_bufnrs = function()
-  --               return vim.api.nvim_list_bufs()
-  --             end
-  --           }
-  --         }
-  --       })
-  --     })
-  --   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-  --     cmp.setup.cmdline({ '/', '?' }, {
-  --       mapping = cmp.mapping.preset.cmdline(),
-  --       sources = {
-  --         { name = 'buffer' }
-  --       }
-  --     })
-  --
-  --     -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  --     cmp.setup.cmdline(':', {
-  --       mapping = cmp.mapping.preset.cmdline(),
-  --       sources = cmp.config.sources({
-  --         { name = 'path' }
-  --       }, {
-  --         { name = 'cmdline' }
-  --       })
-  --     })
-  --
-  --     local capabilities = vim.lsp.protocol.make_client_capabilities()
-  --     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-  --   end,
-  -- },
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      'onsails/lspkind.nvim',
+      'saadparwaiz1/cmp_luasnip'
+    },
+    config = function()
+      local cmp = require('cmp')
+      local luasnip = require("luasnip")
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      local lspkind = require('lspkind')
+
+      cmp.event:on(
+        'confirm_done',
+        cmp_autopairs.on_confirm_done()
+      )
+      cmp.setup({
+        formatting = {
+          format = lspkind.cmp_format(),
+        },
+        experimental = {
+          ghost_text = false -- this feature conflict with copilot.vim's preview.
+        },
+        window = {
+          completion = cmp.config.window.bordered {
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+          },
+          documentation = cmp.config.window.bordered {
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+          },
+        },
+        snippets = {
+          expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+          end
+        },
+        mapping = cmp.mapping.preset.insert({
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
+            -- they way you will only jump inside the snippet region
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+        }),
+        sources = cmp.config.sources({
+          { 
+            name = 'nvim_lsp',
+            group_index = 2
+          },
+          { 
+            name = 'luasnip',
+            group_index = 2
+          },
+          { 
+            name = 'buffer', 
+            group_index = 2,
+            option = {
+              get_bufnrs = function()
+                return vim.api.nvim_list_bufs()
+              end
+            }
+          }
+        })
+      })
+    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+
+      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        })
+      })
+
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+    end,
+  },
   
   -- copilot
   { 
     'zbirenbaum/copilot.lua',
-    event = 'InsertEnter',
-    cmd = 'Copilot',
     config = function()
       require("copilot").setup({
-        -- suggestion = { enabled = false },
-        -- panel = { enabled = false },
+        panel = {
+          auto_refresh = false,
+        },
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = "<A-s>",
+            next = "<A-]>",
+            prev = "<A-[>",
+          }
+        },      
       })
     end
   },
