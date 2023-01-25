@@ -1,7 +1,7 @@
-vim.cmd [[packadd matchit]]
 vim.g.mapleader = " "
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -63,7 +63,8 @@ require("lazy").setup({
   { 
     'jose-elias-alvarez/null-ls.nvim',
     dependencies = {
-      'nvim-lua/plenary.nvim'
+      'nvim-lua/plenary.nvim',
+      'neovim/nvim-lspconfig'
     },
     config = function()
       local null_ls = require("null-ls")
@@ -280,7 +281,9 @@ require("lazy").setup({
   {
     'neovim/nvim-lspconfig',
     config = function()
+      require('lspconfig.ui.windows').default_options.border = 'single'
       vim.diagnostic.config({
+        virtual_text = false,
         float = {
           border = 'single'
         }
@@ -300,6 +303,7 @@ require("lazy").setup({
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
       vim.keymap.set('n', ']d', diagnosticGoToNext, opts)
       vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, opts)
+      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
 
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
@@ -316,18 +320,19 @@ require("lazy").setup({
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-        vim.keymap.set('n', '<space>wl', function()
+        vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+        vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+        vim.keymap.set('n', '<leader>wl', function()
           print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, bufopts)
-        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-        vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-        vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+        vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+        vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
       end
 
-      require('lspconfig').solargraph.setup{
+      local lspconfig = require('lspconfig')
+
+      lspconfig.solargraph.setup{
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
@@ -337,134 +342,162 @@ require("lazy").setup({
         }
       }
 
-      require('lspconfig').vuels.setup{
+      lspconfig.vuels.setup{
         on_attach = on_attach,
         capabilities = capabilities
       }
 
-      require('lspconfig').tsserver.setup{
+      lspconfig.tsserver.setup{
         on_attach = on_attach,
         capabilities = capabilities
       }
     end
   },
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      'onsails/lspkind.nvim',
-      'saadparwaiz1/cmp_luasnip'
-    },
-    config = function()
-      local cmp = require('cmp')
-      local luasnip = require("luasnip")
-      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-      local lspkind = require('lspkind')
-
-      cmp.event:on(
-        'confirm_done',
-        cmp_autopairs.on_confirm_done()
-      )
-      cmp.setup({
-        formatting = {
-          format = lspkind.cmp_format(),
-        },
-        window = {
-          completion = cmp.config.window.bordered {
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          },
-          documentation = cmp.config.window.bordered {
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          },
-        },
-        snippets = {
-          expand = function(args)
-            require('luasnip').lsp_expand(args.body)
-          end
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
-            -- they way you will only jump inside the snippet region
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-        }),
-        sources = cmp.config.sources({
-          { 
-            name = 'nvim_lsp',
-            max_item_count = 10,
-          },
-          { 
-            name = 'luasnip',
-            max_item_count = 10,
-          },
-          { 
-            name = 'buffer', 
-            max_item_count = 10,
-            option = {
-              get_bufnrs = function()
-                return vim.api.nvim_list_bufs()
-              end
-            }
-          }
-        })
-      })
-    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline({ '/', '?' }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = 'buffer' }
-        }
-      })
-
-      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path' }
-        }, {
-          { name = 'cmdline' }
-        })
-      })
-
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-    end,
-  },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   dependencies = {
+  --     "hrsh7th/cmp-nvim-lsp",
+  --     "hrsh7th/cmp-buffer",
+  --     "hrsh7th/cmp-path",
+  --     "hrsh7th/cmp-cmdline",
+  --     'onsails/lspkind.nvim',
+  --     'saadparwaiz1/cmp_luasnip'
+  --   },
+  --   config = function()
+  --     local cmp = require('cmp')
+  --     local luasnip = require("luasnip")
+  --     local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+  --     local lspkind = require('lspkind')
+  --
+  --     lspkind.init({
+  --       symbol_map = {
+  --         Copilot = "",
+  --       },
+  --     })
+  --
+  --     cmp.event:on(
+  --       'confirm_done',
+  --       cmp_autopairs.on_confirm_done()
+  --     )
+  --     cmp.setup({
+  --       formatting = {
+  --         format = lspkind.cmp_format(),
+  --       },
+  --       window = {
+  --         completion = cmp.config.window.bordered {
+  --           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+  --         },
+  --         documentation = cmp.config.window.bordered {
+  --           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+  --         },
+  --       },
+  --       snippets = {
+  --         expand = function(args)
+  --           require('luasnip').lsp_expand(args.body)
+  --         end
+  --       },
+  --       mapping = cmp.mapping.preset.insert({
+  --         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+  --         ['<C-f>'] = cmp.mapping.scroll_docs(4),
+  --         ['<C-Space>'] = cmp.mapping.complete(),
+  --         ['<C-e>'] = cmp.mapping.abort(),
+  --         ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  --         ['<Tab>'] = cmp.mapping(function(fallback)
+  --           if cmp.visible() then
+  --             cmp.select_next_item()
+  --           -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
+  --           -- they way you will only jump inside the snippet region
+  --           elseif luasnip.expand_or_jumpable() then
+  --             luasnip.expand_or_jump()
+  --           else
+  --             fallback()
+  --           end
+  --         end, { "i", "s" }),
+  --         ["<S-Tab>"] = cmp.mapping(function(fallback)
+  --           if cmp.visible() then
+  --             cmp.select_prev_item()
+  --           elseif luasnip.jumpable(-1) then
+  --             luasnip.jump(-1)
+  --           else
+  --             fallback()
+  --           end
+  --         end, { "i", "s" }),
+  --       }),
+  --       sources = cmp.config.sources({
+  --         { name = "copilot", group_index = 2 },
+  --         { 
+  --           name = 'nvim_lsp',
+  --           group_index = 2
+  --         },
+  --         { 
+  --           name = 'luasnip',
+  --           group_index = 2
+  --         },
+  --         { 
+  --           name = 'buffer', 
+  --           group_index = 2,
+  --           option = {
+  --             get_bufnrs = function()
+  --               return vim.api.nvim_list_bufs()
+  --             end
+  --           }
+  --         }
+  --       })
+  --     })
+  --   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  --     cmp.setup.cmdline({ '/', '?' }, {
+  --       mapping = cmp.mapping.preset.cmdline(),
+  --       sources = {
+  --         { name = 'buffer' }
+  --       }
+  --     })
+  --
+  --     -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  --     cmp.setup.cmdline(':', {
+  --       mapping = cmp.mapping.preset.cmdline(),
+  --       sources = cmp.config.sources({
+  --         { name = 'path' }
+  --       }, {
+  --         { name = 'cmdline' }
+  --       })
+  --     })
+  --
+  --     local capabilities = vim.lsp.protocol.make_client_capabilities()
+  --     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+  --   end,
+  -- },
   
   -- copilot
   { 
-    'github/copilot.vim', 
+    'zbirenbaum/copilot.lua',
+    event = 'InsertEnter',
+    cmd = 'Copilot',
     config = function()
-      vim.keymap.set('i', '<A-s>', function() 
-        vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](), 'i', true)
-      end)
-      vim.g.copilot_no_tab_map = true
+      require("copilot").setup({
+        -- suggestion = { enabled = false },
+        -- panel = { enabled = false },
+      })
     end
   },
+  -- {
+  --   'zbirenbaum/copilot-cmp',
+  --   dependencies = { 'zbirenbaum/copilot.lua' },
+  --   config = function()
+  --     require("copilot_cmp").setup({
+  --       -- method = "getCompletionsCycling",
+  --     })
+  --   end
+  -- },
+
+  -- { 
+  --   'github/copilot.vim', 
+  --   config = function()
+  --     vim.keymap.set('i', '<A-s>', function() 
+  --       vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](), 'i', true)
+  --     end)
+  --     vim.g.copilot_no_tab_map = true
+  --   end
+  -- },
 
   -- buffer management
   { 
@@ -598,6 +631,7 @@ require("lazy").setup({
     'hzchirs/vim-material',
     dev = true,
     dir = '~/Projects/vim-material',
+    priority = 1000,
     config = function()
       vim.cmd [[colorscheme vim-material]]
     end,
@@ -730,7 +764,7 @@ vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<CR>')
 vim.keymap.set('n', '<leader>=', ':exe "vertical resize " . (winwidth(0) * 10/9)<CR>')
 vim.keymap.set('n', '<leader>-', ':exe "vertical resize " . (winwidth(0) * 9/10)<CR>')
 
--- 切換 noraml mode
+-- 切換 normal mode
 vim.keymap.set('i', 'jk', '<Esc>')
 
 --- 模擬 Emacs 操作
@@ -741,7 +775,7 @@ vim.keymap.set('i', '<C-b>', '<left>')
 vim.keymap.set('i', '<C-n>', '<down>')
 vim.keymap.set('i', '<C-p>', '<up>')
 
--- Search visualed context
+-- Search visual context
 vim.keymap.set('v', '//', 'y/<C-R>"<CR>')
 
 -- 各種模式下的 Ctrl-s 儲存
