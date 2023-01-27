@@ -54,9 +54,9 @@ require("lazy").setup({
       vim.o.timeout = true
       vim.o.timeoutlen = 300
       require("which-key").setup({
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
+        window = {
+          border = 'single'
+        }
       })
     end,
   },
@@ -695,6 +695,12 @@ require("lazy").setup({
     'vim-scripts/BufOnly.vim',
     config = function()
       vim.keymap.set('n', '<leader>bo', ':BufOnly<CR>')
+    end
+  },
+  {
+    "folke/zen-mode.nvim",
+    config = function()
+      require("zen-mode").setup()
     end
   },
   'tpope/vim-rails',
