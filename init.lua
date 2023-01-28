@@ -705,7 +705,9 @@ require("lazy").setup({
         window = {
           options = {
             number = false,
-            relativenumber = false
+            relativenumber = false,
+            cursorline = false,
+            cursorcolumn = false
           }
         }
       })
