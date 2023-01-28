@@ -697,10 +697,18 @@ require("lazy").setup({
       vim.keymap.set('n', '<leader>bo', ':BufOnly<CR>')
     end
   },
+  -- 專注模式
   {
     "folke/zen-mode.nvim",
     config = function()
-      require("zen-mode").setup()
+      require("zen-mode").setup({
+        window = {
+          options = {
+            number = false,
+            relativenumber = false
+          }
+        }
+      })
     end
   },
   'tpope/vim-rails',
