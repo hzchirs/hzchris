@@ -25,7 +25,7 @@ require("lazy").setup({
     "L3MON4D3/LuaSnip",
     version = "v<CurrentMajor>.*",
     dependencies = {
-      'rafamadriz/friendly-snippets'
+      'rafamadriz/friendly-snippets',
     },
     config = function()
       local luasnip = require('luasnip')
@@ -714,7 +714,22 @@ require("lazy").setup({
       })
     end
   },
-  'tpope/vim-rails',
+  { 
+    'tpope/vim-rails',
+    config = function()
+      -- disable autocmd set filetype=eruby.yaml
+      vim.api.nvim_create_autocmd(
+        { 'BufNewFile', 'BufReadPost' },
+        {
+          pattern = { '*.yml' },
+          callback = function()
+            vim.bo.filetype = 'yaml'
+          end
+
+        }
+      )
+    end
+  },
   'vim-scripts/ReplaceWithRegister',
   'mattn/emmet-vim',
   'chrisbra/Colorizer',
@@ -784,10 +799,13 @@ vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<CR>')
 vim.keymap.set('n', '<leader>et', ':vsplit ~/Dropbox/todo/todo.txt<CR>')
 -- automatically set filetype to todotxt when opening todo.txt
 vim.api.nvim_create_autocmd(
-  'BufReadPost',
-  '~/Dropbox/todo/todo.txt',
-  'setlocal filetype=todotxt',
-  {once = true}
+  { 'BufReadPost' },
+  { 
+    pattern = 'todo.txt',
+    callback = function()
+      vim.bo.filetype = 'todotxt'
+    end
+  }
 )
 
 --- 縮放視窗
