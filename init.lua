@@ -714,18 +714,6 @@ require("lazy").setup({
       })
     end
   },
-  {
-    'arnarg/todotxt.nvim',
-    dependencies = {'MunifTanjim/nui.nvim'},
-    config = function()
-      require('todotxt-nvim').setup({
-        todo_file = '~/Dropbox/todo/todo.txt'
-      })
-      vim.keymap.set('n', '<leader>td', ':ToDoTxtTasksToggle<CR>', {
-        silent = true
-      })
-    end
-  },
   'tpope/vim-rails',
   'vim-scripts/ReplaceWithRegister',
   'mattn/emmet-vim',
