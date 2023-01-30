@@ -542,6 +542,7 @@ require("lazy").setup({
     config = function()
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
+          "todotxt",
           "css",
           "elixir",
           "hcl",
@@ -710,6 +711,18 @@ require("lazy").setup({
             cursorcolumn = false
           }
         }
+      })
+    end
+  },
+  {
+    'arnarg/todotxt.nvim',
+    dependencies = {'MunifTanjim/nui.nvim'},
+    config = function()
+      require('todotxt-nvim').setup({
+        todo_file = '~/Dropbox/todo/todo.txt'
+      })
+      vim.keymap.set('n', '<leader>td', ':ToDoTxtTasksToggle<CR>', {
+        silent = true
       })
     end
   },
