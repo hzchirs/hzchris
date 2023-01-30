@@ -780,6 +780,16 @@ vim.keymap.set('n', '<S-H>', '10zh')
 vim.keymap.set('n', '<leader>ev', ':vsplit $MYVIMRC<CR>')
 vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<CR>')
 
+-- todo.txt 相關設定
+vim.keymap.set('n', '<leader>et', ':vsplit ~/Dropbox/todo/todo.txt<CR>')
+-- automatically set filetype to todotxt when opening todo.txt
+vim.api.nvim_create_autocmd(
+  'BufReadPost',
+  '~/Dropbox/todo/todo.txt',
+  'setlocal filetype=todotxt',
+  {once = true}
+)
+
 --- 縮放視窗
 vim.keymap.set('n', '<leader>=', ':exe "vertical resize " . (winwidth(0) * 10/9)<CR>')
 vim.keymap.set('n', '<leader>-', ':exe "vertical resize " . (winwidth(0) * 9/10)<CR>')
