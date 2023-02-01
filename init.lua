@@ -319,7 +319,7 @@ require("lazy").setup({
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
         -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts) -- 和 go replace 相衝突
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+        -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
         vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
         vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
         vim.keymap.set('n', '<leader>wl', function()
