@@ -822,6 +822,7 @@ vim.keymap.set('i', '<C-f>', '<right>')
 vim.keymap.set('i', '<C-b>', '<left>')
 vim.keymap.set('i', '<C-n>', '<down>')
 vim.keymap.set('i', '<C-p>', '<up>')
+vim.keymap.set('i', '<C-o>', '<esc>O')
 
 -- Search visual context
 vim.keymap.set('v', '//', 'y/<C-R>"<CR>')
