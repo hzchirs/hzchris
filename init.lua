@@ -597,7 +597,6 @@ require("lazy").setup({
             toggle_language_display = 'I',
             focus_language = 'f',
             unfocus_language = 'F',
-            update = 'R',
             goto_node = '<cr>',
             show_help = '?',
           },
