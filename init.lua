@@ -513,7 +513,7 @@ require("lazy").setup({
       vim.keymap.set('n', '<A-}>', ':BufferNext<CR>', opts)
       vim.keymap.set('n', '<A-[>', ':BufferMovePrevious<CR>', opts)
       vim.keymap.set('n', '<A-]>', ':BufferMoveNext<CR>', opts)
-      vim.keymap.set('n', '<leader>bc', ':BufferClose<CR>', opts)
+      vim.keymap.set('n', '<S-x>', ':BufferClose<CR>', opts)
     end
   },
 
