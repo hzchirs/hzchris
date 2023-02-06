@@ -52,7 +52,7 @@ require("lazy").setup({
     "folke/which-key.nvim",
     config = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 300
+      vim.o.timeoutlen = 500
       require("which-key").setup({
         window = {
           border = 'single'
@@ -192,14 +192,14 @@ require("lazy").setup({
         vim.cmd("Ag " .. selection)
       end
 
-      vim.keymap.set('v', '<leader>ag', ':lua SearchVisualSelectionWithAg()<CR>')
+      vim.keymap.set('v', '<S-k>', ':lua SearchVisualSelectionWithAg()<CR>')
 
       function SearchWordWithAg()
         local word = vim.fn.expand("<cword>")
         vim.cmd("Ag " .. word)
       end
 
-      vim.keymap.set('n', '<leader>ag', ':lua SearchWordWithAg()<CR>')
+      vim.keymap.set('n', '<S-k>', ':lua SearchWordWithAg()<CR>')
 
       function ag_in(path)
         if not vim.fn.isdirectory(path) then
