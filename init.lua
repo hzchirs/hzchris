@@ -23,7 +23,7 @@ require("lazy").setup({
   },
   {
     "L3MON4D3/LuaSnip",
-    version = "v<CurrentMajor>.*",
+    -- version = "<CurrentMajor>.*",
     dependencies = {
       'rafamadriz/friendly-snippets',
     },
