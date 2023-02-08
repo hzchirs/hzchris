@@ -505,7 +505,7 @@ require("lazy").setup({
   { 
     'romgrk/barbar.nvim',
     dependencies = {
-      'kyazdani42/nvim-web-devicons' 
+      'nvim-tree/nvim-web-devicons' 
     },
     config = function()
       local opts = { silent = true }
@@ -519,7 +519,7 @@ require("lazy").setup({
 
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup({
         options = { theme = 'material' }
