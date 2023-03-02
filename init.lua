@@ -48,18 +48,18 @@ require("lazy").setup({
       require('alpha').setup(require('alpha.themes.startify').config)
     end
   },
-  {
-    "folke/which-key.nvim",
-    config = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 500
-      require("which-key").setup({
-        window = {
-          border = 'single'
-        }
-      })
-    end,
-  },
+  -- {
+  --   "folke/which-key.nvim",
+  --   config = function()
+  --     vim.o.timeout = true
+  --     vim.o.timeoutlen = 500
+  --     require("which-key").setup({
+  --       window = {
+  --         border = 'single'
+  --       }
+  --     })
+  --   end,
+  -- },
   { 
     'jose-elias-alvarez/null-ls.nvim',
     dependencies = {
@@ -567,7 +567,7 @@ require("lazy").setup({
         sync_install = false,
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = false
+          additional_vim_regex_highlighting = true
         },
 
         indent = {
