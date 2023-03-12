@@ -752,7 +752,7 @@ require("lazy").setup({
   -- eunuch.vim: Helpers for UNIX
   -- :Remove, :Delete, :Move ...etc
   'tpope/vim-eunuch',
-  'editorconfig/editorconfig-vim',
+  'gpanders/editorconfig.nvim',
   'rizzatti/dash.vim',
   'metakirby5/codi.vim'
 })
