@@ -42,7 +42,7 @@ require("lazy").setup({
       vim.keymap.set("i", "<C-j>", "<Plug>luasnip-jump-next", {})
     end
   },
-  { 
+  {
     'goolord/alpha-nvim',
     config = function()
       require('alpha').setup(require('alpha.themes.startify').config)
@@ -60,7 +60,7 @@ require("lazy").setup({
   --     })
   --   end,
   -- },
-  { 
+  {
     'jose-elias-alvarez/null-ls.nvim',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -76,7 +76,7 @@ require("lazy").setup({
       null_ls.setup({
         diagnostics_format = "[#{c}] #{m} (#{s})",
         sources = {
-          diagnostics.cspell,          
+          diagnostics.cspell,
           code_actions.cspell,
 
           code_actions.eslint,
@@ -94,7 +94,7 @@ require("lazy").setup({
             end,
           }),
 
-          
+
           formatting.standardrb.with({
             -- disable standardrb when root has .rubocop.yml
             condition = function(utils)
@@ -137,7 +137,7 @@ require("lazy").setup({
       })
     end
   },
-  { 
+  {
     'kyazdani42/nvim-tree.lua',
     config = function()
       vim.g.loaded = 1
@@ -158,7 +158,7 @@ require("lazy").setup({
       vim.keymap.set('n', '<C-\\>', api.tree.toggle)
     end
   },
-  { 
+  {
     'junegunn/gv.vim',
     dependencies = { 'tpope/vim-fugitive' }
   },
@@ -170,7 +170,7 @@ require("lazy").setup({
     end
   },
   {
-    'junegunn/fzf', 
+    'junegunn/fzf',
     build = ':call fzf#install()',
     dependencies = { 'junegunn/fzf.vim' },
     config = function()
@@ -214,7 +214,7 @@ require("lazy").setup({
       vim.api.nvim_create_user_command(
         'AgIn',
         'lua ag_in(<f-args>)',
-        { 
+        {
           nargs = '+',
           bang = true,
           complete = 'dir'
@@ -222,7 +222,7 @@ require("lazy").setup({
       )
     end
   },
-  { 
+  {
     'akinsho/toggleterm.nvim',
     version = "*",
     config = function()
@@ -233,11 +233,11 @@ require("lazy").setup({
 
       local Terminal  = require('toggleterm.terminal').Terminal
       local lazygit = Terminal:new({
-        cmd = "lazygit", 
+        cmd = "lazygit",
         direction = "float",
-        float_opts = { 
+        float_opts = {
           border = "double",
-          height = 35 
+          height = 35
         }
       })
 
@@ -257,7 +257,7 @@ require("lazy").setup({
     end
   },
 
-  -- { 
+  -- {
   --   'williamboman/mason.nvim',
   --   dependencies = {
   --     'williamboman/mason-lspconfig.nvim'
@@ -401,7 +401,7 @@ require("lazy").setup({
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
+            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
             -- they way you will only jump inside the snippet region
             elseif luasnip.expand_or_jumpable() then
               luasnip.expand_or_jump()
@@ -420,16 +420,16 @@ require("lazy").setup({
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
-          { 
+          {
             name = 'nvim_lsp',
             group_index = 2
           },
-          { 
+          {
             name = 'luasnip',
             group_index = 2
           },
-          { 
-            name = 'buffer', 
+          {
+            name = 'buffer',
             group_index = 2,
             option = {
               get_bufnrs = function()
@@ -461,9 +461,9 @@ require("lazy").setup({
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
     end,
   },
-  
+
   -- copilot
-  { 
+  {
     'zbirenbaum/copilot.lua',
     config = function()
       require("copilot").setup({
@@ -477,7 +477,7 @@ require("lazy").setup({
             next = "<A-]>",
             prev = "<A-[>",
           }
-        },      
+        },
       })
     end
   },
@@ -491,10 +491,10 @@ require("lazy").setup({
   --   end
   -- },
 
-  -- { 
-  --   'github/copilot.vim', 
+  -- {
+  --   'github/copilot.vim',
   --   config = function()
-  --     vim.keymap.set('i', '<A-s>', function() 
+  --     vim.keymap.set('i', '<A-s>', function()
   --       vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](), 'i', true)
   --     end)
   --     vim.g.copilot_no_tab_map = true
@@ -502,10 +502,10 @@ require("lazy").setup({
   -- },
 
   -- buffer management
-  { 
+  {
     'romgrk/barbar.nvim',
     dependencies = {
-      'nvim-tree/nvim-web-devicons' 
+      'nvim-tree/nvim-web-devicons'
     },
     config = function()
       local opts = { silent = true }
@@ -536,7 +536,7 @@ require("lazy").setup({
   },
 
   {
-    "nvim-treesitter/nvim-treesitter", 
+    "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
       require('nvim-treesitter.configs').setup {
@@ -600,11 +600,11 @@ require("lazy").setup({
             show_help = '?',
           },
         },
-        
+
         endwise = {
           enable = true
         },
-        
+
         textobjects = {
           select = {
             enable = true,
@@ -625,12 +625,26 @@ require("lazy").setup({
       }
     end
   },
-  'nvim-treesitter/nvim-treesitter-textobjects',
-  'nvim-treesitter/playground',
-  'RRethy/nvim-treesitter-endwise',
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' }
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' }
+  },
+  {
+    'nvim-treesitter/playground',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' }
+  },
+  {
+    'RRethy/nvim-treesitter-endwise',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' }
+  },
 
   {
     'hzchirs/vim-material',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     dev = true,
     dir = '~/Projects/vim-material',
     priority = 1000,
@@ -638,7 +652,7 @@ require("lazy").setup({
       vim.cmd [[colorscheme vim-material]]
     end,
   },
-  
+
   {
     'windwp/nvim-autopairs',
     config = function()
@@ -686,11 +700,11 @@ require("lazy").setup({
       end)
     end
   },
-  { 
+  {
     'mg979/vim-visual-multi',
     branch = 'master'
   },
-  { 
+  {
     'vim-scripts/BufOnly.vim',
     config = function()
       vim.keymap.set('n', '<leader>bo', ':BufOnly<CR>')
@@ -712,7 +726,7 @@ require("lazy").setup({
       })
     end
   },
-  { 
+  {
     'tpope/vim-rails',
     config = function()
       -- disable autocmd set filetype=eruby.yaml
@@ -728,7 +742,7 @@ require("lazy").setup({
       )
     end
   },
-  { 
+  {
     'junegunn/vim-easy-align',
     config = function()
       vim.keymap.set('x', 'ga', '<Plug>(EasyAlign)', {noremap=false})
@@ -745,7 +759,7 @@ require("lazy").setup({
   -- 讓 vim 的 command line mode 支援 command line 快捷鍵
   'ryvnf/readline.vim',
 
-  -- A Vim plugin to provide %-style motion for ' (single quotation mark), 
+  -- A Vim plugin to provide %-style motion for ' (single quotation mark),
   -- " (double quotation mark), ` (backtick), and | (pipe).
   'airblade/vim-matchquote',
 
@@ -777,7 +791,7 @@ vim.opt.tabstop = 2
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.number = true
-vim.opt.colorcolumn = '100' 
+vim.opt.colorcolumn = '100'
 vim.opt.signcolumn = 'yes'
 vim.opt.wrap = false
 vim.opt.scrolloff = 999 -- 游標置中
@@ -804,7 +818,7 @@ vim.keymap.set('n', '<leader>et', ':vsplit ~/Dropbox/todo/todo.txt<CR>')
 -- automatically set filetype to todotxt when opening todo.txt
 vim.api.nvim_create_autocmd(
   { 'BufReadPost' },
-  { 
+  {
     pattern = 'todo.txt',
     callback = function()
       vim.bo.filetype = 'todotxt'
