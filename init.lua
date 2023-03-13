@@ -812,6 +812,12 @@ vim.api.nvim_create_autocmd(
   }
 )
 
+-- 存檔前自動移除行尾空白
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*" },
+  command = [[%s/\s\+$//e]],
+})
+
 --- 縮放視窗
 vim.keymap.set('n', '<leader>=', ':exe "vertical resize " . (winwidth(0) * 10/9)<CR>')
 vim.keymap.set('n', '<leader>-', ':exe "vertical resize " . (winwidth(0) * 9/10)<CR>')
