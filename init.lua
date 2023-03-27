@@ -673,33 +673,42 @@ require("lazy").setup({
   },
 
   {
-    'phaazon/hop.nvim',
-    branch = 'v2',
+    'ggandor/leap.nvim',
+    dependencies = { 'tpope/vim-repeat' },
     config = function()
-      require'hop'.setup()
-
-      local hop = require('hop')
-      local directions = require('hop.hint').HintDirection
-      vim.keymap.set('', 'f', function()
-        hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-      end, {remap=true})
-      vim.keymap.set('', 'F', function()
-        hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-      end, {remap=true})
-      vim.keymap.set('', 't', function()
-        hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-      end, {remap=true})
-      vim.keymap.set('', 'T', function()
-        hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
-      end, {remap=true})
-      vim.keymap.set('', '<leader><leader>w', function()
-      	hop.hint_words({ direction = directions.AFTER_CURSOR })
-      end)
-      vim.keymap.set('', '<leader><leader>b', function()
-      	hop.hint_words({ direction = directions.BEFORE_CURSOR })
-      end)
+      require('leap').add_default_mappings()
     end
   },
+
+  -- 一直有 bug，先暫時註解，改用 leap.nvim
+  -- {
+  --   'phaazon/hop.nvim',
+  --   branch = 'v2',
+  --   config = function()
+  --     require'hop'.setup()
+  --
+  --     local hop = require('hop')
+  --     local directions = require('hop.hint').HintDirection
+  --     vim.keymap.set('', 'f', function()
+  --       hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+  --     end, {remap=true})
+  --     vim.keymap.set('', 'F', function()
+  --       hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+  --     end, {remap=true})
+  --     vim.keymap.set('', 't', function()
+  --       hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+  --     end, {remap=true})
+  --     vim.keymap.set('', 'T', function()
+  --       hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+  --     end, {remap=true})
+  --     vim.keymap.set('', '<leader><leader>w', function()
+  --     	hop.hint_words({ direction = directions.AFTER_CURSOR })
+  --     end)
+  --     vim.keymap.set('', '<leader><leader>b', function()
+  --     	hop.hint_words({ direction = directions.BEFORE_CURSOR })
+  --     end)
+  --   end
+  -- },
   {
     'mg979/vim-visual-multi',
     branch = 'master'
