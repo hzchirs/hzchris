@@ -571,7 +571,7 @@ require("lazy").setup({
         },
 
         indent = {
-          enable = true
+          enable = false
         },
 
         incremental_selection = {
