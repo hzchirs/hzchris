@@ -48,18 +48,6 @@ require("lazy").setup({
       require('alpha').setup(require('alpha.themes.startify').config)
     end
   },
-  -- {
-  --   "folke/which-key.nvim",
-  --   config = function()
-  --     vim.o.timeout = true
-  --     vim.o.timeoutlen = 500
-  --     require("which-key").setup({
-  --       window = {
-  --         border = 'single'
-  --       }
-  --     })
-  --   end,
-  -- },
   {
     'jose-elias-alvarez/null-ls.nvim',
     dependencies = {
@@ -257,28 +245,6 @@ require("lazy").setup({
     end
   },
 
-  -- {
-  --   'williamboman/mason.nvim',
-  --   dependencies = {
-  --     'williamboman/mason-lspconfig.nvim'
-  --   },
-  --   config = function()
-  --     require("mason").setup({
-  --       ui = {
-  --         border = 'single',
-  --         icons = {
-  --           package_installed = "✓",
-  --           package_pending = "➜",
-  --           package_uninstalled = "✗"
-  --         }
-  --       }
-  --     })
-  --
-  --     require("mason-lspconfig").setup({
-  --       automatic_installation = true
-  --     })
-  --   end
-  -- },
   {
     'neovim/nvim-lspconfig',
     config = function()
