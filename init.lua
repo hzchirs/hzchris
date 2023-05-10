@@ -615,7 +615,9 @@ require("lazy").setup({
     dir = '~/Projects/vim-material',
     priority = 1000,
     config = function()
-      vim.cmd [[colorscheme vim-material]]
+      if not vim.g.vscode then
+        vim.cmd [[colorscheme vim-material]]
+      end
     end,
   },
 
