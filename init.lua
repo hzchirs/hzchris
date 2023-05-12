@@ -115,8 +115,7 @@ require("lazy").setup({
       require('aerial').setup({
         backends = { "treesitter" },
         layout = {
-          min_width = 0.25,
-          default_direction = 'prefer_left'
+          default_direction = 'prefer_right'
         },
         on_attach = function(bufnr)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ol', '<cmd>AerialToggle!<CR>', {})
