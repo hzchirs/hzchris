@@ -115,6 +115,7 @@ require("lazy").setup({
       require('aerial').setup({
         backends = { "treesitter" },
         layout = {
+          min_width = 0.4,
           default_direction = 'prefer_right'
         },
         on_attach = function(bufnr)
