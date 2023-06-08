@@ -61,7 +61,9 @@ require("lazy").setup({
       local formatting = null_ls.builtins.formatting
 
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
       vim.keymap.set('n', '<leader><leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+
       null_ls.setup({
         diagnostics_format = "[#{c}] #{m} (#{s})",
         sources = {
@@ -298,7 +300,6 @@ require("lazy").setup({
         end, bufopts)
         vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-        vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
       end
 
       local lspconfig = require('lspconfig')
