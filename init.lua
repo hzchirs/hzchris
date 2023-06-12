@@ -666,6 +666,7 @@ require("lazy").setup({
         end,
 
         window = {
+          backdrop = 1,
           options = {
             signcolumn = "no",
             foldcolumn = "0",
