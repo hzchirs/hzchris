@@ -657,16 +657,20 @@ require("lazy").setup({
     config = function()
       require("zen-mode").setup({
         on_open = function(win)
-            oldwrap = vim.wo.wrap
-            vim.wo.wrap = true
+          oldwrap = vim.wo.wrap
+          oldcc = vim.wo.colorcolumn
+          vim.wo.wrap = true
+          vim.wo.colorcolumn = ""
         end,
 
         on_close = function()
-            vim.wo.wrap = oldwrap
+          vim.wo.wrap = oldwrap
+          vim.wo.colorcolumn = oldcc
         end,
 
         window = {
           backdrop = 1,
+          width = 80,
           options = {
             signcolumn = "no",
             foldcolumn = "0",
