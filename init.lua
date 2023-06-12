@@ -582,12 +582,7 @@ require("lazy").setup({
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     dev = true,
     dir = '~/Projects/vim-material',
-    priority = 1000,
-    config = function()
-      if not vim.g.vscode then
-        vim.cmd [[colorscheme vim-material]]
-      end
-    end,
+    priority = 1000
   },
 
   {
@@ -661,8 +656,19 @@ require("lazy").setup({
     "folke/zen-mode.nvim",
     config = function()
       require("zen-mode").setup({
+        on_open = function(win)
+            oldwrap = vim.wo.wrap
+            vim.wo.wrap = true
+        end,
+
+        on_close = function()
+            vim.wo.wrap = oldwrap
+        end,
+
         window = {
           options = {
+            signcolumn = "no",
+            foldcolumn = "0",
             number = false,
             relativenumber = false,
             cursorline = false,
@@ -671,6 +677,12 @@ require("lazy").setup({
         }
       })
     end
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
   },
   {
     'tpope/vim-rails',
@@ -716,6 +728,10 @@ require("lazy").setup({
   'rizzatti/dash.vim',
   'metakirby5/codi.vim'
 })
+
+if not vim.g.vscode then
+  vim.cmd [[colorscheme vim-material]]
+end
 
 -- Basic Settings
 vim.g.mapleader = ' '
