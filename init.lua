@@ -439,8 +439,10 @@ require("lazy").setup({
   {
     'romgrk/barbar.nvim',
     dependencies = {
+      'lewis6991/gitsigns.nvim',
       'nvim-tree/nvim-web-devicons'
     },
+    version = '1.6.5',
     config = function()
       local opts = { silent = true }
       vim.keymap.set('n', '<A-{>', ':BufferPrevious<CR>', opts)
@@ -476,7 +478,6 @@ require("lazy").setup({
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
           "c",
-          "todotxt",
           "css",
           "elixir",
           "hcl",
