@@ -617,19 +617,15 @@ require("lazy").setup({
     "WhiteBlackGoose/magma-nvim-goose",
     version = "*",
     build = ":UpdateRemotePlugins",
-    keys = {
-      { "<leader>mi", "<cmd>MagmaInit<CR>", desc = "This command initializes a runtime for the current buffer." },
-      { "<leader>mo", "<cmd>MagmaEvaluateOperator<CR>", desc = "Evaluate the text given by some operator." },
-      { "<leader>ml", "<cmd>MagmaEvaluateLine<CR>", desc = "Evaluate the current line." },
-      { "<leader>mv", "<cmd>MagmaEvaluateVisual<CR>", desc = "Evaluate the selected text." },
-      { "<leader>mc", "<cmd>MagmaEvaluateOperator<CR>", desc = "Reevaluate the currently selected cell." },
-      { "<leader>mr", "<cmd>MagmaRestart!<CR>", desc = "Shuts down and restarts the current kernel." },
-      {
-        "<leader>mx",
-        "<cmd>MagmaInterrupt<CR>",
-        desc = "Interrupts the currently running cell and does nothing if not cell is running.",
-      },
-    },
+    config = function()
+      vim.keymap.set('n', '<leader>mi', ':MagmaInit<CR>')
+      vim.keymap.set('n', '<leader>mo', ':MagmaEvaluateOperator<CR>')
+      vim.keymap.set('n', '<leader>me', ':MagmaEvaluateLine<CR>')
+      vim.keymap.set('x', '<leader>me', ':<C-u>MagmaEvaluateVisual<CR>')
+      vim.keymap.set('n', '<leader>mc', ':MagmaReevaluateCell<CR>')
+      vim.keymap.set('n', '<leader>mr', ':MagmaRestart!<CR>')
+      vim.keymap.set('n', '<leader>mx', ':MagmaInterrupt<CR>')
+    end
   },
 
   -- 一直有 bug，先暫時註解，改用 leap.nvim
