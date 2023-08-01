@@ -65,7 +65,7 @@ require("lazy").setup({
       vim.keymap.set('n', '<leader><leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
       null_ls.setup({
-        diagnostics_format = "[#{c}] #{m} (#{s})",
+        diagnostics_format = "#{m} (#{s})",
         sources = {
           diagnostics.cspell,
           code_actions.cspell,
@@ -79,12 +79,12 @@ require("lazy").setup({
               return utils.root_has_file(".rubocop.yml")
             end,
           }),
+
           formatting.rubocop.with({
             condition = function(utils)
               return utils.root_has_file(".rubocop.yml")
             end,
           }),
-
 
           formatting.standardrb.with({
             -- disable standardrb when root has .rubocop.yml
@@ -304,15 +304,15 @@ require("lazy").setup({
 
       local lspconfig = require('lspconfig')
 
-      lspconfig.solargraph.setup{
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          solargraph = {
-            diagnostics = false
-          }
-        }
-      }
+      -- lspconfig.solargraph.setup{
+      --   on_attach = on_attach,
+      --   capabilities = capabilities,
+      --   settings = {
+      --     solargraph = {
+      --       diagnostics = false
+      --     }
+      --   }
+      -- }
 
       lspconfig.vuels.setup{
         on_attach = on_attach,
