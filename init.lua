@@ -737,6 +737,11 @@ require("lazy").setup({
       vim.keymap.set('n', 'ga', '<Plug>(EasyAlign)', {noremap=false})
     end
   },
+
+  {
+    'SidOfc/mkdx',
+    ft = 'markdown',
+  },
   'vim-scripts/ReplaceWithRegister',
   'mattn/emmet-vim',
   'chrisbra/Colorizer',
@@ -757,7 +762,6 @@ require("lazy").setup({
   'gpanders/editorconfig.nvim',
   'rizzatti/dash.vim',
   'metakirby5/codi.vim',
-  'SidOfc/mkdx'
 })
 
 if not vim.g.vscode then
@@ -816,8 +820,8 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 })
 
 --- 縮放視窗
-vim.keymap.set('n', '<leader>=', ':exe "vertical resize " . (winwidth(0) * 10/9)<CR>')
-vim.keymap.set('n', '<leader>-', ':exe "vertical resize " . (winwidth(0) * 9/10)<CR>')
+vim.keymap.set('n', '<leader><leader>=', ':exe "vertical resize " . (winwidth(0) * 10/9)<CR>')
+vim.keymap.set('n', '<leader><leader>-', ':exe "vertical resize " . (winwidth(0) * 9/10)<CR>')
 
 -- 切換 normal mode
 vim.keymap.set('i', 'jk', '<Esc>')
