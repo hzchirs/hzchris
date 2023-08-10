@@ -67,8 +67,8 @@ require("lazy").setup({
       null_ls.setup({
         diagnostics_format = "[#{c}] #{m} (#{s})",
         sources = {
-          diagnostics.cspell,
-          code_actions.cspell,
+          -- diagnostics.cspell,
+          -- code_actions.cspell,
 
           code_actions.eslint,
           diagnostics.eslint,
@@ -506,6 +506,7 @@ require("lazy").setup({
           "vim",
           "vue",
           "yaml",
+          "markdown_inline"
         },
         auto_install = true,
         sync_install = false,
@@ -755,7 +756,8 @@ require("lazy").setup({
   'tpope/vim-eunuch',
   'gpanders/editorconfig.nvim',
   'rizzatti/dash.vim',
-  'metakirby5/codi.vim'
+  'metakirby5/codi.vim',
+  'SidOfc/mkdx'
 })
 
 if not vim.g.vscode then
@@ -804,18 +806,8 @@ vim.keymap.set('n', '<S-H>', '10zh')
 vim.keymap.set('n', '<leader>ev', ':vsplit $MYVIMRC<CR>')
 vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<CR>')
 
--- todo.txt 相關設定
-vim.keymap.set('n', '<leader>et', ':vsplit ~/Dropbox/todo/todo.txt<CR>')
--- automatically set filetype to todotxt when opening todo.txt
-vim.api.nvim_create_autocmd(
-  { 'BufReadPost' },
-  {
-    pattern = 'todo.txt',
-    callback = function()
-      vim.bo.filetype = 'todotxt'
-    end
-  }
-)
+-- quick note 相關設定
+vim.keymap.set('n', '<leader>qn', ':60vsplit ~/vim-quick-note.md<CR>')
 
 -- 存檔前自動移除行尾空白
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
