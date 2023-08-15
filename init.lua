@@ -175,7 +175,9 @@ require("lazy").setup({
       vim.keymap.set('n', '<C-p>', ':Files<CR>')
       vim.keymap.set('n', '<S-p>', ':Buffers<CR>')
       vim.keymap.set('n', '<leader>fh', ':History<CR>')
-
+      vim.cmd [[
+        command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, "--ignore=yarn.lock --ignore=vendor/ --ignore='spec/fixtures/**/*.yml'", fzf#vim#with_preview(), <bang>0)
+      ]]
       function SearchVisualSelectionWithAg(range)
         local old_reg = vim.fn.getreg("\"")
         local old_regtype = vim.fn.getregtype("\"")
