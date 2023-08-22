@@ -813,7 +813,25 @@ vim.keymap.set('n', '<leader>ev', ':vsplit $MYVIMRC<CR>')
 vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<CR>')
 
 -- quick note 相關設定
-vim.keymap.set('n', '<leader>qn', ':60vsplit ~/vim-quick-note.md<CR>')
+vim.cmd [[
+  command! QuickNote :lua QuickNote()
+]]
+
+function QuickNote()
+  if vim.g.quicknote_winnr then
+    local winnr = vim.g.quicknote_winnr
+    if vim.fn.win_gotoid(winnr) and vim.fn.winnr('$') > 1 then
+      vim.cmd("close")
+    end
+    vim.g.quicknote_winnr = nil
+  else
+    vim.cmd("vsplit ~/vim-quick-note.md")
+    vim.cmd("vertical resize 60")
+    vim.cmd("setlocal nobuflisted") -- 使筆記不出現在 buffer 列表中
+    vim.g.quicknote_winnr = vim.fn.win_getid()
+  end
+end
+vim.keymap.set('n', '<leader>qn', ':QuickNote<CR>')
 
 -- 存檔前自動移除行尾空白
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
