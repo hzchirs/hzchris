@@ -60,8 +60,8 @@ require("lazy").setup({
       local diagnostics = null_ls.builtins.diagnostics
       local formatting = null_ls.builtins.formatting
 
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
       vim.keymap.set('n', '<leader><leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
       null_ls.setup({
