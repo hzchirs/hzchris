@@ -609,11 +609,11 @@ require("lazy").setup({
   -- 縮排輔助線
   {
     'lukas-reineke/indent-blankline.nvim',
+    version = '2.20.8',
     config = function()
-      require("ibl").setup({
-        scope = { enabled = true },
-        indent = { char = "│" },
-      })
+      require("indent_blankline").setup {
+        show_current_context = true -- highlight 目前游標所在的 context
+      }
     end
   },
 
