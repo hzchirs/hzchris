@@ -115,6 +115,9 @@ export CPPFLAGS="-I/usr/local/opt/readline/include"
 export BAT_THEME="base16"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
+# https://github.com/rails/rails/issues/38560#issuecomment-1682203069
+export PGGSSENCMODE=disable
+
 export TODOTXT_DEFAULT_ACTION=ls
 alias t="todo.sh"
 alias ping="prettyping"
