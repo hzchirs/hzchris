@@ -74,13 +74,18 @@ require("lazy").setup({
           diagnostics.eslint,
           formatting.eslint,
 
+          -- https://github.com/jose-elias-alvarez/null-ls.nvim/discussions/764
           diagnostics.rubocop.with({
+            command = "bundle",
+            args = vim.list_extend({ "exec", "rubocop" }, diagnostics.rubocop._opts.args),
             condition = function(utils)
               return utils.root_has_file(".rubocop.yml")
             end,
           }),
 
           formatting.rubocop.with({
+            command = "bundle",
+            args = vim.list_extend({ "exec", "rubocop" }, formatting.rubocop._opts.args),
             condition = function(utils)
               return utils.root_has_file(".rubocop.yml")
             end,
