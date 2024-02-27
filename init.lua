@@ -31,7 +31,7 @@ require("lazy").setup({
       local luasnip = require('luasnip')
 
       require('luasnip/loaders/from_vscode').lazy_load()
-      require("luasnip.loaders.from_snipmate").lazy_load({paths = "~/.config/nvim/snippets"})
+      require("luasnip.loaders.from_snipmate").lazy_load({paths = "~/.config/nvim/snippetstrue"})
       luasnip.filetype_extend("ruby", {"rails"})
       luasnip.filetype_extend("vue", {"javascript"})
 
@@ -681,6 +681,18 @@ require("lazy").setup({
     'vim-scripts/BufOnly.vim',
     config = function()
       vim.keymap.set('n', '<leader>bo', ':BufOnly<CR>')
+    end
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      highlight = {
+        multiline = false
+      }
+    },
+    config = function(_, opts)
+      require("todo-comments").setup(opts)
     end
   },
   -- 專注模式
