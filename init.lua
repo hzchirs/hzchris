@@ -326,6 +326,7 @@ require("lazy").setup({
         capabilities = capabilities
       }
 
+      -- 會讓 js 的 highlight 怪怪的，目前還不知道原因
       lspconfig.tsserver.setup{
         on_attach = on_attach,
         capabilities = capabilities
@@ -784,7 +785,8 @@ require("lazy").setup({
 })
 
 if not vim.g.vscode then
-  vim.cmd [[colorscheme vim-material]]
+  -- vim.cmd [[colorscheme vim-material]]
+  vim.cmd [[colorscheme tokyonight]]
 end
 
 -- Basic Settings
