@@ -477,7 +477,8 @@ require("lazy").setup({
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup({
-        options = { theme = 'material' }
+        -- options = { theme = 'material' }
+        options = { theme = 'tokyonight' }
       })
     end
   },
@@ -819,7 +820,7 @@ vim.opt.termguicolors = true
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
-vim.opt.background = 'dark'
+vim.opt.background = 'light'
 
 -- -- Key mappings
 vim.keymap.set('n', '<silent><leader>rr', ':!ruby %<CR>', { desc = 'Run current ruby file' })
