@@ -820,7 +820,7 @@ vim.opt.termguicolors = true
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
-vim.opt.background = 'light'
+vim.opt.background = 'dark'
 
 -- -- Key mappings
 vim.keymap.set('n', '<silent><leader>rr', ':!ruby %<CR>', { desc = 'Run current ruby file' })
