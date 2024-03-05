@@ -477,8 +477,8 @@ require("lazy").setup({
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup({
-        -- options = { theme = 'material' }
-        options = { theme = 'tokyonight' }
+        options = { theme = 'material' }
+        -- options = { theme = 'tokyonight' }
       })
     end
   },
@@ -786,8 +786,8 @@ require("lazy").setup({
 })
 
 if not vim.g.vscode then
-  -- vim.cmd [[colorscheme vim-material]]
-  vim.cmd [[colorscheme tokyonight]]
+  vim.cmd [[colorscheme vim-material]]
+  -- vim.cmd [[colorscheme tokyonight]]
 end
 
 -- Basic Settings
