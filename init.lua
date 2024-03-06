@@ -325,12 +325,6 @@ require("lazy").setup({
         on_attach = on_attach,
         capabilities = capabilities
       }
-
-      -- 會讓 js 的 highlight 怪怪的，目前還不知道原因
-      lspconfig.tsserver.setup{
-        on_attach = on_attach,
-        capabilities = capabilities
-      }
     end
   },
   {
