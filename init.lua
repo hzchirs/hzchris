@@ -684,7 +684,7 @@ require("lazy").setup({
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
       highlight = {
-        multiline = false
+        multiline = true
       }
     },
     config = function(_, opts)
