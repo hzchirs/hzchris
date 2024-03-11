@@ -31,7 +31,7 @@ require("lazy").setup({
       local luasnip = require('luasnip')
 
       require('luasnip/loaders/from_vscode').lazy_load()
-      require("luasnip.loaders.from_snipmate").lazy_load({paths = "~/.config/nvim/snippetstrue"})
+      require("luasnip.loaders.from_snipmate").lazy_load({paths = "~/.config/nvim/snippets"})
       luasnip.filetype_extend("ruby", {"rails"})
       luasnip.filetype_extend("vue", {"javascript"})
 
