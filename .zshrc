@@ -146,3 +146,6 @@ if [ -f '/Users/hzchris/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Use
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/hzchris/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/hzchris/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Created by `pipx` on 2024-03-29 00:50:06
+export PATH="$PATH:/Users/hzchris/.local/bin"
