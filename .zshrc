@@ -151,3 +151,6 @@ if [ -f '/Users/hzchris/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then .
 
 # Created by `pipx` on 2024-03-29 00:50:06
 export PATH="$PATH:/Users/hzchris/.local/bin"
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
