@@ -850,12 +850,14 @@ function QuickNote()
     end
     vim.g.quicknote_winnr = nil
   else
-    vim.cmd("vsplit ~/vim-quick-note.md")
+    -- 在右側創建新的垂直分割窗口
+    vim.cmd("rightbelow vsplit ~/vim-quick-note.md")
     vim.cmd("vertical resize 60")
     vim.cmd("setlocal nobuflisted") -- 使筆記不出現在 buffer 列表中
     vim.g.quicknote_winnr = vim.fn.win_getid()
   end
 end
+
 vim.keymap.set('n', '<leader>qn', ':QuickNote<CR>')
 
 -- 存檔前自動移除行尾空白
