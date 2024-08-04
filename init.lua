@@ -712,7 +712,7 @@ require("lazy").setup({
 
         window = {
           backdrop = 1,
-          width = 80,
+          width = 100,
           options = {
             signcolumn = "no",
             foldcolumn = "0",
@@ -721,9 +721,18 @@ require("lazy").setup({
             cursorline = false,
             cursorcolumn = false
           }
+        },
+        plugins = {
+          twilight = { enabled = true }
         }
       })
     end
+  },
+  {
+    "folke/twilight.nvim",
+    opts ={
+      treesitter = true
+    }
   },
   {
     "folke/tokyonight.nvim",
