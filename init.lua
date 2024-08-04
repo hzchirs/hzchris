@@ -731,7 +731,8 @@ require("lazy").setup({
   {
     "folke/twilight.nvim",
     opts ={
-      treesitter = true
+      treesitter = false,
+      context = 0
     }
   },
   {
