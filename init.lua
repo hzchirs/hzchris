@@ -72,6 +72,18 @@ require("lazy").setup({
     opts = {
       picker = {
         name = "telescope.nvim",
+        note_mappings = {
+          -- Create a new note from your query.
+          new = "<C-x>",
+          -- Insert a link to the selected note.
+          insert_link = "<C-l>",
+        },
+        tag_mappings = {
+          -- Add tag(s) to current note.
+          tag_note = "<C-x>",
+          -- Insert a tag at the current location.
+          insert_tag = "<C-l>",
+        },
       },
       completion = {
         -- Set to false to disable completion.
@@ -86,6 +98,15 @@ require("lazy").setup({
         },
       },
       disable_frontmatter = true,
+
+      mappings = {
+        ["<cr>"] = {
+          action = function()
+            return require("obsidian").util.smart_action()
+          end,
+          opts = { buffer = true, expr = true },
+        }
+      }
     },
   },
   {
@@ -452,6 +473,7 @@ require("lazy").setup({
             name = 'nvim_lsp',
             group_index = 2
           },
+          { name = 'obsidian' },
           {
             name = 'luasnip',
             group_index = 2
