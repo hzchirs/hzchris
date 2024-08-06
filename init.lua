@@ -70,6 +70,15 @@ require("lazy").setup({
       -- see below for full list of optional dependencies 👇
     },
     opts = {
+      picker = {
+        name = "telescope.nvim",
+      },
+      completion = {
+        -- Set to false to disable completion.
+        nvim_cmp = true,
+        -- Trigger completion at 2 chars.
+        min_chars = 2,
+      },
       workspaces = {
         {
           name = "MyNotes",
