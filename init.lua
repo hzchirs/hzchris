@@ -77,7 +77,7 @@ require("lazy").setup({
         -- Set to false to disable completion.
         nvim_cmp = true,
         -- Trigger completion at 2 chars.
-        min_chars = 2,
+        min_chars = 0,
       },
       workspaces = {
         {
@@ -435,7 +435,7 @@ require("lazy").setup({
             winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
         },
-        snippets = {
+        snippet = {
           expand = function(args)
             require('luasnip').lsp_expand(args.body)
           end
@@ -585,6 +585,7 @@ require("lazy").setup({
           "vim",
           "vue",
           "yaml",
+          "markdown",
           "markdown_inline"
         },
         auto_install = true,
@@ -907,8 +908,6 @@ vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.background = 'dark'
 vim.opt.conceallevel = 2
-
-
 
 
 -- -- Key mappings
