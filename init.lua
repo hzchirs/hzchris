@@ -17,7 +17,21 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.cmd('packadd! matchit')
 
+vim.g.mapleader = ' '
+
 require("lazy").setup({
+  {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local builtin = require('telescope.builtin')
+      vim.keymap.set('n', '<C-p>', builtin.find_files, {})
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+      vim.keymap.set('n', '<S-p>', builtin.buffers, {})
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+    end
+  },
   {
     "epwalsh/obsidian.nvim",
     version = "*",  -- recommended, use latest release instead of latest commit
@@ -44,6 +58,7 @@ require("lazy").setup({
           path = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/MyNotes",
         },
       },
+      disable_frontmatter = true,
     },
   },
   {
@@ -200,61 +215,61 @@ require("lazy").setup({
       require('gitsigns').setup()
     end
   },
-  {
-    'junegunn/fzf',
-    build = ':call fzf#install()',
-    dependencies = { 'junegunn/fzf.vim' },
-    config = function()
-      vim.g.fzf_layout = { window = { width = 0.9, height = 0.9 } }
-      vim.g.fzf_history_dir = '~/.local/share/fzf-history'
-
-      vim.keymap.set('n', '<C-p>', ':Files<CR>')
-      vim.keymap.set('n', '<S-p>', ':Buffers<CR>')
-      vim.keymap.set('n', '<leader>fh', ':History<CR>')
-      vim.cmd [[
-        command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, "--ignore=yarn.lock --ignore=vendor/ --ignore='spec/fixtures/**/*.yml'", fzf#vim#with_preview(), <bang>0)
-      ]]
-      function SearchVisualSelectionWithAg(range)
-        local old_reg = vim.fn.getreg("\"")
-        local old_regtype = vim.fn.getregtype("\"")
-        local old_clipboard = vim.o.clipboard
-        vim.o.clipboard = true
-        vim.cmd("normal! \"\"gvy")
-        local selection = vim.fn.getreg("\"")
-        vim.fn.setreg("\"", old_reg, old_regtype)
-        vim.o.clipboard = old_clipboard
-        vim.cmd("Ag " .. selection)
-      end
-
-      vim.keymap.set('v', '<S-k>', ':lua SearchVisualSelectionWithAg()<CR>')
-
-      function SearchWordWithAg()
-        local word = vim.fn.expand("<cword>")
-        vim.cmd("Ag " .. word)
-      end
-
-      vim.keymap.set('n', '<S-k>', ':lua SearchWordWithAg()<CR>')
-
-      function ag_in(path)
-        if not vim.fn.isdirectory(path) then
-          error(string.format("not a valid directory: %s", path))
-        end
-        local fzf_opts = 'right:50%'
-
-        vim.fn['fzf#vim#ag']('', vim.fn['fzf#vim#with_preview']({ dir = path }, fzf_opts))
-      end
-
-      vim.api.nvim_create_user_command(
-        'AgIn',
-        'lua ag_in(<f-args>)',
-        {
-          nargs = '+',
-          bang = true,
-          complete = 'dir'
-        }
-      )
-    end
-  },
+  -- {
+  --   'junegunn/fzf',
+  --   build = ':call fzf#install()',
+  --   dependencies = { 'junegunn/fzf.vim' },
+  --   config = function()
+  --     vim.g.fzf_layout = { window = { width = 0.9, height = 0.9 } }
+  --     vim.g.fzf_history_dir = '~/.local/share/fzf-history'
+  --
+  --     vim.keymap.set('n', '<C-p>', ':Files<CR>')
+  --     vim.keymap.set('n', '<S-p>', ':Buffers<CR>')
+  --     vim.keymap.set('n', '<leader>fh', ':History<CR>')
+  --     vim.cmd [[
+  --       command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, "--ignore=yarn.lock --ignore=vendor/ --ignore='spec/fixtures/**/*.yml'", fzf#vim#with_preview(), <bang>0)
+  --     ]]
+  --     function SearchVisualSelectionWithAg(range)
+  --       local old_reg = vim.fn.getreg("\"")
+  --       local old_regtype = vim.fn.getregtype("\"")
+  --       local old_clipboard = vim.o.clipboard
+  --       vim.o.clipboard = true
+  --       vim.cmd("normal! \"\"gvy")
+  --       local selection = vim.fn.getreg("\"")
+  --       vim.fn.setreg("\"", old_reg, old_regtype)
+  --       vim.o.clipboard = old_clipboard
+  --       vim.cmd("Ag " .. selection)
+  --     end
+  --
+  --     vim.keymap.set('v', '<S-k>', ':lua SearchVisualSelectionWithAg()<CR>')
+  --
+  --     function SearchWordWithAg()
+  --       local word = vim.fn.expand("<cword>")
+  --       vim.cmd("Ag " .. word)
+  --     end
+  --
+  --     vim.keymap.set('n', '<S-k>', ':lua SearchWordWithAg()<CR>')
+  --
+  --     function ag_in(path)
+  --       if not vim.fn.isdirectory(path) then
+  --         error(string.format("not a valid directory: %s", path))
+  --       end
+  --       local fzf_opts = 'right:50%'
+  --
+  --       vim.fn['fzf#vim#ag']('', vim.fn['fzf#vim#with_preview']({ dir = path }, fzf_opts))
+  --     end
+  --
+  --     vim.api.nvim_create_user_command(
+  --       'AgIn',
+  --       'lua ag_in(<f-args>)',
+  --       {
+  --         nargs = '+',
+  --         bang = true,
+  --         complete = 'dir'
+  --       }
+  --     )
+  --   end
+  -- },
   {
     'akinsho/toggleterm.nvim',
     version = "*",
@@ -835,7 +850,6 @@ if not vim.g.vscode then
 end
 
 -- Basic Settings
-vim.g.mapleader = ' '
 vim.opt.undofile = true -- Maintain undo history between sessions
 vim.opt.regexpengine = 1
 vim.opt.relativenumber = true
