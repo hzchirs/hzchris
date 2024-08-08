@@ -106,7 +106,11 @@ require("lazy").setup({
           end,
           opts = { buffer = true, expr = true },
         }
-      }
+      },
+
+      follow_url_func = function(url)
+        vim.ui.open(url)
+      end
     },
   },
   {
