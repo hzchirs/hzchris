@@ -517,9 +517,9 @@ require("lazy").setup({
   },
 
   -- copilot
-  {
-    'github/copilot.vim'
-  },
+  -- {
+  --   'github/copilot.vim'
+  -- },
   -- {
   --   'zbirenbaum/copilot.lua',
   --   config = function()
