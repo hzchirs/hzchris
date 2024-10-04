@@ -1,5 +1,20 @@
 -- Bootstrap lazy.nvim
+--
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+function vim.getVisualSelection()
+	vim.cmd('noau normal! "vy"')
+	local text = vim.fn.getreg('v')
+	vim.fn.setreg('v', {})
+
+	text = string.gsub(text, "\n", "")
+	if #text > 0 then
+		return text
+	else
+		return ''
+	end
+end
+
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
@@ -33,6 +48,10 @@ require("lazy").setup({
       vim.keymap.set('n', '<S-k>', builtin.grep_string, {})
       vim.keymap.set('n', '<S-p>', builtin.buffers, {})
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+      vim.keymap.set('v', '<S-k>', function()
+      	local text = vim.getVisualSelection()
+        builtin.grep_string({ search = text })
+      end, {})
 
       require('telescope').setup({
         defaults = {
@@ -214,8 +233,8 @@ require("lazy").setup({
   {
     'stevearc/aerial.nvim',
     dependencies = {
-     "nvim-treesitter/nvim-treesitter",
-     "nvim-tree/nvim-web-devicons"
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons"
     },
     config = function()
       require('aerial').setup({
@@ -442,8 +461,8 @@ require("lazy").setup({
       local lspkind = require('lspkind')
 
       cmp.event:on(
-        'confirm_done',
-        cmp_autopairs.on_confirm_done()
+      'confirm_done',
+      cmp_autopairs.on_confirm_done()
       )
       cmp.setup({
         formatting = {
@@ -493,7 +512,7 @@ require("lazy").setup({
           }
         })
       })
-    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+      -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline({ '/', '?' }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
@@ -844,14 +863,14 @@ require("lazy").setup({
     config = function()
       -- disable autocmd set filetype=eruby.yaml
       vim.api.nvim_create_autocmd(
-        { 'BufNewFile', 'BufReadPost' },
-        {
-          pattern = { '*.yml' },
-          callback = function()
-            vim.bo.filetype = 'yaml'
-          end
+      { 'BufNewFile', 'BufReadPost' },
+      {
+        pattern = { '*.yml' },
+        callback = function()
+          vim.bo.filetype = 'yaml'
+        end
 
-        }
+      }
       )
     end
   },
@@ -948,7 +967,7 @@ vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<CR>')
 
 -- quick note 相關設定
 vim.cmd [[
-  command! QuickNote :lua QuickNote()
+command! QuickNote :lua QuickNote()
 ]]
 
 function QuickNote()
