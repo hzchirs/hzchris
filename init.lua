@@ -57,7 +57,6 @@ require("lazy").setup({
         defaults = {
           mappings = {
             i = {
-              ["q"] = actions.close,
               ["<esc>"] = actions.close,
               ["<C-j>"] = actions.move_selection_next,
               ["<C-k>"] = actions.move_selection_previous,
@@ -576,8 +575,8 @@ require("lazy").setup({
     version = '1.6.5',
     config = function()
       local opts = { silent = true }
-      vim.keymap.set('n', '<A-{>', ':BufferPrevious<CR>', opts)
-      vim.keymap.set('n', '<A-}>', ':BufferNext<CR>', opts)
+      vim.keymap.set('n', '<A-,>', ':BufferPrevious<CR>', opts)
+      vim.keymap.set('n', '<A-.>', ':BufferNext<CR>', opts)
       vim.keymap.set('n', '<A-[>', ':BufferMovePrevious<CR>', opts)
       vim.keymap.set('n', '<A-]>', ':BufferMoveNext<CR>', opts)
       vim.keymap.set('n', '<S-x>', ':BufferClose<CR>', opts)
