@@ -572,7 +572,7 @@ require("lazy").setup({
       'lewis6991/gitsigns.nvim',
       'nvim-tree/nvim-web-devicons'
     },
-    version = '1.6.5',
+    version = '1.9.1',
     config = function()
       local opts = { silent = true }
       vim.keymap.set('n', '<A-,>', ':BufferPrevious<CR>', opts)
