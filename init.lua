@@ -318,7 +318,7 @@ require("lazy").setup({
         local old_reg = vim.fn.getreg("\"")
         local old_regtype = vim.fn.getregtype("\"")
         local old_clipboard = vim.o.clipboard
-        vim.o.clipboard = true
+        vim.o.clipboard = 'unnamedplus'
         vim.cmd("normal! \"\"gvy")
         local selection = vim.fn.getreg("\"")
         vim.fn.setreg("\"", old_reg, old_regtype)
